@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b01247e5834fa08cb0087700bc3d26, type: 3}
+  m_Name: AtlasMaker
+  m_EditorClassIdentifier: 
+  folder: {fileID: 102900000, guid: 66be15d7e80397c408d5f6b189d03318, type: 3}
+  sprites:
+  - {fileID: 2800000, guid: 8e390af59a5d52248a8b8a1fda03062f, type: 3}
+  - {fileID: 2800000, guid: bd40d95b40ee73a49824beeb469f9b3a, type: 3}
+  - {fileID: 2800000, guid: cb068627c831ca54b94f7d3e258cf531, type: 3}
+  - {fileID: 2800000, guid: 2f48631b9a952d2479b6e456de4c6ac9, type: 3}
+  - {fileID: 2800000, guid: 78686bd154641994a890ca0967f11a06, type: 3}
+  - {fileID: 2800000, guid: bb15641c34d7af849a6e2c9e6012d38e, type: 3}
+  resultTexture: {fileID: 2800000, guid: 3f2690645ee89cd48a9d15b1fc315682, type: 3}
