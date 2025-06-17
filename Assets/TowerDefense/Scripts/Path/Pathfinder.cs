@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Priority_Queue;
+using UnityEngine;
 
 namespace TowerDefense.Scripts.Path
 {
-    public class Pathfinder
+    public class Pathfinder : IPathfinder
     {
         private readonly bool[,] _grid;
         private readonly bool _allowDiagonal;
@@ -14,24 +15,29 @@ namespace TowerDefense.Scripts.Path
             _allowDiagonal = allowDiagonal;
         }
 
-        public List<Point> FindPath(Point start, Point end)
+        public bool FindPath(List<Vector3Int> findPath , Vector3Int start, Vector3Int end)
         {
             if (!IsValid(start) || !IsValid(end))
-                return null;
-
-            var openSet = new  SimplePriorityQueue<Point, int>();
+                return false;
+            
+            findPath.Clear();
+            
+            var openSet = new  SimplePriorityQueue<Vector3Int, int>();
             openSet.Enqueue(start, 0);
 
-            var cameFrom = new Dictionary<Point, Point>();
-            var gScore = new Dictionary<Point, int> { [start] = 0 };
-            var fScore = new Dictionary<Point, int> { [start] = Heuristic(start, end) };
+            var cameFrom = new Dictionary<Vector3Int, Vector3Int>();
+            var gScore = new Dictionary<Vector3Int, int> { [start] = 0 };
+            var fScore = new Dictionary<Vector3Int, int> { [start] = Heuristic(start, end) };
 
             while (openSet.Count > 0)
             {
                 var current = openSet.Dequeue();
 
                 if (current.Equals(end))
-                    return ReconstructPath(cameFrom, current);
+                {
+                    ReconstructPath(findPath, cameFrom, current);
+                    return true;
+                }
 
                 foreach (var neighbor in GetNeighbors(current))
                 {
@@ -47,16 +53,16 @@ namespace TowerDefense.Scripts.Path
                 }
             }
 
-            return null; // Путь не найден
+            return false; // Путь не найден
         }
 
-        private IEnumerable<Point> GetNeighbors(Point p)
+        private IEnumerable<Vector3Int> GetNeighbors(Vector3Int p)
         {
             // Основные направления (вверх, вправо, вниз, влево)
-            var directions = new List<Point>
+            var directions = new List<Vector3Int>
             {
-                new Point(0, 1), new Point(1, 0),
-                new Point(0, -1), new Point(-1, 0)
+                new(0, 1), new(1, 0),
+                new(0, -1), new(-1, 0)
             };
 
             // Добавляем диагональные направления, если разрешено
@@ -64,36 +70,44 @@ namespace TowerDefense.Scripts.Path
             {
                 directions.AddRange(new[]
                 {
-                    new Point(1, 1), new Point(1, -1),
-                    new Point(-1, -1), new Point(-1, 1)
+                    new Vector3Int(1, 1), new Vector3Int(1, -1),
+                    new Vector3Int(-1, -1), new Vector3Int(-1, 1)
                 });
             }
 
             foreach (var dir in directions)
             {
-                var neighbor = new Point(p.X + dir.X, p.Y + dir.Y);
-                if (IsValid(neighbor) && !_grid[neighbor.X, neighbor.Y])
+                var neighbor = new Vector3Int(p.x + dir.x, p.y + dir.y);
+                if (IsValid(neighbor) && !_grid[neighbor.x, neighbor.y])
                     yield return neighbor;
             }
         }
 
-        private bool IsValid(Point p)
+        private bool IsValid(Vector3Int p)
         {
-            return p.X >= 0 && p.X < _grid.GetLength(0) &&
-                   p.Y >= 0 && p.Y < _grid.GetLength(1);
+            return p.x >= 0 && p.x < _grid.GetLength(0) &&
+                   p.y >= 0 && p.y < _grid.GetLength(1);
         }
 
-        private int Heuristic(Point a, Point b) => a.DistanceTo(b, _allowDiagonal);
+        private int Heuristic(Vector3Int a, Vector3Int b) => Distance(a , b, _allowDiagonal);
 
-        private List<Point> ReconstructPath(Dictionary<Point, Point> cameFrom, Point current)
+        private int Distance(Vector3Int a , Vector3Int b, bool allowDiagonal)
         {
-            var path = new List<Point> { current };
+            int dx = Mathf.Abs(a.x - b.x);
+            int dy = Mathf.Abs(a.y - b.y);
+
+            return allowDiagonal ? Mathf.Max(dx, dy) : dx + dy; // Манхэттенское расстояние или евклидово
+        }
+
+        private void ReconstructPath(List<Vector3Int> findPath, Dictionary<Vector3Int, Vector3Int> cameFrom, Vector3Int current)
+        {
+            findPath.Clear();
+            findPath.Add(current);
             while (cameFrom.ContainsKey(current))
             {
                 current = cameFrom[current];
-                path.Insert(0, current);
+                findPath.Insert(0, current);
             }
-            return path;
         }
     }
 }

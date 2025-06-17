@@ -28,7 +28,6 @@ namespace TowerDefense.Scripts
         public void OnMouseLook(InputAction.CallbackContext context)
         {
             var screenPosition = context.ReadValue<Vector2>();
-            Debug.Log(screenPosition);
             _mouseWorldPosition = _mainCamera.ScreenToWorldPoint(screenPosition);
         }
 

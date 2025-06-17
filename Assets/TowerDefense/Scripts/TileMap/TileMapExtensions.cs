@@ -3,18 +3,9 @@ using System.Collections.Generic;
 using SuperTiled2Unity;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UI;
 
 namespace TowerDefense.Scripts.TileMap
 {
-    public static class TileInfoListMapExtensions
-    {
-        public static void FindTile(TileInfo[,] tilesService)
-        {
-            
-        }
-    }
-    
     public static class TileMapExtensions
     {
         public static TileInfo[,] GetAllTiles(this Tilemap tilemap)

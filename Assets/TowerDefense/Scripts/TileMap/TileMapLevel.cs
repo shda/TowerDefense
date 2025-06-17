@@ -11,7 +11,6 @@ namespace TowerDefense.Scripts.TileMap
         [SerializeField] private Tilemap layerService; 
         [SerializeField] private Tilemap layerObstacles;
         [SerializeField] private SuperCustomProperties properties;
-        
         public SuperCustomProperties Properties => properties;
         
         public Tilemap LayerService => layerService;
@@ -27,7 +26,7 @@ namespace TowerDefense.Scripts.TileMap
             if (!layerService)
             {
                 layerService = transform.GetComponentsInChildren<Tilemap>()
-                    .FirstOrDefault(x => x.name == "Service");
+                    .FirstOrDefault(x => x.name == TilePropertyNames.ServiceMapLayer);
             }
             
             if (!layerObstacles)
