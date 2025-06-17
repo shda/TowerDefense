@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace TowerDefense.Scripts
 {
-    public class HerroControl : MonoBehaviour
+    public class HeroControl : MonoBehaviour
     {
         [Header("Settings")]
         [SerializeField] private float moveSpeed = 5f;

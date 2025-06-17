@@ -12,4 +12,19 @@
    <object id="1" x="0" y="0" width="128" height="128"/>
   </objectgroup>
  </tile>
+ <tile id="3">
+  <properties>
+   <property name="name" value="player"/>
+  </properties>
+ </tile>
+ <tile id="4">
+  <properties>
+   <property name="name" value="enemy"/>
+  </properties>
+ </tile>
+ <tile id="5">
+  <properties>
+   <property name="name" value="target"/>
+  </properties>
+ </tile>
 </tileset>
