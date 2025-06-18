@@ -6,8 +6,7 @@ namespace TowerDefense.Scripts.Towers
     public class Weapon : MonoBehaviour
     {
         [SerializeField] private float speedMovingProjectile = 5.0f;
-        
-        protected ProjectileSpawner _projectileSpawner;
+        private ProjectileSpawner _projectileSpawner;
         
         [Inject]
         public void Construct(ProjectileSpawner projectileSpawner)

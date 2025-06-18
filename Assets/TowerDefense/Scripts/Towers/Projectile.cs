@@ -45,14 +45,14 @@ namespace TowerDefense.Scripts.Towers
         {
             _memoryPool = memoryPool;
         }
-
-        public class Factory : PlaceholderFactory<Projectile>
-        {
-        }
-
+        
         public void ReturnToPool()
         {
             _memoryPool.Despawn(this);
+        }
+        
+        public class Factory : PlaceholderFactory<Projectile>
+        {
         }
 
         #endregion

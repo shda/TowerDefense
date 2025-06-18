@@ -1,14 +1,8 @@
-using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace TowerDefense.Scripts
 {
-    public class Health
-    {
-        public FloatReactiveProperty  CurrentHealth { get; set; } = new();
-    }
-    
     public class PlayerControl : MonoBehaviour
     {
         [Header("Settings")]

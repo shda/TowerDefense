@@ -2,6 +2,7 @@ using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Settings;
 using TowerDefense.Scripts.Stats;
 using TowerDefense.Scripts.Towers;
+using TowerDefense.Scripts.Ui;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +13,8 @@ namespace TowerDefense.Scripts.Installers
         [Header("Prefabs")]
         [SerializeField] private Enemy enemyPrefab;
         [SerializeField] private Projectile projectilePrefab;
+        [SerializeField] private HealthLevel healthLevelPrefab;
+        [SerializeField] private Transform rootHealthLevels;
 
         [Header("Settings")]
         [SerializeField] private GameSettings gameSettings;
@@ -34,6 +37,7 @@ namespace TowerDefense.Scripts.Installers
 
             BindEnemyFactory();
             BindProjectileFactory();
+            BindHealthLevelFactory();
         }
 
         private void BindEnemyFactory()
@@ -52,6 +56,16 @@ namespace TowerDefense.Scripts.Installers
                     .WithInitialSize(20)
                     .FromComponentInNewPrefab(projectilePrefab)
                     .UnderTransformGroup("Projectile"));
+        }
+        
+        private void BindHealthLevelFactory()
+        {
+            Container.BindFactory<HealthLevel, HealthLevel.Factory>()
+                .FromPoolableMemoryPool<HealthLevel, HealthLevel.MemoryPool>(poolBinder =>
+                    poolBinder
+                        .WithInitialSize(20)
+                        .FromComponentInNewPrefab(healthLevelPrefab)
+                        .UnderTransform(rootHealthLevels));
         }
 
         private class MemoryEnemyPool : MonoPoolableMemoryPool<IMemoryPool, Enemy>

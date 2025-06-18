@@ -10,16 +10,16 @@ namespace TowerDefense.Scripts.Enemies
     {
         [SerializeField] private float speedMoving;
         
-        private Health _health;
         private IMemoryPool _memoryPool;
         private MovingHandler _movingHandler;
 
+        public Health Health { get; private set; }
         public bool IsDead { get; private set; }
         public Action OnCompleteMove;
         
         //IGunTarget
         Transform IGunTarget.Transform => transform;
-        bool IGunTarget.IsCanByTarget => _health.CurrentHealth.Value > 0 && !IsDead;
+        bool IGunTarget.IsCanByTarget => Health.CurrentHealth.Value > 0 && !IsDead;
 
         [Inject]
         public void Construct(Health health , MovingHandler movingHandler)
@@ -28,10 +28,10 @@ namespace TowerDefense.Scripts.Enemies
             _movingHandler.Init(transform, speedMoving);
             _movingHandler.OnCompleteMove = () => { OnCompleteMove?.Invoke(); };
 
-            _health = health;
+            Health = health;
 
             //
-            _health.CurrentHealth.Value = 100;
+            Health.CurrentHealth.Value = 100;
         }
         
         public void SetStartPosition(Vector3 worldPosition)

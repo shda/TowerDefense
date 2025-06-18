@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TowerDefense.Scripts.Path;
@@ -19,6 +20,9 @@ namespace TowerDefense.Scripts.Enemies
         private Enemy.Factory _enemyFactory;
         private Vector3[] _spawnPoints;
         private GameStats _gameStats;
+
+        public Action<Enemy> OnCreateNewEnemy;
+        public Action<Enemy> OnRemoveEnemy;
 
         [Inject]
         public void Construct(
@@ -52,8 +56,10 @@ namespace TowerDefense.Scripts.Enemies
             {
                 enemy.RemoveToPool();
                 AllEnemies.Remove(enemy);
+                OnRemoveEnemy?.Invoke(enemy);
             };
             
+            OnCreateNewEnemy?.Invoke(enemy);
             AllEnemies.Add(enemy);
             _gameStats.CountEnemy.Value = AllEnemies.Count;
         }
