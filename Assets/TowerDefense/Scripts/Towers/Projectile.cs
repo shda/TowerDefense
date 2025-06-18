@@ -8,36 +8,37 @@ namespace TowerDefense.Scripts.Towers
     public class Projectile : MonoBehaviour, IPoolable<IMemoryPool>
     {
         public Action<Projectile> OnCompleteMove;
+        public IGunTarget Target { get; set; }
         
         private float _moveSpeed;
-        private IGunTarget _target;
+        
         private Vector3 _targetPosition;
         private readonly CompositeDisposable _disposable = new();
 
         public void MoveToTarget(Vector3 startPosition, IGunTarget target, float moveSpeed = 10.0f)
         {
-            _target = target;
+            Target = target;
             _moveSpeed = moveSpeed;
             transform.position = startPosition;
             _targetPosition = target.Transform.position;
 
             _disposable.Clear();
-            target.OnDead.Subscribe(unit =>
+            Target.OnDead.Subscribe(unit =>
             {
                 _disposable?.Clear();
-                target = null;
+                Target = null;
             }).AddTo(_disposable);
         }
 
         public void CustomUpdate()
         {
-            if (_target is { IsCanByTarget: true })
+            if (Target is { IsCanByTarget: true })
             {
-                _targetPosition = _target.Transform.position;
+                _targetPosition = Target.Transform.position;
             }
             else
             {
-                _target = null;
+                Target = null;
             }
             
             transform.position = Vector3.MoveTowards(transform.position,
@@ -54,7 +55,7 @@ namespace TowerDefense.Scripts.Towers
         private IMemoryPool _memoryPool;
         void IPoolable<IMemoryPool>.OnDespawned()
         {
-            _target = null;
+            Target = null;
             OnCompleteMove = null;
         }
 

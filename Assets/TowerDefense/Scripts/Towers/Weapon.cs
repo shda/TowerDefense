@@ -21,9 +21,9 @@ namespace TowerDefense.Scripts.Towers
             projectile.MoveToTarget(transform.position, target , speedMovingProjectile);
             projectile.OnCompleteMove = pr =>
             {
-                if (target is { IsCanByTarget: true })
+                if (pr.Target is { IsCanByTarget: true })
                 {
-                    target.Health.CurrentHealth.Value -= damage;
+                    pr.Target.Health.CurrentHealth.Value -= damage;
                 }
                 
                 _projectileSpawner.ReturnToPool(pr);
