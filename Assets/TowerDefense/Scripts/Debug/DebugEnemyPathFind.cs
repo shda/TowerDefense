@@ -3,6 +3,7 @@ using System.Linq;
 using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Path;
 using TowerDefense.Scripts.TileMap;
+using TowerDefense.Scripts.Utils;
 using UnityEngine;
 using Zenject;
 
@@ -26,8 +27,8 @@ namespace TowerDefense.Scripts.Debug
 
             var tileMapLevel = _mapLoader.CurrentMap;
             
-            var enemyPoint = tileMapLevel.LayerService.FindTilesByNameProperty("name", "enemy");
-            var target = tileMapLevel.LayerService.FindTilesByNameProperty("name", "target");
+            var enemyPoint = MapUtils.GetFirstTargetPoints(tileMapLevel);
+            var target = MapUtils.GetTargetPoints(tileMapLevel);
 
             var startTile = enemyPoint.First();
             var endTile = target.First();

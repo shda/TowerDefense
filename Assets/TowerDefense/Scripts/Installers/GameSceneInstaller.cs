@@ -1,5 +1,6 @@
 using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Settings;
+using TowerDefense.Scripts.Stats;
 using UnityEngine;
 using Zenject;
 
@@ -21,8 +22,9 @@ namespace TowerDefense.Scripts.Installers
             Container.BindInstance(gameSettings);
             Container.BindInstance(mapLoader);
 
-            Container.BindInterfacesAndSelfTo<EnemyController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
             Container.Bind<EnemyMapPath>().AsSingle();
+            Container.Bind<GameStats>().AsSingle();
 
             BindEnemyFactory();
         }

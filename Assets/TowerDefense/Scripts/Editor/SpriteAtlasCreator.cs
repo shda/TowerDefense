@@ -13,6 +13,8 @@ namespace TapTapDash.Scripts.Editor
         
         public static void CreateTexture(List<Texture2D> sprites , string savePathCustom = "")
         {
+            SetTexturesIsReadable(sprites);
+            
             // Рассчитываем необходимую высоту атласа
             int cellsPerRow = ATLAS_WIDTH / CELL_SIZE;
             int rowsNeeded = Mathf.CeilToInt((float)sprites.Count / cellsPerRow);
@@ -31,6 +33,7 @@ namespace TapTapDash.Scripts.Editor
             Color[] clearPixels = new Color[ATLAS_WIDTH * atlasHeight];
             for (int i = 0; i < clearPixels.Length; i++) clearPixels[i] = Color.clear;
             atlasTexture.SetPixels(clearPixels);
+   
 
             // Располагаем спрайты в сетке
             for (int i = 0; i < sprites.Count; i++)
@@ -77,6 +80,21 @@ namespace TapTapDash.Scripts.Editor
 
             
         }
+
+        private static void SetTexturesIsReadable(List<Texture2D> sprites)
+        {
+            foreach (var sprite in sprites)
+            {
+                string path = AssetDatabase.GetAssetPath(sprite);
+                TextureImporter textureImporter = AssetImporter.GetAtPath(path) as TextureImporter;
+                if (textureImporter != null)
+                {
+                    textureImporter.isReadable = true; 
+                    AssetDatabase.ImportAsset(path);
+                }
+            }
+        }
+
         // Создаем читаемую текстуру из спрайта
         private static Texture2D GetReadableTexture(Sprite sprite)
         {

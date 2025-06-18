@@ -41,7 +41,7 @@ namespace TowerDefense.Scripts.Path
             var startPoint = new Vector3Int(startTile.Position.x - offset.x, startTile.Position.y - offset.y);
             var endPoint = new Vector3Int(endTile.Position.x - offset.x, endTile.Position.y - offset.y);
 
-            var pathfinder = new Pathfinder(nodes , true);
+            var pathfinder = new Pathfinder(nodes , false);
             var findPath =
                 pathfinder.FindPath(_pathFound , startPoint, endPoint);
 

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TowerDefense.Scripts.Path;
 using TowerDefense.Scripts.TileMap;
+using TowerDefense.Scripts.Utils;
 using UnityEngine;
 
 namespace TowerDefense.Scripts.Enemies
@@ -12,9 +13,9 @@ namespace TowerDefense.Scripts.Enemies
         
         public IReadOnlyList<Vector3> GetPath(TileMapLevel tileMapLevel)
         {
-            var enemyPoint = tileMapLevel.LayerService.FindTilesByNameProperty("name", "enemy");
-            var target = tileMapLevel.LayerService.FindTilesByNameProperty("name", "target");
-
+            var enemyPoint = MapUtils.GetFirstTargetPoints(tileMapLevel);
+            var target = MapUtils.GetTargetPoints(tileMapLevel);
+            
             var startTile = enemyPoint.First();
             var endTile = target.First();
 
@@ -24,11 +25,14 @@ namespace TowerDefense.Scripts.Enemies
             
             if (path != null)
             {
+                var offset = new Vector3(0.25f, 0.25f);
+                
                 _findPath.Clear();
                 foreach (var position in path)
                 {
                      var worldPoint = tileMapLevel.LayerService.GetCellCenterWorld(
                         position + cellBounds.position);
+                     worldPoint += offset;
                      
                      _findPath.Add(worldPoint);
                 }
