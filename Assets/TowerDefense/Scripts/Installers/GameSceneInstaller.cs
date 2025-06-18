@@ -1,6 +1,7 @@
 using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Settings;
 using TowerDefense.Scripts.Stats;
+using TowerDefense.Scripts.Towers;
 using UnityEngine;
 using Zenject;
 
@@ -10,6 +11,7 @@ namespace TowerDefense.Scripts.Installers
     {
         [Header("Prefabs")]
         [SerializeField] private Enemy enemyPrefab;
+        [SerializeField] private Projectile projectilePrefab;
 
         [Header("Settings")]
         [SerializeField] private GameSettings gameSettings;
@@ -25,20 +27,38 @@ namespace TowerDefense.Scripts.Installers
             Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
             Container.Bind<EnemyMapPath>().AsSingle();
             Container.Bind<GameStats>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ProjectileSpawner>().AsSingle();
+
+            Container.Bind<MovingHandler>().AsTransient();
+            Container.Bind<Health>().AsTransient();
 
             BindEnemyFactory();
+            BindProjectileFactory();
         }
 
         private void BindEnemyFactory()
         {
-            Container.BindFactory<Enemy, EnemyPool>().FromPoolableMemoryPool<Enemy, MemoryEnemyPool>(poolBinder =>
+            Container.BindFactory<Enemy, Enemy.Factory>().FromPoolableMemoryPool<Enemy, MemoryEnemyPool>(poolBinder =>
                 poolBinder
-                    .WithInitialSize(5)
+                    .WithInitialSize(20)
                     .FromComponentInNewPrefab(enemyPrefab)
-                    .UnderTransformGroup("EnemyPool"));
+                    .UnderTransformGroup("Enemy"));
+        }
+        
+        private void BindProjectileFactory()
+        {
+            Container.BindFactory<Projectile, Projectile.Factory>().FromPoolableMemoryPool<Projectile, MemoryProjectilePool>(poolBinder =>
+                poolBinder
+                    .WithInitialSize(20)
+                    .FromComponentInNewPrefab(projectilePrefab)
+                    .UnderTransformGroup("Projectile"));
         }
 
         private class MemoryEnemyPool : MonoPoolableMemoryPool<IMemoryPool, Enemy>
+        {
+        }
+        
+        private class MemoryProjectilePool : MonoPoolableMemoryPool<IMemoryPool, Projectile>
         {
         }
     }

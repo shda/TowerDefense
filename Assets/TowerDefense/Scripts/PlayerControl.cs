@@ -1,9 +1,15 @@
+using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace TowerDefense.Scripts
 {
-    public class HeroControl : MonoBehaviour
+    public class Health
+    {
+        public FloatReactiveProperty  CurrentHealth { get; set; } = new();
+    }
+    
+    public class PlayerControl : MonoBehaviour
     {
         [Header("Settings")]
         [SerializeField] private float moveSpeed = 5f;

@@ -1,25 +1,57 @@
 using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
+using TowerDefense.Scripts.Towers;
 using UnityEngine;
 using Zenject;
 
 namespace TowerDefense.Scripts.Enemies
 {
-    public class Enemy : MonoBehaviour , IPoolable<IMemoryPool>
+    public class Enemy : MonoBehaviour, IPoolable<IMemoryPool> , IGunTarget
     {
         [SerializeField] private float speedMoving;
         
-        private IReadOnlyList<Vector3> _movingPath;
+        private Health _health;
         private IMemoryPool _memoryPool;
-        private int _indexPointToPath;
-        private Vector3 _targetPosition;
-        
-        public Action OnCompleteMove;
+        private MovingHandler _movingHandler;
 
+        public bool IsDead { get; private set; }
+        public Action OnCompleteMove;
+        
+        //IGunTarget
+        Transform IGunTarget.Transform => transform;
+        bool IGunTarget.IsCanByTarget => _health.CurrentHealth.Value > 0 && !IsDead;
+
+        [Inject]
+        public void Construct(Health health , MovingHandler movingHandler)
+        {
+            _movingHandler = movingHandler;
+            _movingHandler.Init(transform, speedMoving);
+            _movingHandler.OnCompleteMove = () => { OnCompleteMove?.Invoke(); };
+
+            _health = health;
+
+            //
+            _health.CurrentHealth.Value = 100;
+        }
+        
+        public void SetStartPosition(Vector3 worldPosition)
+        {
+            _movingHandler.SetStartPosition(worldPosition);
+        }
+
+        public void SetMovingPath(Vector3 firstTargetPoint, IReadOnlyList<Vector3> movingPath)
+        {
+            _movingHandler.SetMovingPath(firstTargetPoint, movingPath);
+        }
+
+        public void CustomUpdate()
+        {
+            _movingHandler.CustomUpdate();
+        }
+        
+        #region Pooling
         void IPoolable<IMemoryPool>.OnDespawned()
         {
-            
         }
 
         void IPoolable<IMemoryPool>.OnSpawned(IMemoryPool pool)
@@ -32,50 +64,9 @@ namespace TowerDefense.Scripts.Enemies
             _memoryPool.Despawn(this);
         }
 
-        public void SetStartPosition(Vector3 worldPosition)
+        public class Factory : PlaceholderFactory<Enemy>
         {
-            transform.position = worldPosition;
         }
-
-        public void SetMovingPath(Vector3 firstTargetPoint, IReadOnlyList<Vector3> movingPath)
-        {
-            _movingPath = movingPath;
-            _indexPointToPath = 0;
-            _targetPosition = firstTargetPoint;
-        }
-
-        public void CustomUpdate()
-        {
-            StepMovingToPath();
-        }
-
-        private void StepMovingToPath()
-        {
-            if(_indexPointToPath >= _movingPath.Count)
-            {
-                return;
-            }
-            
-            transform.position = Vector3.MoveTowards(
-                transform.position , 
-                _targetPosition ,  
-                speedMoving * Time.deltaTime);
-            
-            var direction = _targetPosition - transform.position;
-            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            
-            if (Vector3.Distance(transform.position, _targetPosition) <= 0.1f)
-            {
-                _indexPointToPath++;
-                if (_indexPointToPath >= _movingPath.Count)
-                {
-                    OnCompleteMove?.Invoke();
-                    return;
-                }
-                
-                _targetPosition = _movingPath[_indexPointToPath];
-            }
-        }
+        #endregion
     }
 }

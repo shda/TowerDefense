@@ -16,7 +16,7 @@ namespace TowerDefense.Scripts.Enemies
         private PathfinderToTileMap _pathfinderToTileMap;
         private EnemyMapPath _enemyMapPath;
         private MapLoader _mapLoader;
-        private EnemyPool _enemyPool;
+        private Enemy.Factory _enemyFactory;
         private Vector3[] _spawnPoints;
         private GameStats _gameStats;
 
@@ -24,11 +24,11 @@ namespace TowerDefense.Scripts.Enemies
         public void Construct(
             EnemyMapPath enemyMapPath , 
             MapLoader mapLoader, 
-            EnemyPool enemyPool,
+            Enemy.Factory factory,
             GameStats gameStats)
         {
             _mapLoader = mapLoader;
-            _enemyPool = enemyPool;
+            _enemyFactory = factory;
             _enemyMapPath = enemyMapPath;
             _gameStats = gameStats;
         }
@@ -45,7 +45,7 @@ namespace TowerDefense.Scripts.Enemies
             }
             
             var movingPath = _enemyMapPath.GetPath(_mapLoader.CurrentMap);
-            var enemy = _enemyPool.Create();
+            var enemy = _enemyFactory.Create();
             enemy.SetStartPosition(_spawnPoints[Random.Range(0, _spawnPoints.Length)]);
             enemy.SetMovingPath(_mapLoader.FirstTargetPosition , movingPath);
             enemy.OnCompleteMove = () =>
