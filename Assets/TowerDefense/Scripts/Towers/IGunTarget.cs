@@ -1,3 +1,5 @@
+using System;
+using UniRx;
 using UnityEngine;
 
 namespace TowerDefense.Scripts.Towers
@@ -7,5 +9,6 @@ namespace TowerDefense.Scripts.Towers
         Transform Transform { get; }
         bool IsCanByTarget { get; }
         Health Health { get; }
+        ReactiveCommand OnDead { get; }
     }
 }

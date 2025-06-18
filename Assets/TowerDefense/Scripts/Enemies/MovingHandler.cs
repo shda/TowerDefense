@@ -26,7 +26,7 @@ namespace TowerDefense.Scripts.Enemies
             _movingTransform.position = worldPosition;
         }
 
-        public void SetMovingPath(Vector3 firstTargetPoint, IReadOnlyList<Vector3> movingPath)
+        public void SetMovingToPath(Vector3 firstTargetPoint, IReadOnlyList<Vector3> movingPath)
         {
             _movingPath = movingPath;
             _indexPointToPath = 0;

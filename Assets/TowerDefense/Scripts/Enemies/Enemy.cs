@@ -16,11 +16,9 @@ namespace TowerDefense.Scripts.Enemies
 
         public Health Health { get; private set; }
         public bool IsDead => Health.CurrentHealth.Value <= 0;
-        
-        public Action OnCompleteMove;
 
+        public ReactiveCommand OnDead { get; } = new();
         
-        //IGunTarget
         Transform IGunTarget.Transform => transform;
         bool IGunTarget.IsCanByTarget => !IsDead;
 
@@ -31,21 +29,22 @@ namespace TowerDefense.Scripts.Enemies
             _movingHandler.Init(transform, speedMoving);
             _movingHandler.OnCompleteMove = () =>
             {
-                OnCompleteMove?.Invoke();
+                OnDead?.Execute();
             };
 
             Health = health;
+            Reset();
             
             Health.CurrentHealth.Subscribe(f =>
             {
-                if (IsDead)
+                if (f <= 0)
                 {
-                    OnCompleteMove?.Invoke();
+                    OnDead?.Execute();
                 }
             }).AddTo(this);
         }
 
-        public void Init()
+        public void Reset()
         {
             //
             Health.CurrentHealth.Value = 100;
@@ -59,7 +58,7 @@ namespace TowerDefense.Scripts.Enemies
 
         public void SetMovingPath(Vector3 firstTargetPoint, IReadOnlyList<Vector3> movingPath)
         {
-            _movingHandler.SetMovingPath(firstTargetPoint, movingPath);
+            _movingHandler.SetMovingToPath(firstTargetPoint, movingPath);
         }
 
         public void CustomUpdate()

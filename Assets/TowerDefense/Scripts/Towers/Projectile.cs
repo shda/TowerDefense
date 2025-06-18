@@ -1,4 +1,5 @@
 using System;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -6,31 +7,43 @@ namespace TowerDefense.Scripts.Towers
 {
     public class Projectile : MonoBehaviour, IPoolable<IMemoryPool>
     {
-        private float _moveSpeed;
-        
         public Action<Projectile> OnCompleteMove;
-        public IGunTarget Target { get; private set; }
+        
+        private float _moveSpeed;
+        private IGunTarget _target;
+        private Vector3 _targetPosition;
+        private readonly CompositeDisposable _disposable = new();
 
         public void MoveToTarget(Vector3 startPosition, IGunTarget target, float moveSpeed = 10.0f)
         {
-            Target = target;
+            _target = target;
             _moveSpeed = moveSpeed;
             transform.position = startPosition;
+            _targetPosition = target.Transform.position;
+
+            _disposable.Clear();
+            target.OnDead.Subscribe(unit =>
+            {
+                _disposable?.Clear();
+                target = null;
+            }).AddTo(_disposable);
         }
 
         public void CustomUpdate()
         {
-            if (Target is { IsCanByTarget: true })
+            if (_target is { IsCanByTarget: true })
             {
-                transform.position = Vector3.MoveTowards(transform.position,
-                    Target.Transform.position, _moveSpeed * Time.deltaTime);
-
-                if (Vector3.Distance(transform.position, Target.Transform.position) <= 0.1f)
-                {
-                    OnCompleteMove?.Invoke(this);
-                }
+                _targetPosition = _target.Transform.position;
             }
             else
+            {
+                _target = null;
+            }
+            
+            transform.position = Vector3.MoveTowards(transform.position,
+                _targetPosition, _moveSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, _targetPosition) <= 0.1f)
             {
                 OnCompleteMove?.Invoke(this);
             }
@@ -41,7 +54,7 @@ namespace TowerDefense.Scripts.Towers
         private IMemoryPool _memoryPool;
         void IPoolable<IMemoryPool>.OnDespawned()
         {
-            Target = null;
+            _target = null;
             OnCompleteMove = null;
         }
 
@@ -60,5 +73,10 @@ namespace TowerDefense.Scripts.Towers
         }
 
         #endregion
+
+        private void OnDestroy()
+        {
+            _disposable.Dispose();
+        }
     }
 }
