@@ -52,6 +52,7 @@ namespace TowerDefense.Scripts.Enemies
             var enemy = _enemyFactory.Create();
             enemy.SetStartPosition(_spawnPoints[Random.Range(0, _spawnPoints.Length)]);
             enemy.SetMovingPath(_mapLoader.FirstTargetPosition , movingPath);
+            enemy.Init();
             enemy.OnCompleteMove = () =>
             {
                 enemy.RemoveToPool();
@@ -67,11 +68,20 @@ namespace TowerDefense.Scripts.Enemies
         public void Tick()
         {
             //todo pool
-            var enemys = AllEnemies.ToArray();
-            foreach (var enemy in enemys)
+            var enemis = AllEnemies.ToArray();
+            foreach (var enemy in enemis)
             {
                 enemy.CustomUpdate();
+                if (enemy.IsDead)
+                {
+                    RemoveToPool(enemy);
+                }
             }
+        }
+
+        private void RemoveToPool(Enemy enemy)
+        {
+            
         }
     }
 }

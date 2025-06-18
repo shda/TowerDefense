@@ -30,6 +30,10 @@ namespace TowerDefense.Scripts.Towers
                     OnCompleteMove?.Invoke(this);
                 }
             }
+            else
+            {
+                OnCompleteMove?.Invoke(this);
+            }
         }
 
         #region Spawn

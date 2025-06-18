@@ -9,6 +9,9 @@ namespace TowerDefense.Scripts.Towers
         
         protected override void CallDetect()
         {
+           // if(_currentTarget is { IsCanByTarget: true })
+           //     return;
+            
             var targets = enemyDetector.Detect();
             if (targets is { Length: > 0 })
             {
@@ -29,6 +32,10 @@ namespace TowerDefense.Scripts.Towers
             if (_currentTarget is { IsCanByTarget: true })
             {
                 weapon.ShotTo(_currentTarget);
+            }
+            else
+            {
+                _currentTarget = null;
             }
         }
     }

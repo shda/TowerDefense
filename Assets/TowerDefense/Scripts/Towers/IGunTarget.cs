@@ -6,5 +6,6 @@ namespace TowerDefense.Scripts.Towers
     {
         Transform Transform { get; }
         bool IsCanByTarget { get; }
+        Health Health { get; }
     }
 }

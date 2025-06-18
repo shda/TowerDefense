@@ -6,6 +6,7 @@ namespace TowerDefense.Scripts.Towers
     public class Weapon : MonoBehaviour
     {
         [SerializeField] private float speedMovingProjectile = 5.0f;
+        [SerializeField] private int damage = 10;
         private ProjectileSpawner _projectileSpawner;
         
         [Inject]
@@ -20,6 +21,11 @@ namespace TowerDefense.Scripts.Towers
             projectile.MoveToTarget(transform.position, target , speedMovingProjectile);
             projectile.OnCompleteMove = pr =>
             {
+                if (target is { IsCanByTarget: true })
+                {
+                    target.Health.CurrentHealth.Value -= damage;
+                }
+                
                 _projectileSpawner.ReturnToPool(pr);
             };
         }

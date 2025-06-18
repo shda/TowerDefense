@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TowerDefense.Scripts.Towers;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -14,24 +15,41 @@ namespace TowerDefense.Scripts.Enemies
         private MovingHandler _movingHandler;
 
         public Health Health { get; private set; }
-        public bool IsDead { get; private set; }
+        public bool IsDead => Health.CurrentHealth.Value <= 0;
+        
         public Action OnCompleteMove;
+
         
         //IGunTarget
         Transform IGunTarget.Transform => transform;
-        bool IGunTarget.IsCanByTarget => Health.CurrentHealth.Value > 0 && !IsDead;
+        bool IGunTarget.IsCanByTarget => !IsDead;
 
         [Inject]
         public void Construct(Health health , MovingHandler movingHandler)
         {
             _movingHandler = movingHandler;
             _movingHandler.Init(transform, speedMoving);
-            _movingHandler.OnCompleteMove = () => { OnCompleteMove?.Invoke(); };
+            _movingHandler.OnCompleteMove = () =>
+            {
+                OnCompleteMove?.Invoke();
+            };
 
             Health = health;
+            
+            Health.CurrentHealth.Subscribe(f =>
+            {
+                if (IsDead)
+                {
+                    OnCompleteMove?.Invoke();
+                }
+            }).AddTo(this);
+        }
 
+        public void Init()
+        {
             //
             Health.CurrentHealth.Value = 100;
+            Health.MaxHealth.Value = 100;
         }
         
         public void SetStartPosition(Vector3 worldPosition)
