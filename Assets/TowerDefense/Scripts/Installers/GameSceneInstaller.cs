@@ -32,11 +32,10 @@ namespace TowerDefense.Scripts.Installers
             Container.Bind<GameStats>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProjectileSpawner>().AsSingle();
 
-            Container.Bind<MovingHandler>().AsTransient();
+            Container.Bind<MovingToPathHandler>().AsTransient();
             Container.Bind<Health>().AsTransient();
 
             BindEnemyFactory();
-            BindProjectileFactory();
             BindHealthLevelFactory();
         }
 
@@ -47,15 +46,6 @@ namespace TowerDefense.Scripts.Installers
                     .WithInitialSize(20)
                     .FromComponentInNewPrefab(enemyPrefab)
                     .UnderTransformGroup("Enemy"));
-        }
-        
-        private void BindProjectileFactory()
-        {
-            Container.BindFactory<Projectile, Projectile.Factory>().FromPoolableMemoryPool<Projectile, MemoryProjectilePool>(poolBinder =>
-                poolBinder
-                    .WithInitialSize(20)
-                    .FromComponentInNewPrefab(projectilePrefab)
-                    .UnderTransformGroup("Projectile"));
         }
         
         private void BindHealthLevelFactory()
@@ -69,10 +59,6 @@ namespace TowerDefense.Scripts.Installers
         }
 
         private class MemoryEnemyPool : MonoPoolableMemoryPool<IMemoryPool, Enemy>
-        {
-        }
-        
-        private class MemoryProjectilePool : MonoPoolableMemoryPool<IMemoryPool, Projectile>
         {
         }
     }

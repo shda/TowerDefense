@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace TowerDefense.Scripts
+namespace TowerDefense.Scripts.PlayerScripts
 {
     public class PlayerControl : MonoBehaviour
     {

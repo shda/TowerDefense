@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TowerDefense.Scripts.Enemies
 {
-    public class MovingHandler
+    public class MovingToPathHandler
     {
         private IReadOnlyList<Vector3> _movingPath;
         private int _indexPointToPath;

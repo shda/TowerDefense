@@ -6,9 +6,23 @@ namespace TowerDefense.Scripts.Towers
 {
     public class GunTower : TowerBase
     {
-        [SerializeField] protected Weapon weapon;
-        private readonly CompositeDisposable  _disposables = new();
+        [SerializeField] protected WeaponSingleShot weapon;
+        [SerializeField] private float damage;
         
+        private IGunTarget _currentTarget;
+        private readonly CompositeDisposable  _disposables = new();
+
+        private void Start()
+        {
+            weapon.OnProjectileCompleteMove = pr =>
+            {
+                if (pr is { IsCanByTarget: true })
+                {
+                    pr.Health.CurrentHealth.Value -= damage;
+                }
+            };
+        }
+
         protected override void CallDetect()
         {
             var targets = enemyDetector.Detect();

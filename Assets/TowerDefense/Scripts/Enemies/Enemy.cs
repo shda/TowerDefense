@@ -12,7 +12,7 @@ namespace TowerDefense.Scripts.Enemies
         [SerializeField] private float speedMoving;
         
         private IMemoryPool _memoryPool;
-        private MovingHandler _movingHandler;
+        private MovingToPathHandler _movingToPathHandler;
 
         public Health Health { get; private set; }
         public bool IsDead => Health.CurrentHealth.Value <= 0;
@@ -23,11 +23,11 @@ namespace TowerDefense.Scripts.Enemies
         bool IGunTarget.IsCanByTarget => !IsDead;
 
         [Inject]
-        public void Construct(Health health , MovingHandler movingHandler)
+        public void Construct(Health health , MovingToPathHandler movingToPathHandler)
         {
-            _movingHandler = movingHandler;
-            _movingHandler.Init(transform, speedMoving);
-            _movingHandler.OnCompleteMove = () =>
+            _movingToPathHandler = movingToPathHandler;
+            _movingToPathHandler.Init(transform, speedMoving);
+            _movingToPathHandler.OnCompleteMove = () =>
             {
                 OnDead?.Execute();
             };
@@ -53,17 +53,17 @@ namespace TowerDefense.Scripts.Enemies
         
         public void SetStartPosition(Vector3 worldPosition)
         {
-            _movingHandler.SetStartPosition(worldPosition);
+            _movingToPathHandler.SetStartPosition(worldPosition);
         }
 
         public void SetMovingPath(Vector3 firstTargetPoint, IReadOnlyList<Vector3> movingPath)
         {
-            _movingHandler.SetMovingToPath(firstTargetPoint, movingPath);
+            _movingToPathHandler.SetMovingToPath(firstTargetPoint, movingPath);
         }
 
         public void CustomUpdate()
         {
-            _movingHandler.CustomUpdate();
+            _movingToPathHandler.CustomUpdate();
         }
         
         #region Pooling

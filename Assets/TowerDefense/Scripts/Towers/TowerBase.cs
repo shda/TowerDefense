@@ -11,7 +11,6 @@ namespace TowerDefense.Scripts.Towers
         [SerializeField] protected float detectionDelay = 0.5f;
         [SerializeField] protected float fireDelay = 0.5f;
         
-        protected IGunTarget _currentTarget;
         private float _currentTime;
         private float _currentFireTime;
         

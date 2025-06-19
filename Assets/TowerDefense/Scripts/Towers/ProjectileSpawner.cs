@@ -1,39 +1,36 @@
 using System.Collections.Generic;
 using System.Linq;
+using BlockBlast.Scripts.Common;
+using UnityEngine;
 using Zenject;
 
 namespace TowerDefense.Scripts.Towers
 {
-    public class ProjectileSpawner : ITickable
+    public class ProjectileSpawner : MonoBehaviour
     {
-        private Projectile.Factory _projectileFactory;
+        [SerializeField] private PoolGameObjectsComponent<Projectile> projectilePool;
         private readonly HashSet<Projectile> _activeProjectiles = new();
         
-        [Inject]
-        public void Construct(Projectile.Factory projectileFactory)
+        public Projectile Get()
         {
-            _projectileFactory = projectileFactory;
-        }
-        
-        public Projectile Create()
-        {
-            var projectile = _projectileFactory.Create();
+            var projectile = projectilePool.Get();
             _activeProjectiles.Add(projectile);
 
             return projectile;
         }
         
-        public void Tick()
+        public void ReturnToPool(Projectile projectile)
+        {
+            projectilePool.Release(projectile);
+            _activeProjectiles.Remove(projectile);
+        }
+        
+        public void Update()
         {
             foreach (var projectile in _activeProjectiles.ToArray())
             {
                 projectile.CustomUpdate();
             }
-        }
-
-        public void ReturnToPool(Projectile projectile)
-        {
-            projectile.ReturnToPool();
         }
     }
 }

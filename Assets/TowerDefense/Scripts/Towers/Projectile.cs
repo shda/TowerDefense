@@ -5,13 +5,12 @@ using Zenject;
 
 namespace TowerDefense.Scripts.Towers
 {
-    public class Projectile : MonoBehaviour, IPoolable<IMemoryPool>
+    public class Projectile : MonoBehaviour
     {
         public Action<Projectile> OnCompleteMove;
         public IGunTarget Target { get; set; }
         
         private float _moveSpeed;
-        
         private Vector3 _targetPosition;
         private readonly CompositeDisposable _disposable = new();
 
@@ -49,32 +48,7 @@ namespace TowerDefense.Scripts.Towers
                 OnCompleteMove?.Invoke(this);
             }
         }
-
-        #region Spawn
-
-        private IMemoryPool _memoryPool;
-        void IPoolable<IMemoryPool>.OnDespawned()
-        {
-            Target = null;
-            OnCompleteMove = null;
-        }
-
-        void IPoolable<IMemoryPool>.OnSpawned(IMemoryPool memoryPool)
-        {
-            _memoryPool = memoryPool;
-        }
         
-        public void ReturnToPool()
-        {
-            _memoryPool.Despawn(this);
-        }
-        
-        public class Factory : PlaceholderFactory<Projectile>
-        {
-        }
-
-        #endregion
-
         private void OnDestroy()
         {
             _disposable.Dispose();
