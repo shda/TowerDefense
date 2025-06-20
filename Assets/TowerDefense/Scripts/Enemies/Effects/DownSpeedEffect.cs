@@ -1,9 +1,8 @@
-using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Towers;
 using UniRx;
 using UnityEngine;
 
-namespace TowerDefense.Scripts.Effects
+namespace TowerDefense.Scripts.Enemies.Effects
 {
     public class DownSpeedEffect : EffectBase
     {

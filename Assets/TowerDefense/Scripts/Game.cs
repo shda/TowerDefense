@@ -25,7 +25,7 @@ namespace TowerDefense.Scripts
         {
             _tokenSource?.Cancel();
             _tokenSource = new CancellationTokenSource();
-            DelayAddEnemyToMap(_tokenSource.Token).Forget();
+            //DelayAddEnemyToMap(_tokenSource.Token).Forget();
         }
         
         private void OnDestroy()

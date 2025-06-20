@@ -1,4 +1,4 @@
-using TowerDefense.Scripts.Effects;
+using TowerDefense.Scripts.Enemies.Effects;
 using UnityEngine;
 
 namespace TowerDefense.Scripts.Towers

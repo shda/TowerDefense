@@ -1,5 +1,7 @@
-using TowerDefense.Scripts.Effects;
 using TowerDefense.Scripts.Enemies;
+using TowerDefense.Scripts.Enemies.Effects;
+using TowerDefense.Scripts.Input;
+using TowerDefense.Scripts.PlayerScripts;
 using TowerDefense.Scripts.Settings;
 using TowerDefense.Scripts.Stats;
 using TowerDefense.Scripts.Towers;
@@ -22,16 +24,20 @@ namespace TowerDefense.Scripts.Installers
 
         [Header("Scene dependencies")]
         [SerializeField] private MapLoader mapLoader;
+        [SerializeField] private InputHandler inputHandler;
 
         public override void InstallBindings()
         {
             Container.BindInstance(gameSettings);
             Container.BindInstance(mapLoader);
+            Container.BindInstance(inputHandler);
 
             Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
             Container.Bind<EnemyMapPath>().AsSingle();
             Container.Bind<GameStats>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProjectileSpawner>().AsSingle();
+            Container.Bind<InputListenerSwitcher>().AsSingle();
+            Container.Bind<InputSwitcher>().AsSingle();
 
             
             Container.BindInterfacesAndSelfTo<EffectHandler>().AsTransient();

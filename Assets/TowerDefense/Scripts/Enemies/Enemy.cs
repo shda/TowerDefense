@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using TowerDefense.Scripts.Effects;
+using TowerDefense.Scripts.Enemies.Effects;
 using TowerDefense.Scripts.Towers;
 using UniRx;
 using UnityEngine;

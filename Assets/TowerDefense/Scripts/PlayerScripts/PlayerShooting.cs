@@ -1,25 +1,32 @@
-using System;
 using BlockBlast.Scripts.Common;
+using TowerDefense.Scripts.Input;
 using TowerDefense.Scripts.Towers;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Zenject;
 
 namespace TowerDefense.Scripts.PlayerScripts
 {
-    public class PlayerShooting : MonoBehaviour
+    public class PlayerShooting : MonoBehaviour ,  IPressListener
     {
-        [SerializeField] private PoolGameObjectsComponent<ProjectilePhysics> pool;
-        
         [SerializeField] private Transform pointShoot;
         [SerializeField] private float speedMovingFire = 10.0f;
         [SerializeField] private float maxDistance = 10.0f;
         [SerializeField] private int damage = 10;
         [SerializeField] private float timeBetweenShots = 0.2f;
-
+        
+        [SerializeField] private PoolGameObjectsComponent<ProjectilePhysics> pool;
+        
         private float _currentTime;
         private bool _isPressButton;
+        private InputSwitcher _inputSwitcher;
 
+        [Inject]
+        public void Construct(InputSwitcher inputSwitcher)
+        {
+            _inputSwitcher = inputSwitcher;
+            _inputSwitcher.SetShooting(this);
+        }
+        
         private void Update()
         {
             _currentTime += Time.deltaTime;
@@ -64,9 +71,9 @@ namespace TowerDefense.Scripts.PlayerScripts
             };
         }
 
-        public void OnFire(InputAction.CallbackContext context)
+        public void OnPress(bool isPressed)
         {
-            _isPressButton = context.performed;
+            _isPressButton = isPressed;
         }
     }
 }

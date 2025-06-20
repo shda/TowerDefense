@@ -1,41 +1,64 @@
+using TowerDefense.Scripts.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 namespace TowerDefense.Scripts.PlayerScripts
 {
-    public class PlayerControl : MonoBehaviour
+    public class PlayerControl : MonoBehaviour , IPointListener
     {
         [Header("Settings")]
         [SerializeField] private float moveSpeed = 5f;
         
         private Rigidbody2D _rb;
-        private Vector2 _moveInput;
-        private Vector2 _mouseWorldPosition;
+        private Vector2 _moveDirection;
+        private Vector3 _mouseWorldPosition;
 
-        private Camera _mainCamera;
-
+        private InputSwitcher _inputSwitcher;
+        
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _mainCamera = Camera.main;
         }
-
-        public void OnMove(InputAction.CallbackContext context)
+        
+        [Inject]
+        public void Construct(InputSwitcher inputSwitcher)
         {
-            _moveInput = context.ReadValue<Vector2>();
+            _inputSwitcher = inputSwitcher;
+            _inputSwitcher.SetPlayerControl(this);
         }
 
-        public void OnMouseLook(InputAction.CallbackContext context)
+        /*
+        [Inject]
+        public void Construct(InputHandler handler)
         {
-            var screenPosition = context.ReadValue<Vector2>();
-            _mouseWorldPosition = _mainCamera.ScreenToWorldPoint(screenPosition);
+            handler.OnPointMoving = vector2 =>
+            {
+                _moveDirection =  vector2;
+            };
+
+            handler.OnPointWorld = vector2 =>
+            {
+                _mouseWorldPosition = vector2;
+            };
+        }
+        */
+        
+        void IPointListener.OnPointWorld(Vector3 worldPosition)
+        {
+            _mouseWorldPosition = worldPosition;
         }
 
+        void IPointListener.OnPointMoving(Vector2 direction)
+        {
+            _moveDirection =  direction;
+        }
+        
         private void FixedUpdate()
         {
-            _rb.linearVelocity = _moveInput * moveSpeed;
+            _rb.linearVelocity = _moveDirection * moveSpeed;
             
-            var direction = _mouseWorldPosition - _rb.position;
+            var direction = (Vector2)_mouseWorldPosition - _rb.position;
             if (direction.sqrMagnitude > 0.01f)
             {
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

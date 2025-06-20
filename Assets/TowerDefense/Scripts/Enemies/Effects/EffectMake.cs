@@ -1,6 +1,6 @@
 using TowerDefense.Scripts.Towers;
 
-namespace TowerDefense.Scripts.Effects
+namespace TowerDefense.Scripts.Enemies.Effects
 {
     public static class EffectMake
     {

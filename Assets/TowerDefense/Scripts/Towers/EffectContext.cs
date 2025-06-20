@@ -1,5 +1,5 @@
-using TowerDefense.Scripts.Effects;
 using TowerDefense.Scripts.Enemies;
+using TowerDefense.Scripts.Enemies.Effects;
 
 namespace TowerDefense.Scripts.Towers
 {

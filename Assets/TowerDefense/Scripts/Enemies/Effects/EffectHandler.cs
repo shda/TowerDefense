@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using Zenject;
 
-namespace TowerDefense.Scripts.Effects
+namespace TowerDefense.Scripts.Enemies.Effects
 {
     public class EffectHandler
     {

@@ -1,7 +1,7 @@
 using System;
 using TowerDefense.Scripts.Towers;
 
-namespace TowerDefense.Scripts.Effects
+namespace TowerDefense.Scripts.Enemies.Effects
 {
     public abstract class EffectBase
     {
