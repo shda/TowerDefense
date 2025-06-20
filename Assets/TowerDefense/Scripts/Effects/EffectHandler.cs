@@ -1,27 +1,31 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
+using Zenject;
 
 namespace TowerDefense.Scripts.Effects
 {
-    public class EffectHandler : MonoBehaviour
+    public class EffectHandler
     {
         private readonly HashSet<EffectBase> _effects = new();
+        private readonly HashSet<Type> _effectsTypes = new();
 
         public void AddEffect(EffectBase effect)
         {
             effect.OnCompleteEffect = RemoveEffect;
             _effects.Add(effect);
+            _effectsTypes.Add(effect.GetType());
         }
 
         public void RemoveEffect(EffectBase effect)
         {
             _effects.Remove(effect);
+            _effectsTypes.Remove(effect.GetType());
         }
         
-        private void Update()
+        public void CustomUpdate()
         {
-            var list = ListPool<EffectBase>.Get();
+            var list = UnityEngine.Pool.ListPool<EffectBase>.Get();
             list.AddRange(_effects);
             
             foreach (var effect in list)
@@ -29,7 +33,12 @@ namespace TowerDefense.Scripts.Effects
                 effect.CustomUpdate();
             }
             
-            ListPool<EffectBase>.Release(list);
+            UnityEngine.Pool.ListPool<EffectBase>.Release(list);
+        }
+
+        public bool IsContainEffectByType(Type type)
+        {
+            return _effectsTypes.Contains(type);
         }
     }
 }

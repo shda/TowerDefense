@@ -51,7 +51,7 @@ namespace TowerDefense.Scripts.PlayerScripts
                 if(ph.IsPool)
                     return;
                     
-                var target = cd.GetComponent<IGunTarget>();
+                var target = cd.GetComponent<ITarget>();
                 if (target != null)
                 {
                     if (target is { IsCanByTarget: true })

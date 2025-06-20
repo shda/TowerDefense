@@ -14,10 +14,10 @@ namespace TowerDefense.Scripts.Towers
         private float _currentTime;
         private float _currentFireTime;
         
-        private void Awake()
+        private void Start()
         {
-            _currentTime = 0;
-            _currentFireTime = 0;
+            _currentTime = float.MaxValue;
+            _currentFireTime = float.MaxValue;
         }
         
         protected abstract void CallDetect();

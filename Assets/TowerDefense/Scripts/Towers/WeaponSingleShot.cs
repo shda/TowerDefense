@@ -7,11 +7,10 @@ namespace TowerDefense.Scripts.Towers
     {
         [SerializeField] private ProjectileSpawner projectilePool;
         [SerializeField] private float speedMovingProjectile = 5.0f;
-        [SerializeField] private int damage = 10;
         
-        public Action<IGunTarget> OnProjectileCompleteMove;
+        public Action<ITarget> OnProjectileCompleteMove;
         
-        public void ShotTo(IGunTarget target)
+        public void ShotTo(ITarget target)
         {
             var projectile =  projectilePool.Get();
             projectile.MoveToTarget(transform.position, target , speedMovingProjectile);

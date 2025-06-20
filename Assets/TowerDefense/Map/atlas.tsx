@@ -57,4 +57,14 @@
    <property name="name" value="tower"/>
   </properties>
  </tile>
+ <tile id="13">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="128" height="128"/>
+  </objectgroup>
+ </tile>
+ <tile id="14">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="128" height="128"/>
+  </objectgroup>
+ </tile>
 </tileset>

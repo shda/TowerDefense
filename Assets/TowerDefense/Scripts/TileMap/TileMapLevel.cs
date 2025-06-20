@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using SuperTiled2Unity;
 using UnityEngine;
@@ -15,6 +16,17 @@ namespace TowerDefense.Scripts.TileMap
         
         public Tilemap LayerService => layerService;
         public Tilemap LayerObstacles => layerObstacles;
+
+        private void Awake()
+        {
+            HideServiceLayer();
+        }
+
+        private void HideServiceLayer()
+        {
+            var render = LayerService.GetComponent<TilemapRenderer>();
+            render.enabled = false;
+        }
         //Editor only
         private void OnValidate()
         {

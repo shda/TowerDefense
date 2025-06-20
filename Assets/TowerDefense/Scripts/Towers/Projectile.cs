@@ -8,13 +8,13 @@ namespace TowerDefense.Scripts.Towers
     public class Projectile : MonoBehaviour
     {
         public Action<Projectile> OnCompleteMove;
-        public IGunTarget Target { get; set; }
+        public ITarget Target { get; set; }
         
         private float _moveSpeed;
         private Vector3 _targetPosition;
         private readonly CompositeDisposable _disposable = new();
 
-        public void MoveToTarget(Vector3 startPosition, IGunTarget target, float moveSpeed = 10.0f)
+        public void MoveToTarget(Vector3 startPosition, ITarget target, float moveSpeed = 10.0f)
         {
             Target = target;
             _moveSpeed = moveSpeed;

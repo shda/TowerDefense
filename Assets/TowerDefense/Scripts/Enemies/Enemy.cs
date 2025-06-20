@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TowerDefense.Scripts.Effects;
 using TowerDefense.Scripts.Towers;
 using UniRx;
 using UnityEngine;
@@ -7,24 +8,28 @@ using Zenject;
 
 namespace TowerDefense.Scripts.Enemies
 {
-    public class Enemy : MonoBehaviour, IPoolable<IMemoryPool> , IGunTarget
+    public class Enemy : MonoBehaviour, IPoolable<IMemoryPool> , ITarget
     {
         [SerializeField] private float speedMoving;
-        
-        private IMemoryPool _memoryPool;
         private MovingToPathHandler _movingToPathHandler;
+        private EffectHandler _effectHandler;
+        private EffectContext _effectContext;
 
         public Health Health { get; private set; }
         public bool IsDead => Health.CurrentHealth.Value <= 0;
 
         public ReactiveCommand OnDead { get; } = new();
-        
-        Transform IGunTarget.Transform => transform;
-        bool IGunTarget.IsCanByTarget => !IsDead;
+
+        Transform ITarget.Transform => transform;
+        bool ITarget.IsCanByTarget => !IsDead;
 
         [Inject]
-        public void Construct(Health health , MovingToPathHandler movingToPathHandler)
+        public void Construct(
+            Health health , 
+            MovingToPathHandler movingToPathHandler , 
+            EffectHandler effectHandler)
         {
+            _effectHandler = effectHandler;
             _movingToPathHandler = movingToPathHandler;
             _movingToPathHandler.Init(transform, speedMoving);
             _movingToPathHandler.OnCompleteMove = () =>
@@ -42,6 +47,13 @@ namespace TowerDefense.Scripts.Enemies
                     OnDead?.Execute();
                 }
             }).AddTo(this);
+            
+            _effectContext = new EffectContext(_effectHandler, Health, _movingToPathHandler);
+        }
+        
+        public EffectContext GetEffectContext()
+        {
+            return _effectContext;
         }
 
         public void Reset()
@@ -63,10 +75,13 @@ namespace TowerDefense.Scripts.Enemies
 
         public void CustomUpdate()
         {
+            _effectHandler.CustomUpdate();
             _movingToPathHandler.CustomUpdate();
         }
         
-        #region Pooling
+        #region Spawn
+        
+        private IMemoryPool _memoryPool;
         void IPoolable<IMemoryPool>.OnDespawned()
         {
         }

@@ -1,3 +1,4 @@
+using TowerDefense.Scripts.Effects;
 using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Settings;
 using TowerDefense.Scripts.Stats;
@@ -32,6 +33,8 @@ namespace TowerDefense.Scripts.Installers
             Container.Bind<GameStats>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProjectileSpawner>().AsSingle();
 
+            
+            Container.BindInterfacesAndSelfTo<EffectHandler>().AsTransient();
             Container.Bind<MovingToPathHandler>().AsTransient();
             Container.Bind<Health>().AsTransient();
 

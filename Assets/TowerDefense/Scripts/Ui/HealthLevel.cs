@@ -8,13 +8,40 @@ namespace TowerDefense.Scripts.Ui
     {
         [SerializeField] private RectTransform rectTransform;
         [SerializeField] private Image sliderLine;
+        [SerializeField] private Color colorUpHalfLife;
+        [SerializeField] private Color colorDownHalfLife;
         private IMemoryPool _memoryPool;
         
         public void SetLife(float currentHealth , float maxHealth)
         {
-            sliderLine.fillAmount = Mathf.Clamp(currentHealth / maxHealth, 0, 1);
+            var value =  Mathf.Clamp(currentHealth / maxHealth, 0, 1);
+            sliderLine.fillAmount = value;
+
+            if (value > 0.5f)
+            {
+                sliderLine.color = colorUpHalfLife;
+            }
+            else
+            {
+                sliderLine.color = colorDownHalfLife;
+            }
         }
         
+        public void UpdatePositon(RectTransform canvasRectTransform, Vector3 wordPosition)
+        {
+            var screenPoint = Camera.main.WorldToScreenPoint(wordPosition);
+            
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvasRectTransform,
+                screenPoint,
+                Camera.main,
+                out Vector2 localPoint
+            );
+            
+            rectTransform.localPosition = localPoint;
+        }
+
+        #region Spawn
         public void OnDespawned()
         {
             
@@ -36,25 +63,6 @@ namespace TowerDefense.Scripts.Ui
         public class MemoryPool : MonoPoolableMemoryPool<IMemoryPool, HealthLevel>
         {
         }
-
-        public void UpdatePositon(RectTransform canvasRectTransform, Vector3 wordPosition)
-        {
-
-            Vector2 screenPoint = Camera.main.WorldToScreenPoint(wordPosition);
-            
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                canvasRectTransform,
-                screenPoint,
-                Camera.main,
-                out Vector2 localPoint
-            );
-
-            // Применяем позицию к RectTransform
-            rectTransform.localPosition = localPoint;
-   
-            
-            //Vector3 screenPos = Camera.main.WorldToScreenPoint(wordPosition);
-           // rectTransform.position = screenPos;
-        }
+        #endregion
     }
 }

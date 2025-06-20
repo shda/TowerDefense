@@ -18,6 +18,8 @@ namespace TowerDefense.Scripts
         {
             OnMapLoader();
         }
+        
+     
 
         private void OnMapLoader()
         {

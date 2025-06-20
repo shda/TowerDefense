@@ -10,6 +10,8 @@ namespace TowerDefense.Scripts
 {
     public class Game : MonoBehaviour
     {
+        [SerializeField] private Vector2 timeSpawn = new Vector2(2, 3);
+        
         private EnemySpawner _enemySpawner;
         private CancellationTokenSource _tokenSource;
         
@@ -36,7 +38,8 @@ namespace TowerDefense.Scripts
             while (!token.IsCancellationRequested)
             {
                 _enemySpawner.AddEnemyToMap();
-                await UniTask.Delay(TimeSpan.FromSeconds(Random.Range(0.2f , 1.0f)), cancellationToken: token);
+                await UniTask.Delay(TimeSpan.FromSeconds(
+                    Random.Range(timeSpawn.x , timeSpawn.y)), cancellationToken: token);
             }
         }
     }

@@ -62,10 +62,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 5123894791850254180}
   sprites:
-  - {fileID: 21300000, guid: 8cc919e5f695e2e438bdf1d8cd0114c8, type: 3}
-  - {fileID: 21300000, guid: ea43abf30e636564cad1ff6ef43ed625, type: 3}
-  - {fileID: 21300000, guid: f24ae430dc8a2734094183a30400fe8a, type: 3}
-  - {fileID: 21300000, guid: 2ba3716245d6fa344964a41eb4465ea7, type: 3}
+  - {fileID: 21300000, guid: 2e098af1859005147be919c455d825d3, type: 3}
+  - {fileID: 21300000, guid: 0cb2ed3b63d61004280b2917562a172b, type: 3}
+  - {fileID: 21300000, guid: 9db58da64cf77e54592b7b7e195b36cd, type: 3}
+  - {fileID: 21300000, guid: 94eab79e474d83b42885503c76a7bd6d, type: 3}
+  - {fileID: 21300000, guid: f6cd19eebc6ff9147a6bdf2584feb3be, type: 3}
+  - {fileID: 21300000, guid: 0082e164f56a72145ad8e5e414cf5e3d, type: 3}
+  - {fileID: 21300000, guid: 9babca51d7636d041a18b8ec47482ef7, type: 3}
+  - {fileID: 21300000, guid: 29cfe828ea499da40b374f0548f57ba2, type: 3}
+  - {fileID: 21300000, guid: 5258b3d108bfebb42aa0cd0fc2699e61, type: 3}
 --- !u!61 &1863411047422387771
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -188,7 +193,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 20
-  m_Sprite: {fileID: 21300000, guid: 2ba3716245d6fa344964a41eb4465ea7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2e098af1859005147be919c455d825d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
