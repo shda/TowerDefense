@@ -8,7 +8,7 @@ namespace TowerDefense.Scripts.Input
     {
         private PlayerControl _playerControl;
         private PlayerShooting _playerShooting;
-        private ChangeMapHandler _changeMapHandler;
+        private AddTowerToMapController _addTowerToMapController;
         
         private InputListenerSwitcher  _inputListenerSwitcher;
 
@@ -22,9 +22,9 @@ namespace TowerDefense.Scripts.Input
             _playerShooting = playerShooting;
         }
 
-        public void SetChangeMap(ChangeMapHandler changeMapHandler)
+        public void SetChangeMap(AddTowerToMapController addTowerToMapController)
         {
-            _changeMapHandler = changeMapHandler;
+            _addTowerToMapController = addTowerToMapController;
         }
         
         [Inject]
@@ -41,8 +41,8 @@ namespace TowerDefense.Scripts.Input
 
         public void SwitchToChangeMapHandlerControl()
         {
-            _inputListenerSwitcher.SetListener((IPressListener)_changeMapHandler);
-            _inputListenerSwitcher.SetListener((IPointListener)_changeMapHandler);
+            _inputListenerSwitcher.SetListener((IPressListener)_addTowerToMapController);
+            _inputListenerSwitcher.SetListener((IPointListener)_addTowerToMapController);
         }
     }
 }

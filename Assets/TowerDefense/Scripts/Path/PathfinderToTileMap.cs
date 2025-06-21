@@ -17,12 +17,12 @@ namespace TowerDefense.Scripts.Path
 
         public IReadOnlyList<Vector3Int> FindPathFromTileToTile(TileInfo startTile, TileInfo endTile)
         {
-            var map = _tileMapLevel.LayerObstacles;
-            var offset = map.cellBounds.position;
-            var tilesObstacles = _tileMapLevel.LayerObstacles.GetAllTiles();
+            var layerObstacles = _tileMapLevel.LayerObstacles;
+            var offset = layerObstacles.cellBounds.position;
+            var tilesObstacles = layerObstacles.GetAllTiles();
             
             //One cell takes 64 by 64, but the obstacle 128 by 128
-            bool[,] nodes = new bool[tilesObstacles.GetLength(0) + 1, tilesObstacles.GetLength(1) + 1];
+            bool[,] obstacles = new bool[tilesObstacles.GetLength(0) + 1, tilesObstacles.GetLength(1) + 1];
             for (int x = 0; x < tilesObstacles.GetLength(0); x++)
             {
                 for (int y = 0; y < tilesObstacles.GetLength(1); y++)
@@ -30,10 +30,10 @@ namespace TowerDefense.Scripts.Path
                     var node = tilesObstacles[x, y];
                     if (node != null)
                     {
-                        nodes[x, y] = true;
-                        nodes[x + 1, y] = true;
-                        nodes[x, y + 1] = true;
-                        nodes[x + 1, y + 1] = true;
+                        obstacles[x, y] = true;
+                        obstacles[x + 1, y] = true;
+                        obstacles[x, y + 1] = true;
+                        obstacles[x + 1, y + 1] = true;
                     }
                 }
             }
@@ -41,7 +41,7 @@ namespace TowerDefense.Scripts.Path
             var startPoint = new Vector3Int(startTile.Position.x - offset.x, startTile.Position.y - offset.y);
             var endPoint = new Vector3Int(endTile.Position.x - offset.x, endTile.Position.y - offset.y);
 
-            var pathfinder = new Pathfinder(nodes , false);
+            var pathfinder = new Pathfinder(obstacles , false);
             var findPath =
                 pathfinder.FindPath(_pathFound , startPoint, endPoint);
 

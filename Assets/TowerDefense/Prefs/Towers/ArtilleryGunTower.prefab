@@ -8,9 +8,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1291170350512996131, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2529923919253247527, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: damage
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3540878944330277549, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6350241180432810929, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_Radius
@@ -23,6 +31,14 @@ PrefabInstance:
     - target: {fileID: 6895744883261217998, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_Name
       value: ArtilleryGunTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 6895744883261217998, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7558641531125496915, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8248317729019170813, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -113,6 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7273d8798dd24b21a7a971e73c5e9024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wrongPlaceSprite: {fileID: 5259977838207938243}
+  boxCollider2D: {fileID: 2045168384817016411}
   enemyDetector: {fileID: 573714197043444046}
   detectionDelay: 0.5
   fireDelay: 5
@@ -130,3 +148,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7099a26cec7e76840834de2aff67a4db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &2045168384817016411 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5632449353503724935, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+  m_PrefabInstance: {fileID: 5930008256437517276}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &5259977838207938243 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1924355280516732191, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+  m_PrefabInstance: {fileID: 5930008256437517276}
+  m_PrefabAsset: {fileID: 0}

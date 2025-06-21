@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using TowerDefense.Scripts.Enemies.Effects;
 using TowerDefense.Scripts.Towers;
 using UniRx;
@@ -10,11 +11,13 @@ namespace TowerDefense.Scripts.Enemies
 {
     public class Enemy : MonoBehaviour, IPoolable<IMemoryPool> , ITarget
     {
+        [SerializeField] protected SpriteRenderer spriteRenderer;
         [SerializeField] private float speedMoving;
+        
         private MovingToPathHandler _movingToPathHandler;
         private EffectHandler _effectHandler;
         private EffectContext _effectContext;
-
+        
         public Health Health { get; private set; }
         public bool IsDead => Health.CurrentHealth.Value <= 0;
 
@@ -46,9 +49,29 @@ namespace TowerDefense.Scripts.Enemies
                 {
                     OnDead?.Execute();
                 }
+                else
+                {
+                    PlayAnimationHit();
+                }
             }).AddTo(this);
             
             _effectContext = new EffectContext(_effectHandler, Health, _movingToPathHandler);
+        }
+
+        private Sequence _seq;
+        protected virtual void PlayAnimationHit()
+        {
+            if(_seq != null)
+                return;
+            
+            _seq = DOTween.Sequence();
+            var duration = 0.1f;
+            spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f);
+            _seq.Append(spriteRenderer.DOColor(new Color(0.5f,0.5f,0.5f), duration));
+            //_seq.AppendInterval(duration);
+            _seq.Append(spriteRenderer.DOColor(new Color(1,1,1), duration));
+
+            _seq = null;
         }
         
         public EffectContext GetEffectContext()

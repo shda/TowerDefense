@@ -44,7 +44,7 @@ namespace TowerDefense.Scripts.TileMap
             if (!layerObstacles)
             {
                 layerObstacles = transform.GetComponentsInChildren<Tilemap>()
-                    .FirstOrDefault(x => x.name == "Obstacles");
+                    .FirstOrDefault(x => x.name == TilePropertyNames.ObstaclesMapLayer);
             }
 
 

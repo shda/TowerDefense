@@ -17,9 +17,14 @@ namespace TowerDefense.Scripts.Input
         private Vector2 _mouseWorldPosition;
         private bool _isPressButton;
         
+        private bool _isSendPress;
+        
         public void OnFire(InputAction.CallbackContext context)
         {
+            _isSendPress = false;
             _isPressButton = context.performed;
+            // OnPress?.Invoke(context.performed);
+            // _isPressButton = context.performed;
         }
         
         public void OnMove(InputAction.CallbackContext context)
@@ -35,11 +40,14 @@ namespace TowerDefense.Scripts.Input
 
         private void Update()
         {
-            OnPress?.Invoke(false);
             if (EventSystem.current.IsPointerOverGameObject())
                 return;
+            if (!_isSendPress)
+            {
+                _isSendPress = true;
+                OnPress?.Invoke(_isPressButton);
+            }
             
-            OnPress?.Invoke(_isPressButton);
             OnPointWorld?.Invoke(_mouseWorldPosition);
             OnPointMoving?.Invoke(_moveInput);
         }

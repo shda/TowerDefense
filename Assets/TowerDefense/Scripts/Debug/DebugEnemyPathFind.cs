@@ -11,21 +11,21 @@ namespace TowerDefense.Scripts.Debug
 {
     public class DebugEnemyPathFind : MonoBehaviour
     {
-        private MapLoader _mapLoader;
+        private LevelMap _levelMap;
         private IReadOnlyList<Vector3Int> _findPath;
 
         [Inject]
-        public void Construct(MapLoader mapLoader)
+        public void Construct(LevelMap levelMap)
         {
-            _mapLoader = mapLoader;
+            _levelMap = levelMap;
         }
         
         private void Update()
         {
-            if(!_mapLoader.IsMapLoaded)
+            if(!_levelMap.IsMapLoaded)
                 return;
 
-            var tileMapLevel = _mapLoader.CurrentMap;
+            var tileMapLevel = _levelMap.CurrentMap;
             
             var enemyPoint = MapUtils.GetFirstTargetPoints(tileMapLevel);
             var target = MapUtils.GetTargetPoints(tileMapLevel);
@@ -42,10 +42,10 @@ namespace TowerDefense.Scripts.Debug
             if (_findPath == null)
                 return;
             
-            if(!_mapLoader.IsMapLoaded)
+            if(!_levelMap.IsMapLoaded)
                 return;
 
-            var tileMapLevel = _mapLoader.CurrentMap;
+            var tileMapLevel = _levelMap.CurrentMap;
             var tilemap = tileMapLevel.LayerObstacles;
             var cellBounds = tileMapLevel.LayerObstacles.cellBounds;
 

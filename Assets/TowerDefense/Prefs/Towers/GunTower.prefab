@@ -8,9 +8,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1291170350512996131, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924355280516732191, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Color.a
+      value: 0.39607844
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924355280516732191, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924355280516732191, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924355280516732191, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2529923919253247527, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: damage
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3540878944330277549, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3540878944330277549, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6723142304765973210, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: projectilePool.prefab
@@ -18,7 +46,15 @@ PrefabInstance:
       objectReference: {fileID: 4628104669900416004, guid: 08623c7915101d847baadb0dd582d02c, type: 3}
     - target: {fileID: 6895744883261217998, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_Name
-      value: SlowGunTower
+      value: GunTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 6895744883261217998, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7558641531125496915, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8248317729019170813, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_LocalPosition.x

@@ -40,6 +40,11 @@ namespace TowerDefense.Scripts.TileMap
             return mapTiles;
         }
 
+        public static Vector3 GetLeftBottomCorner(this Tilemap tilemap)
+        {
+            return tilemap.transform.position + tilemap.localBounds.min;
+        }
+
         public static void HideLayerRender(this Tilemap tileMap)
         {
             var render = tileMap.GetComponent<TilemapRenderer>();

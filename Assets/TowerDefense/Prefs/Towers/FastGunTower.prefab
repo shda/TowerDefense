@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1291170350512996131, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2529923919253247527, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: damage
       value: 2
@@ -16,9 +20,21 @@ PrefabInstance:
       propertyPath: fireDelay
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 3540878944330277549, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6895744883261217998, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_Name
       value: FastGunTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 6895744883261217998, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7558641531125496915, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8248317729019170813, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_LocalPosition.x

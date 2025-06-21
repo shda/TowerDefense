@@ -53,19 +53,17 @@ namespace TowerDefense.Scripts.Path
                 }
             }
 
-            return false; // Путь не найден
+            return false;
         }
 
         private IEnumerable<Vector3Int> GetNeighbors(Vector3Int p)
         {
-            // Основные направления (вверх, вправо, вниз, влево)
             var directions = new List<Vector3Int>
             {
                 new(0, 1), new(1, 0),
                 new(0, -1), new(-1, 0)
             };
-
-            // Добавляем диагональные направления, если разрешено
+            
             if (_allowDiagonal)
             {
                 directions.AddRange(new[]
@@ -96,7 +94,7 @@ namespace TowerDefense.Scripts.Path
             int dx = Mathf.Abs(a.x - b.x);
             int dy = Mathf.Abs(a.y - b.y);
 
-            return allowDiagonal ? Mathf.Max(dx, dy) : dx + dy; // Манхэттенское расстояние или евклидово
+            return allowDiagonal ? Mathf.Max(dx, dy) : dx + dy;
         }
 
         private void ReconstructPath(List<Vector3Int> findPath, Dictionary<Vector3Int, Vector3Int> cameFrom, Vector3Int current)
