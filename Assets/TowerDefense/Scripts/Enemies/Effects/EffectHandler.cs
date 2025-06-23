@@ -5,17 +5,16 @@ namespace TowerDefense.Scripts.Enemies.Effects
 {
     public class EffectHandler
     {
-        private readonly HashSet<EffectBase> _effects = new();
+        private readonly HashSet<Effect> _effects = new();
         private readonly HashSet<Type> _effectsTypes = new();
 
-        public void AddEffect(EffectBase effect)
+        public void AddEffect(Effect effect)
         {
-            effect.OnCompleteEffect = RemoveEffect;
             _effects.Add(effect);
             _effectsTypes.Add(effect.GetType());
         }
 
-        public void RemoveEffect(EffectBase effect)
+        private void RemoveEffect(Effect effect)
         {
             _effects.Remove(effect);
             _effectsTypes.Remove(effect.GetType());
@@ -23,17 +22,21 @@ namespace TowerDefense.Scripts.Enemies.Effects
         
         public void CustomUpdate()
         {
-            var list = UnityEngine.Pool.ListPool<EffectBase>.Get();
+            var list = UnityEngine.Pool.ListPool<Effect>.Get();
             list.AddRange(_effects);
             
             foreach (var effect in list)
             {
-                effect.CustomUpdate();
+                effect.Update();
+                if (effect.IsExpired)
+                {
+                    RemoveEffect(effect);
+                }
             }
             
-            UnityEngine.Pool.ListPool<EffectBase>.Release(list);
+            UnityEngine.Pool.ListPool<Effect>.Release(list);
         }
-
+        
         public bool IsContainEffectByType(Type type)
         {
             return _effectsTypes.Contains(type);

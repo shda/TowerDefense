@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using TowerDefense.Scripts.Enemies;
+using TowerDefense.Scripts.Input;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -14,15 +15,19 @@ namespace TowerDefense.Scripts
         
         private EnemySpawner _enemySpawner;
         private CancellationTokenSource _tokenSource;
+        private InputSwitcher _inputSwitcher;
         
         [Inject]
-        public void Construct(EnemySpawner enemySpawner)
+        public void Construct(EnemySpawner enemySpawner , InputSwitcher inputSwitcher)
         {
             _enemySpawner = enemySpawner;
+            _inputSwitcher =  inputSwitcher;
         }
         
         private void Start()
         {
+            _inputSwitcher.SwitchToPlayerControl();
+            
             _tokenSource?.Cancel();
             _tokenSource = new CancellationTokenSource();
             DelayAddEnemyToMap(_tokenSource.Token).Forget();

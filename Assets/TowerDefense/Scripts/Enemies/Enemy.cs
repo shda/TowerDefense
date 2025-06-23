@@ -9,15 +9,15 @@ using Zenject;
 
 namespace TowerDefense.Scripts.Enemies
 {
-    public class Enemy : MonoBehaviour, IPoolable<IMemoryPool> , ITarget
+    public class Enemy : MonoBehaviour, IPoolable<IMemoryPool>, ITarget
     {
-        [SerializeField] protected SpriteRenderer spriteRenderer;
+        [SerializeField] private HitAnimation hitAnimation;
         [SerializeField] private float speedMoving;
-        
+
         private MovingToPathHandler _movingToPathHandler;
         private EffectHandler _effectHandler;
         private EffectContext _effectContext;
-        
+
         public Health Health { get; private set; }
         public bool IsDead => Health.CurrentHealth.Value <= 0;
 
@@ -28,21 +28,18 @@ namespace TowerDefense.Scripts.Enemies
 
         [Inject]
         public void Construct(
-            Health health , 
-            MovingToPathHandler movingToPathHandler , 
+            Health health,
+            MovingToPathHandler movingToPathHandler,
             EffectHandler effectHandler)
         {
             _effectHandler = effectHandler;
             _movingToPathHandler = movingToPathHandler;
             _movingToPathHandler.Init(transform, speedMoving);
-            _movingToPathHandler.OnCompleteMove = () =>
-            {
-                OnDead?.Execute();
-            };
+            _movingToPathHandler.OnCompleteMove = () => { OnDead?.Execute(); };
 
             Health = health;
             Reset();
-            
+
             Health.CurrentHealth.Subscribe(f =>
             {
                 if (f <= 0)
@@ -51,29 +48,13 @@ namespace TowerDefense.Scripts.Enemies
                 }
                 else
                 {
-                    PlayAnimationHit();
+                    hitAnimation.Play();
                 }
             }).AddTo(this);
-            
+
             _effectContext = new EffectContext(_effectHandler, Health, _movingToPathHandler);
         }
 
-        private Sequence _seq;
-        protected virtual void PlayAnimationHit()
-        {
-            if(_seq != null)
-                return;
-            
-            _seq = DOTween.Sequence();
-            var duration = 0.1f;
-            spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f);
-            _seq.Append(spriteRenderer.DOColor(new Color(0.5f,0.5f,0.5f), duration));
-            //_seq.AppendInterval(duration);
-            _seq.Append(spriteRenderer.DOColor(new Color(1,1,1), duration));
-
-            _seq = null;
-        }
-        
         public EffectContext GetEffectContext()
         {
             return _effectContext;
@@ -85,7 +66,7 @@ namespace TowerDefense.Scripts.Enemies
             Health.CurrentHealth.Value = 100;
             Health.MaxHealth.Value = 100;
         }
-        
+
         public void SetStartPosition(Vector3 worldPosition)
         {
             _movingToPathHandler.SetStartPosition(worldPosition);
@@ -101,10 +82,11 @@ namespace TowerDefense.Scripts.Enemies
             _effectHandler.CustomUpdate();
             _movingToPathHandler.CustomUpdate();
         }
-        
+
         #region Spawn
-        
+
         private IMemoryPool _memoryPool;
+
         void IPoolable<IMemoryPool>.OnDespawned()
         {
         }
@@ -122,6 +104,7 @@ namespace TowerDefense.Scripts.Enemies
         public class Factory : PlaceholderFactory<Enemy>
         {
         }
+
         #endregion
     }
 }

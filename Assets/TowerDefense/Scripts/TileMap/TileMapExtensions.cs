@@ -40,6 +40,24 @@ namespace TowerDefense.Scripts.TileMap
             return mapTiles;
         }
 
+        public static Vector3Int ConvertWorldToIndexZeroLeftBottomCorner(this Tilemap tilemap , Vector3 worldPos)
+        {
+            var point = tilemap.FindNearestPointToGrid(worldPos);
+            var tile = tilemap.WorldToCell(point);
+            var size = tilemap.cellBounds.position;
+            //return tile;
+            return tile - size;
+        }
+        
+        public static Vector3 FindNearestPointToGrid(this Tilemap tilemap , Vector3 worldPoint)
+        {
+            var size = tilemap.cellSize;
+
+            var pointX = (float)Math.Round(worldPoint.x / size.x) * size.x;
+            var pointY = (float)Math.Round(worldPoint.y / size.y) * size.y;
+            return new Vector3(pointX, pointY, 0);
+        }
+
         public static Vector3 GetLeftBottomCorner(this Tilemap tilemap)
         {
             return tilemap.transform.position + tilemap.localBounds.min;

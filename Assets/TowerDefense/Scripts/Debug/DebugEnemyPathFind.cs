@@ -22,6 +22,9 @@ namespace TowerDefense.Scripts.Debug
         
         private void Update()
         {
+            if(!Application.isEditor)
+                return;
+            
             if(!_levelMap.IsMapLoaded)
                 return;
 

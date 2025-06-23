@@ -1,23 +1,30 @@
 using System;
 using TowerDefense.Scripts.Towers;
+using UnityEngine;
 
 namespace TowerDefense.Scripts.Enemies.Effects
 {
-    public abstract class EffectBase
+    public abstract class Effect
     {
+        public float Duration { get; protected set; }
+        public bool IsExpired => Duration <= 0;
+        
         protected EffectContext _effectContext;
-        public Action<EffectBase> OnCompleteEffect;
         
         public virtual void SetEffect(EffectContext effectContext)
         {
             _effectContext = effectContext;
             effectContext.EffectHandler.AddEffect(this);
         }
-        public void CompleteEffect()
+        public virtual void Update()
         {
-            OnCompleteEffect?.Invoke(this);
+            Duration -= Time.deltaTime;
+            if (IsExpired)
+            {
+                ResetEffect();
+            }
         }
 
-        public abstract void CustomUpdate();
+        protected abstract void ResetEffect();
     }
 }

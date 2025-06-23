@@ -4,27 +4,22 @@ using UnityEngine;
 
 namespace TowerDefense.Scripts.Enemies.Effects
 {
-    public class DownSpeedEffect : EffectBase
+    public class DownSpeedEffect : Effect
     {
-        private ITarget _target;
+        private readonly ITarget _target;
         private readonly float _downSpeedModifier;
-        private float _timeEffect;
-
-        private float _currentTime;
-        private CompositeDisposable composite = new();
-
+        private readonly CompositeDisposable composite = new();
         private float _lastSpeed;
 
-        public DownSpeedEffect(ITarget target, float downSpeedModifier, float timeEffect)
+        public DownSpeedEffect(ITarget target, float downSpeedModifier, float duration)
         {
-            _timeEffect = timeEffect;
+            Duration = duration;
             _target = target;
             _downSpeedModifier = downSpeedModifier;
-            _currentTime = 0;
 
             _target.OnDead.Subscribe(unit =>
             {
-                ResetEffect();
+                Duration = 0;
             }).AddTo(composite);
         }
 
@@ -32,25 +27,14 @@ namespace TowerDefense.Scripts.Enemies.Effects
         {
             _lastSpeed = effectContext.MovingToPathHandler.SpeedMoving;
             effectContext.MovingToPathHandler.SpeedMoving *= _downSpeedModifier;
-            
+
             base.SetEffect(effectContext);
         }
 
-        private void ResetEffect()
+        protected override void ResetEffect()
         {
             _effectContext.MovingToPathHandler.SpeedMoving = _lastSpeed;
             composite.Dispose();
-            CompleteEffect();
-        }
-
-        public override void CustomUpdate()
-        {
-            _currentTime += Time.deltaTime;
-            if (_currentTime >= _timeEffect)
-            {
-                _currentTime = 0;
-                ResetEffect();
-            }
         }
     }
 }

@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
 using TowerDefense.Scripts.TileMap;
+using TowerDefense.Scripts.Towers;
 using UnityEngine;
 
 namespace TowerDefense.Scripts
@@ -22,6 +24,8 @@ namespace TowerDefense.Scripts
         public TileMapLevel CurrentMap => tileMapLevel;
         public Vector3 FirstTargetPosition { get; private set; }
         public bool IsMapLoaded { get; private set; } = true;
+
+        public HashSet<TowerBase> TowersToMap { get; set; } = new();
         
         private void Awake()
         {

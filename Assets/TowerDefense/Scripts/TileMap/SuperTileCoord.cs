@@ -18,5 +18,10 @@ namespace TowerDefense.Scripts.TileMap
         {
             return other.Position == Position;
         }
+
+        public override string ToString()
+        {
+            return Position.ToString();
+        }
     }
 }

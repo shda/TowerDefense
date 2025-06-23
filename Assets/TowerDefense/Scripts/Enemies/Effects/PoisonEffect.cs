@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TowerDefense.Scripts.Enemies.Effects
 {
-    public class PoisonEffect : EffectBase
+    public class PoisonEffect : Effect
     {
         private PoisonData _poisonData;
         private ITarget _target;
@@ -14,23 +14,25 @@ namespace TowerDefense.Scripts.Enemies.Effects
         
         public PoisonEffect(ITarget target, PoisonData poisonData)
         {
+            Duration = float.MaxValue;
             _hitCounter = poisonData.MaxDamages;
             _poisonData = poisonData;
             _target = target;
-            _currentTime = 0;
+            _currentTime = float.MaxValue;
 
             _target.OnDead.Subscribe(unit =>
             {
                 ResetEffect();
+                Duration = 0;
             }).AddTo(composite);
         }
-        private void ResetEffect()
+
+        protected override void ResetEffect()
         {
             composite.Dispose();
-            CompleteEffect();
         }
 
-        public override void CustomUpdate()
+        public override void Update()
         {
             _currentTime += Time.deltaTime;
             if (_currentTime >= _poisonData.DelayBetweenDamages)

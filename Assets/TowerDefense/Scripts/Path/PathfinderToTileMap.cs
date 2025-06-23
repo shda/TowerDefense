@@ -15,7 +15,8 @@ namespace TowerDefense.Scripts.Path
             _tileMapLevel = tileMapLevel;
         }
 
-        public IReadOnlyList<Vector3Int> FindPathFromTileToTile(TileInfo startTile, TileInfo endTile)
+        public IReadOnlyList<Vector3Int> FindPathFromTileToTile(
+            TileInfo startTile, TileInfo endTile , IEnumerable<Vector2Int> otherObstacles = null)
         {
             var layerObstacles = _tileMapLevel.LayerObstacles;
             var offset = layerObstacles.cellBounds.position;
@@ -35,6 +36,14 @@ namespace TowerDefense.Scripts.Path
                         obstacles[x, y + 1] = true;
                         obstacles[x + 1, y + 1] = true;
                     }
+                }
+            }
+
+            if (otherObstacles != null)
+            {
+                foreach (var obstacle in otherObstacles)
+                {
+                    obstacles[obstacle.x, obstacle.y] = true;
                 }
             }
             
