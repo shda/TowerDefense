@@ -415,10 +415,10 @@ namespace SimpleSpritePackerEditor
                     newSprite.pivot = spritesImportData[i].pivot;
                     newSprite.border = spritesImportData[i].border;
 
-                    // Add the Sprite Rect to the array of existing Sprite Rects
+                    // AddObject the Sprite Rect to the array of existing Sprite Rects
                     newSpriteRects.Add(newSprite);
 
-                    // Add the sprite name and GUID to the list of pairs
+                    // AddObject the sprite name and GUID to the list of pairs
                     newNameFileIdPairs.Add(new SpriteNameFileIdPair(newSprite.name, newSprite.spriteID));
                 }
             }

@@ -59,7 +59,7 @@ namespace SimpleSpritePackerEditor
 				GUIStyle boxStyle = new GUIStyle(GUI.skin.box);
 				boxStyle.alignment = TextAnchor.MiddleCenter;
 				GUI.color = SPDropWindow.green;
-				GUI.Box(drop_area, "Add Sprite (Drop Here)", boxStyle);
+				GUI.Box(drop_area, "AddObject Sprite (Drop Here)", boxStyle);
 				GUI.color = Color.white;
 				
 				switch (evt.type)

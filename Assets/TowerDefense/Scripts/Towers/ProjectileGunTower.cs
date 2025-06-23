@@ -21,7 +21,8 @@ namespace TowerDefense.Scripts.Towers
 
         protected override void CallDetect()
         {
-            _currentTarget = null;
+            if(_currentTarget != null)
+                return;
             
             var targets = enemyDetector.Detect();
             if (targets is { Length: > 0 })
@@ -57,10 +58,22 @@ namespace TowerDefense.Scripts.Towers
         
         protected override void CallFire()
         {
+            if (_currentTarget != null && !enemyDetector.CheckStillDetect(_currentTarget.Transform.gameObject))
+            {
+                RemoveTarget();
+                return;
+            }
+            
             if (_currentTarget is { IsCanByTarget: true })
             {
                 weapon.ShotTo(_currentTarget);
             }
+        }
+
+        private void RemoveTarget()
+        {
+            _disposables.Clear();
+            _currentTarget = null;
         }
 
         private void OnDestroy()

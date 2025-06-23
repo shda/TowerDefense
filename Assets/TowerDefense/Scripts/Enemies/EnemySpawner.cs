@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using TowerDefense.Scripts.Path;
@@ -14,54 +13,57 @@ namespace TowerDefense.Scripts.Enemies
 {
     public class EnemySpawner : ITickable
     {
-        public HashSet<Enemy> AllEnemies { get; set; } = new();
+        //public HashSet<Enemy> AllEnemies { get; set; } = new();
 
         private PathfinderToTileMap _pathfinderToTileMap;
         private EnemyMapPath _enemyMapPath;
-        private LevelMap _levelMap;
+        private LevelController _levelController;
         private Enemy.Factory _enemyFactory;
         private Vector3[] _spawnPoints;
         private GameStats _gameStats;
-
+        private LevelObjects _levelObjects;
+        
         public Action<Enemy> OnCreateNewEnemy;
         public Action<Enemy> OnRemoveEnemy;
         
         [Inject]
         public void Construct(
             EnemyMapPath enemyMapPath , 
-            LevelMap levelMap, 
+            LevelController levelController, 
             Enemy.Factory factory,
-            GameStats gameStats)
+            GameStats gameStats,
+            LevelObjects  levelObjects)
         {
-            _levelMap = levelMap;
+            _levelController = levelController;
             _enemyFactory = factory;
             _enemyMapPath = enemyMapPath;
             _gameStats = gameStats;
+            _levelObjects = levelObjects;
         }
 
         public void AddEnemyToMap()
         {
-            if(!_levelMap.IsMapLoaded)
+            if(!_levelController.IsMapLoaded)
                 return;
 
             if (_spawnPoints == null)
             {
-                _spawnPoints = MapUtils.GetEnemySpawnPoints(_levelMap.CurrentMap).
+                _spawnPoints = MapUtils.GetEnemySpawnPoints(_levelController.CurrentMap).
                     Select(x => x.WorldPosition).ToArray();
             }
             
-            var movingPath = _enemyMapPath.GetPath(_levelMap.CurrentMap);
+            var movingPath = _enemyMapPath.GetPath(_levelController.CurrentMap);
             var enemy = _enemyFactory.Create();
             enemy.SetStartPosition(_spawnPoints[Random.Range(0, _spawnPoints.Length)]);
-            enemy.SetMovingPath(_levelMap.FirstTargetPosition , movingPath);
+            enemy.SetMovingPath(_levelController.FirstTargetTile.WorldPosition , movingPath);
             enemy.Reset();
 
             CompositeDisposable composite = new();
             enemy.OnDead.Subscribe(_ => OnDead(enemy , composite)).AddTo(composite);
             
             OnCreateNewEnemy?.Invoke(enemy);
-            AllEnemies.Add(enemy);
-            _gameStats.CountEnemy.Value = AllEnemies.Count;
+            _levelObjects.Enemies.Add(enemy);
+            _gameStats.CountEnemy.Value = _levelObjects.Enemies.Count();
         }
 
         private void OnDead(Enemy enemy, CompositeDisposable composite)
@@ -69,14 +71,16 @@ namespace TowerDefense.Scripts.Enemies
             composite.Dispose();
             
             enemy.RemoveToPool();
-            AllEnemies.Remove(enemy);
+            _levelObjects.Enemies.Remove(enemy);
+            //_levelController.EnemiesToMap.Remove(enemy);
+            _levelObjects.Enemies.Remove(enemy);
             OnRemoveEnemy?.Invoke(enemy);
         }
         
         public void Tick()
         {
             //todo pool array
-            var enemies = AllEnemies.ToArray();
+            var enemies = _levelObjects.Enemies.ToArray();
             foreach (var enemy in enemies)
             {
                 enemy.CustomUpdate();

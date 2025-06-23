@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Input;
 using TowerDefense.Scripts.Path;
 using TowerDefense.Scripts.TileMap;
 using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace TowerDefense.Scripts.Interactivity
@@ -14,16 +16,19 @@ namespace TowerDefense.Scripts.Interactivity
     public class AddTowerToMapController : MonoBehaviour, IPressListener, IPointListener
     {
         [SerializeField] private LayerMask layerObstaclesTag;
-        [SerializeField] private LevelMap levelMap;
+        [SerializeField] private LevelController levelController;
         [SerializeField] private TowerCollection towerCollection;
 
         private InputSwitcher _inputSwitcher;
 
         private TowerBase _tower;
+        private LevelObjects _levelObjects;
 
         [Inject]
-        public void Construct(InputSwitcher inputSwitcher)
+        public void Construct(InputSwitcher inputSwitcher , LevelObjects levelObjects)
         {
+            _levelObjects = levelObjects;
+            
             _inputSwitcher = inputSwitcher;
             _inputSwitcher.SetChangeMap(this);
         }
@@ -47,7 +52,7 @@ namespace TowerDefense.Scripts.Interactivity
                 }
                 else
                 {
-                    levelMap.TowersToMap.Add(_tower);
+                    _levelObjects.Towers.Add(_tower);
                 }
                 
                 _tower = null;
@@ -86,7 +91,7 @@ namespace TowerDefense.Scripts.Interactivity
         //Todo need fix
         private bool IsCanFindPath()
         {
-            var tileMapLevel = levelMap.CurrentMap;
+            var tileMapLevel = levelController.CurrentMap;
             var enemyPoint = MapUtils.GetFirstTargetPoints(tileMapLevel);
             var target = MapUtils.GetTargetPoints(tileMapLevel);
 
@@ -96,7 +101,7 @@ namespace TowerDefense.Scripts.Interactivity
             var list = UnityEngine.Pool.ListPool<Vector2Int>.Get();
             OtherPoints(list);
             var pathfinderToTileMap = new PathfinderToTileMap(tileMapLevel);
-            var findPath = pathfinderToTileMap.FindPathFromTileToTile(startTile, endTile , list);
+            var findPath = pathfinderToTileMap.FindPathFromTileToTile(startTile.Position, endTile.Position , list);
 
             UnityEngine.Pool.ListPool<Vector2Int>.Release(list);
             return findPath != null;
@@ -105,7 +110,7 @@ namespace TowerDefense.Scripts.Interactivity
         private void OtherPoints(List<Vector2Int> list)
         {
             GetTowerCoordinates(_tower , list);
-            foreach (var tower in levelMap.TowersToMap)      
+            foreach (var tower in _levelObjects.Towers)      
             {
                 GetTowerCoordinates(tower , list);
             }
@@ -113,7 +118,7 @@ namespace TowerDefense.Scripts.Interactivity
 
         private void GetTowerCoordinates(TowerBase tower , List<Vector2Int> list)
         {
-            var layerObstacles = levelMap.CurrentMap.LayerObstacles;
+            var layerObstacles = levelController.CurrentMap.LayerObstacles;
             var point = layerObstacles.ConvertWorldToIndexZeroLeftBottomCorner(tower.transform.position);
             point -= new Vector3Int(1, 1);
             list.Add(new Vector2Int(point.x, point.y));
@@ -124,7 +129,7 @@ namespace TowerDefense.Scripts.Interactivity
 
         public bool IsTowerOnMap(TowerBase tower)
         {
-            var layerObstacles = levelMap.CurrentMap.LayerObstacles;
+            var layerObstacles = levelController.CurrentMap.LayerObstacles;
             var point = layerObstacles.ConvertWorldToIndexZeroLeftBottomCorner(tower.transform.position);
             if (point.x < 0 || point.y < 0)
                 return false;
@@ -162,7 +167,7 @@ namespace TowerDefense.Scripts.Interactivity
 
         private void UpdatePositionTower(TowerBase tower, Vector3 position)
         {
-            var layerObstacles = levelMap.CurrentMap.LayerObstacles;
+            var layerObstacles = levelController.CurrentMap.LayerObstacles;
             tower.transform.position = layerObstacles.FindNearestPointToGrid(position);
             var isCross = !IsCanInsertTower(tower);
             tower.WrongPlaceSprite.gameObject.SetActive(isCross);
@@ -173,8 +178,8 @@ namespace TowerDefense.Scripts.Interactivity
             if (_tower == null)
                 return;
 
-            //   var tileMapLevel = levelMap.CurrentMap;
-            var layerObstacles = levelMap.CurrentMap.LayerObstacles;
+            //   var tileMapLevel = levelController.CurrentMap;
+            var layerObstacles = levelController.CurrentMap.LayerObstacles;
             var point = layerObstacles.ConvertWorldToIndexZeroLeftBottomCorner(_tower.transform.position);
             point -= new Vector3Int(1, 1);
             // var point = layerObstacles.FindNearestPointToGrid(_tower.transform.position);

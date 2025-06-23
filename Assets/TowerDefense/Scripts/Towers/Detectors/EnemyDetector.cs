@@ -10,5 +10,10 @@ namespace TowerDefense.Scripts.Towers.Detectors
         {
             return detector.Detect();
         }
+        
+        public bool CheckStillDetect(GameObject target)
+        {
+            return detector.CheckStillDetect(target);
+        }
     }
 }

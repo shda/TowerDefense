@@ -1,13 +1,11 @@
 using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Enemies.Effects;
 using TowerDefense.Scripts.Input;
-using TowerDefense.Scripts.PlayerScripts;
 using TowerDefense.Scripts.Settings;
 using TowerDefense.Scripts.Stats;
 using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Ui;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace TowerDefense.Scripts.Installers
@@ -23,26 +21,20 @@ namespace TowerDefense.Scripts.Installers
         [Header("Settings")]
         [SerializeField] private GameSettings gameSettings;
         
-       // [Header("Scene dependencies")]
-       // [SerializeField] private LevelMap levelMap;
-       // [SerializeField] private InputHandler inputHandler;
-
         public override void InstallBindings()
         {
             Container.BindInstance(gameSettings);
-           // Container.BindInstance(levelMap);
-           // Container.BindInstance(inputHandler);
-
             Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
             Container.Bind<EnemyMapPath>().AsSingle();
             Container.Bind<GameStats>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProjectileSpawner>().AsSingle();
             Container.Bind<InputListenerSwitcher>().AsSingle();
             Container.Bind<InputSwitcher>().AsSingle();
+            Container.Bind<LevelObjects>().AsSingle();
             
-            Container.Bind<LevelMap>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<LevelController>().FromComponentInHierarchy().AsSingle();
             Container.Bind<InputHandler>().FromComponentInHierarchy().AsSingle();
-
+            
             
             Container.BindInterfacesAndSelfTo<EffectHandler>().AsTransient();
             Container.Bind<MovingToPathHandler>().AsTransient();

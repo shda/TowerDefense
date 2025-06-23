@@ -8,7 +8,7 @@ namespace TowerDefense.Scripts.Utils
     {
         public static TileInfo[] GetEnemySpawnPoints(TileMapLevel tileMapLevel)
         {
-            return tileMapLevel.LayerService.FindTilesByNameProperty("name", "enemy");
+            return tileMapLevel.LayerService.FindTilesByNameProperty("name", "enemy_spawns");
         }
 
         public static TileInfo[] GetFirstTargetPoints(TileMapLevel tileMapLevel)
@@ -18,7 +18,7 @@ namespace TowerDefense.Scripts.Utils
 
         public static TileInfo[] GetTargetPoints(TileMapLevel tileMapLevel)
         {
-            return tileMapLevel.LayerService.FindTilesByNameProperty("name", "target");
+            return tileMapLevel.LayerService.FindTilesByNameProperty("name", "player_base");
         }
     }
 }

@@ -386,7 +386,7 @@ namespace SimpleSpritePackerEditor
 						EditorGUILayout.BeginHorizontal(this.boxStyle);
 						GUI.color = Color.white;
 						
-						EditorGUILayout.LabelField("Add Sprite", GUILayout.Width(labelWidth));
+						EditorGUILayout.LabelField("AddObject Sprite", GUILayout.Width(labelWidth));
 						EditorGUILayout.ObjectField(action.resource, action.resource.GetType(), false);
 						
 						// Remove action button
@@ -435,7 +435,7 @@ namespace SimpleSpritePackerEditor
 			Rect drop_area = GUILayoutUtility.GetRect(0.0f, 50.0f, GUILayout.ExpandWidth(true));
 			this.boxStyle.alignment = TextAnchor.MiddleCenter;
 			GUI.color = SPInstanceEditor.green;
-			GUI.Box(drop_area, "Add Sprite (Drop Here)", this.boxStyle);
+			GUI.Box(drop_area, "AddObject Sprite (Drop Here)", this.boxStyle);
 			GUI.color = Color.white;
 			
 			switch (evt.type)

@@ -20,7 +20,7 @@ namespace TowerDefense.Scripts.Enemies
             var endTile = target.First();
 
             var pathfinderToTileMap = new PathfinderToTileMap(tileMapLevel);
-            var path = pathfinderToTileMap.FindPathFromTileToTile(startTile, endTile);
+            var path = pathfinderToTileMap.FindPathFromTileToTile(startTile.Position, endTile.Position);
             var cellBounds = tileMapLevel.LayerObstacles.cellBounds;
             
             if (path != null)

@@ -235,7 +235,7 @@ namespace SimpleSpritePackerEditor
 					if (info.targetSprite == null)
 						info.targetSprite = SPTools.LoadSprite(this.m_Instance.texture, spritesImportData[i].name);
 					
-					// Add to the instance sprite info list
+					// AddObject to the instance sprite info list
 					this.m_Instance.AddSprite(info);
 				}
 				
@@ -260,7 +260,7 @@ namespace SimpleSpritePackerEditor
 		{
 			List<string> texturePaths = new List<string>();
 			
-			// Add the textures from the sprite info list into our textures list
+			// AddObject the textures from the sprite info list into our textures list
 			foreach (SPSpriteInfo spriteInfo in spriteInfoList)
 			{
 				string path = string.Empty;

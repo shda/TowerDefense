@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using SuperTiled2Unity;
 using UnityEngine;
 

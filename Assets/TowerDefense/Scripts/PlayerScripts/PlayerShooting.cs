@@ -1,6 +1,8 @@
 using BlockBlast.Scripts.Common;
 using TowerDefense.Scripts.Input;
 using TowerDefense.Scripts.Towers;
+using TowerDefense.Scripts.Towers.Detectors;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +10,7 @@ namespace TowerDefense.Scripts.PlayerScripts
 {
     public class PlayerShooting : MonoBehaviour ,  IPressListener
     {
+        [SerializeField] protected EnemyDetector enemyDetector;
         [SerializeField] private Transform pointShoot;
         [SerializeField] private float speedMovingFire = 10.0f;
         [SerializeField] private float maxDistance = 10.0f;

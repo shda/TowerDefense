@@ -29,7 +29,6 @@ namespace TowerDefense.Scripts.Towers
         protected abstract void CallDetect();
         protected abstract void CallFire();
         
-        
         protected virtual void Update()
         {
             _currentTime  += Time.deltaTime;

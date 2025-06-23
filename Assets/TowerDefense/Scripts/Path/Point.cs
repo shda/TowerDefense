@@ -1,32 +1,32 @@
 using System;
+using UnityEngine;
 
 namespace TowerDefense.Scripts.Path
 {
     public class Point : IEquatable<Point>
     {
-        public int X { get; }
-        public int Y { get; }
+        public int x;
+        public int y;
 
         public Point(int x, int y)
         {
-            X = x;
-            Y = y;
+            this.x = x;
+            this.y = y;
         }
 
-        public bool Equals(Point other) => other != null && X == other.X && Y == other.Y;
-        public override bool Equals(object obj) => Equals(obj as Point);
-        public override int GetHashCode() => HashCode.Combine(X, Y);
-        public override string ToString() => $"({X}, {Y})";
-
-        // Расстояние до другой точки (манхэттенское или евклидово)
-        public int DistanceTo(Point other, bool allowDiagonal)
+        public bool Equals(Point other)
         {
-            int dx = Math.Abs(X - other.X);
-            int dy = Math.Abs(Y - other.Y);
-        
-            return allowDiagonal ? 
-                Math.Max(dx, dy) :  // Для диагоналей считаем максимум
-                dx + dy;            // Манхэттенское расстояние
+            return x == other.x && y == other.y;
         }
+
+        public override bool Equals(object obj) => obj is Point other && Equals(other);
+
+        public override int GetHashCode() => (x, y).GetHashCode();
+
+        public Vector2 ToVector2() => new Vector2(x, y);
+
+        public static implicit operator Vector2(Point p) => p.ToVector2();
+
+        public override string ToString() => $"({x}, {y})";
     }
 }

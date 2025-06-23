@@ -19,12 +19,12 @@
  </tile>
  <tile id="4">
   <properties>
-   <property name="name" value="enemy"/>
+   <property name="name" value="enemy_spawns"/>
   </properties>
  </tile>
  <tile id="5">
   <properties>
-   <property name="name" value="target"/>
+   <property name="name" value="player_base"/>
   </properties>
  </tile>
  <tile id="6">

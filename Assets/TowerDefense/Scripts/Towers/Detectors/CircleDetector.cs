@@ -22,6 +22,11 @@ namespace TowerDefense.Scripts.Towers.Detectors
             return _lastCircleCastAll;
         }
 
+        public override bool CheckStillDetect(GameObject target)
+        {
+            return Vector3.Distance(collider.transform.position, target.transform.position) <= collider.radius;
+        }
+
         private void OnDrawGizmos()
         {
             if(_lastCircleCastAll == null)

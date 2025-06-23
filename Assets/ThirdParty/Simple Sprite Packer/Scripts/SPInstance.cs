@@ -312,7 +312,7 @@ namespace SimpleSpritePacker
 			// Create temporary sprite info list
 			List<SPSpriteInfo> spriteInfoList = new List<SPSpriteInfo>();
 			
-			// Add the current sprites
+			// AddObject the current sprites
 			foreach (SPSpriteInfo si in this.m_Sprites)
 				spriteInfoList.Add(si);
 				
