@@ -1,3 +1,4 @@
+using TowerDefense.Scripts.Stats;
 using UnityEngine;
 using Zenject;
 
@@ -7,7 +8,7 @@ namespace TowerDefense.Scripts.Installers
     {
         public override void InstallBindings()
         {
-           
+            Container.Bind<GameStats>().AsSingle();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace TowerDefense.Scripts.Installers
             Container.BindInstance(gameSettings);
             Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
            // Container.Bind<EnemyMapPath>().AsSingle();
-            Container.Bind<GameStats>().AsSingle();
+            
             Container.BindInterfacesAndSelfTo<ProjectileSpawner>().AsSingle();
             Container.Bind<InputListenerSwitcher>().AsSingle();
             Container.Bind<InputSwitcher>().AsSingle();
