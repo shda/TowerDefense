@@ -64,6 +64,11 @@ namespace TowerDefense.Scripts.Enemies
 
         private void OnDead(Enemy enemy, CompositeDisposable composite)
         {
+            if (enemy.IsDead)
+            {
+                _gameStats.ProgressNextTower.Value += 0.02f;
+            }
+            
             composite.Dispose();
             enemy.RemoveToPool();
             
