@@ -93,18 +93,27 @@ namespace TowerDefense.Scripts.Interactivity
         {
             if (!IsInsideMap(tower))
                 return false;
+
+            if (!IsLimitions(tower))
+                return false;
             
             if (IsCrossObstacleOrTower(tower))
                 return false;
             
-            if (!IsCanFindPath())
+            if (!IsCanFindPathToBase())
                 return false;
             
             return true;
         }
 
+        private bool IsLimitions(TowerBase tower)
+        {
+            var tileMapLevel = levelController.CurrentMap;
+            return tileMapLevel.PointInLimitions(tower.transform.position);
+        }
+
         //Todo need fix
-        private bool IsCanFindPath()
+        private bool IsCanFindPathToBase()
         {
             var tileMapLevel = levelController.CurrentMap;
             var enemyPoint = MapUtils.GetFirstTargetPoints(tileMapLevel);

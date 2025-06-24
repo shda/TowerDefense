@@ -81,7 +81,7 @@ namespace TowerDefense.Scripts.Path
                 endTilePositon,
                 cellBounds.min, 
                 cellBounds.max, 
-                obstaclesHash);
+                obstaclesHash , true);
         }
         
         private void AddTowersToList(List<Vector3Int> list)
