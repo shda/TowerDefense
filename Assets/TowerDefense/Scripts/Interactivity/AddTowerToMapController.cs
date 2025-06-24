@@ -1,14 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using TowerDefense.Scripts.Enemies;
+using TowerDefense.Scripts.Debug;
 using TowerDefense.Scripts.Input;
 using TowerDefense.Scripts.Path;
 using TowerDefense.Scripts.TileMap;
 using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Utils;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace TowerDefense.Scripts.Interactivity
@@ -23,11 +21,17 @@ namespace TowerDefense.Scripts.Interactivity
 
         private TowerBase _tower;
         private LevelObjects _levelObjects;
+        private IReadOnlyList<Vector3Int> _findPath;
+        private PathCollections _pathCollections;
 
         [Inject]
-        public void Construct(InputSwitcher inputSwitcher , LevelObjects levelObjects)
+        public void Construct(
+            InputSwitcher inputSwitcher , 
+            LevelObjects levelObjects , 
+            PathCollections pathCollections)
         {
             _levelObjects = levelObjects;
+            _pathCollections = pathCollections;
             
             _inputSwitcher = inputSwitcher;
             _inputSwitcher.SetChangeMap(this);
@@ -59,6 +63,17 @@ namespace TowerDefense.Scripts.Interactivity
                 _inputSwitcher.SwitchToPlayerControl();
 
                 Time.timeScale = 1.0f;
+                UpdateAllPaths();
+            }
+        }
+
+        private void UpdateAllPaths()
+        {
+            foreach (var enemy in _levelObjects.Enemies)
+            {
+                var startPoint = levelController.CurrentMap.LayerObstacles.WorldToCell(enemy.transform.position);
+                var newPath = _pathCollections.FindPath(startPoint);
+                enemy.SetMovingPath(newPath);
             }
         }
 
@@ -76,7 +91,7 @@ namespace TowerDefense.Scripts.Interactivity
 
         private bool IsCanInsertTower(TowerBase tower)
         {
-            if (!IsTowerOnMap(tower))
+            if (!IsInsideMap(tower))
                 return false;
             
             if (IsCrossObstacleOrTower(tower))
@@ -98,16 +113,37 @@ namespace TowerDefense.Scripts.Interactivity
             var startTile = enemyPoint.First();
             var endTile = target.First();
 
-            var list = UnityEngine.Pool.ListPool<Vector2Int>.Get();
+            var list = UnityEngine.Pool.ListPool<Vector3Int>.Get();
+            
+           // HashSet<Vector3Int> map = new HashSet<Vector3Int>();
+
+            var obsticles = levelController.CurrentMap.LayerObstacles;
+            var cel = obsticles.cellBounds;
+
+            for (int x = cel.xMin; x < cel.xMax + 1; x++)
+            {
+                for (int y = cel.yMin; y < cel.yMax + 1; y++)
+                {
+                    var tile = obsticles.GetTile(new Vector3Int(x, y));
+                    if (tile)
+                    {
+                        list.Add(new Vector3Int(x, y));
+                        list.Add(new Vector3Int(x + 1, y));
+                        list.Add(new Vector3Int(x + 1, y + 1));
+                        list.Add(new Vector3Int(x, y + 1));
+                    }
+                }
+            }
+            
             OtherPoints(list);
             var pathfinderToTileMap = new PathfinderToTileMap(tileMapLevel);
-            var findPath = pathfinderToTileMap.FindPathFromTileToTile(startTile.Position, endTile.Position , list);
+            _findPath = pathfinderToTileMap.FindPathFromTileToTile(startTile.Position, endTile.Position , list);
 
-            UnityEngine.Pool.ListPool<Vector2Int>.Release(list);
-            return findPath != null;
+            UnityEngine.Pool.ListPool<Vector3Int>.Release(list);
+            return _findPath != null;
         }
 
-        private void OtherPoints(List<Vector2Int> list)
+        private void OtherPoints(List<Vector3Int> list)
         {
             GetTowerCoordinates(_tower , list);
             foreach (var tower in _levelObjects.Towers)      
@@ -116,18 +152,17 @@ namespace TowerDefense.Scripts.Interactivity
             }
         }
 
-        private void GetTowerCoordinates(TowerBase tower , List<Vector2Int> list)
+        private void GetTowerCoordinates(TowerBase tower , List<Vector3Int> list)
         {
-            var layerObstacles = levelController.CurrentMap.LayerObstacles;
-            var point = layerObstacles.ConvertWorldToIndexZeroLeftBottomCorner(tower.transform.position);
-            point -= new Vector3Int(1, 1);
-            list.Add(new Vector2Int(point.x, point.y));
-            list.Add(new Vector2Int(point.x + 1, point.y));
-            list.Add(new Vector2Int(point.x + 1, point.y + 1));
-            list.Add(new Vector2Int(point.x, point.y + 1));
+            var point = tower.PointToGrid;
+            //point -= new Vector3Int(1, 1);
+            list.Add(new Vector3Int(point.x, point.y));
+            list.Add(new Vector3Int(point.x + 1, point.y));
+            list.Add(new Vector3Int(point.x + 1, point.y + 1));
+            list.Add(new Vector3Int(point.x, point.y + 1));
         }
 
-        public bool IsTowerOnMap(TowerBase tower)
+        private bool IsInsideMap(TowerBase tower)
         {
             var layerObstacles = levelController.CurrentMap.LayerObstacles;
             var point = layerObstacles.ConvertWorldToIndexZeroLeftBottomCorner(tower.transform.position);
@@ -169,25 +204,19 @@ namespace TowerDefense.Scripts.Interactivity
         {
             var layerObstacles = levelController.CurrentMap.LayerObstacles;
             tower.transform.position = layerObstacles.FindNearestPointToGrid(position);
+            tower.PointToGrid = layerObstacles.WorldToCell(tower.transform.position);
+            tower.PointToGrid -= new Vector3Int(1, 1);
+            UnityEngine.Debug.Log(tower.PointToGrid);
             var isCross = !IsCanInsertTower(tower);
             tower.WrongPlaceSprite.gameObject.SetActive(isCross);
         }
 
-        private void Update()
+        private void OnDrawGizmos()
         {
-            if (_tower == null)
+            if(_findPath == null)
                 return;
-
-            //   var tileMapLevel = levelController.CurrentMap;
-            var layerObstacles = levelController.CurrentMap.LayerObstacles;
-            var point = layerObstacles.ConvertWorldToIndexZeroLeftBottomCorner(_tower.transform.position);
-            point -= new Vector3Int(1, 1);
-            // var point = layerObstacles.FindNearestPointToGrid(_tower.transform.position);
-            //var tile = tileMapLevel.LayerObstacles.WorldToCell(point);
-            //  var size = tileMapLevel.LayerObstacles.cellBounds.position;
-            //  var pointToLeftBottonCorner = tile - size;
-           // UnityEngine.Debug.Log(point);
-            //  UnityEngine.Debug.Log(tile);
+            
+            GizmoHelper.DrawPath(levelController.CurrentMap , _findPath);
         }
     }
 }

@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace TowerDefense.Scripts.Enemies
 {
     public class MovingToPathHandler
     {
-        private IReadOnlyList<Vector3> _movingPath;
+        private Vector3[] _movingPath;
         private int _indexPointToPath;
         private Vector3 _targetPosition;
         private Transform _movingTransform;
@@ -24,11 +25,11 @@ namespace TowerDefense.Scripts.Enemies
             _movingTransform.position = worldPosition;
         }
 
-        public void SetMovingToPath(Vector3 firstTargetPoint, IReadOnlyList<Vector3> movingPath)
+        public void SetMovingToPath(IEnumerable<Vector3> movingPath)
         {
-            _movingPath = movingPath;
+            _movingPath = movingPath.ToArray();
             _indexPointToPath = 0;
-            _targetPosition = firstTargetPoint;
+            _targetPosition = _movingPath[0];
         }
 
         public void CustomUpdate()
@@ -38,7 +39,7 @@ namespace TowerDefense.Scripts.Enemies
 
         private void StepMovingToPath()
         {
-            if(_indexPointToPath >= _movingPath.Count)
+            if(_indexPointToPath >= _movingPath.Length)
             {
                 return;
             }
@@ -55,7 +56,7 @@ namespace TowerDefense.Scripts.Enemies
             if (Vector3.Distance(_movingTransform.position, _targetPosition) <= 0.1f)
             {
                 _indexPointToPath++;
-                if (_indexPointToPath >= _movingPath.Count)
+                if (_indexPointToPath >= _movingPath.Length)
                 {
                     OnCompleteMove?.Invoke();
                     return;

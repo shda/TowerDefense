@@ -9,23 +9,18 @@ namespace TowerDefense.Scripts.Ui
     public class TowerItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [SerializeField] private float drawValueToSelect;
-        [SerializeField] private ScrollRect scrollRect;
-        [SerializeField] private TowerBase selectTower;
+        [SerializeField] private Image itemImage;
         
-        public TowerBase SelectTower => selectTower;
+        private ScrollRect _scrollRect;
+        public TowerBase SelectTower { get; set; }
         public Action<TowerItem> OnSelect;
 
         private float _dragValue = 0;
-
-        private void Start()
-        {
-            scrollRect = GetComponentInParent<ScrollRect>();
-        }
-
+        
         public void OnBeginDrag(PointerEventData eventData)
         {
             _dragValue = 0;
-            scrollRect.OnBeginDrag(eventData);
+            _scrollRect.OnBeginDrag(eventData);
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -37,12 +32,19 @@ namespace TowerDefense.Scripts.Ui
                 OnSelect?.Invoke(this);
             }
 
-            scrollRect.OnDrag(eventData);
+            _scrollRect.OnDrag(eventData);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            scrollRect.OnEndDrag(eventData);
+            _scrollRect.OnEndDrag(eventData);
+        }
+
+        public void SetPrefab(TowerBase tower , ScrollRect scrollRect)
+        {
+            _scrollRect = scrollRect;
+            itemImage.sprite = tower.SpriteRenderer.sprite;
+            SelectTower = tower;
         }
     }
 }

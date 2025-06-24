@@ -32,6 +32,10 @@ PrefabInstance:
       propertyPath: damage
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 2529923919253247527, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 3291474333954119812}
     - target: {fileID: 3540878944330277549, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -113,3 +117,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+--- !u!212 &3291474333954119812 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 9216112376153236312, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+  m_PrefabInstance: {fileID: 5930008256437517276}
+  m_PrefabAsset: {fileID: 0}

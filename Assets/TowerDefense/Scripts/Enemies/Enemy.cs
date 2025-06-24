@@ -71,10 +71,9 @@ namespace TowerDefense.Scripts.Enemies
         {
             _movingToPathHandler.SetStartPosition(worldPosition);
         }
-
-        public void SetMovingPath(Vector3 firstTargetPoint, IReadOnlyList<Vector3> movingPath)
+        public void SetMovingPath(IEnumerable<Vector3> movingPath)
         {
-            _movingToPathHandler.SetMovingToPath(firstTargetPoint, movingPath);
+            _movingToPathHandler.SetMovingToPath(movingPath);
         }
 
         public void CustomUpdate()
@@ -106,5 +105,7 @@ namespace TowerDefense.Scripts.Enemies
         }
 
         #endregion
+
+        
     }
 }

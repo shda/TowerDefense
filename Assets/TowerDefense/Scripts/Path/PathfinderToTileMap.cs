@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TowerDefense.Scripts.TileMap;
+using TowerDefense.Scripts.Towers;
 using UnityEngine;
 
 namespace TowerDefense.Scripts.Path
@@ -7,70 +8,37 @@ namespace TowerDefense.Scripts.Path
     public class PathfinderToTileMap
     {
         private readonly TileMapLevel _tileMapLevel;
-        private readonly List<Vector3Int> _pathFound = new();
-
-        private bool[,] _obstacles;
-        private TileInfo[,] _tilesObstacles;
-
         public PathfinderToTileMap(TileMapLevel tileMapLevel)
         {
-            var layerObstacles = tileMapLevel.LayerObstacles;
-            _tilesObstacles = layerObstacles.GetAllTiles();
-            _obstacles = new bool[_tilesObstacles.GetLength(0) + 1, _tilesObstacles.GetLength(1) + 1];
             _tileMapLevel = tileMapLevel;
         }
-
+        
         public IReadOnlyList<Vector3Int> FindPathFromTileToTile(
             Vector3Int startTilePositon, 
             Vector3Int endTilePositon, 
-            IEnumerable<Vector2Int> otherObstacles = null)
+            IEnumerable<Vector3Int> otherObstacles = null)
         {
-            /*
-            var layerObstacles = _tileMapLevel.LayerObstacles;
-            var offset = layerObstacles.cellBounds.position;
-            
-            for (int x = 0; x < _tilesObstacles.GetLength(0); x++)
-            {
-                for (int y = 0; y < _tilesObstacles.GetLength(1); y++)
-                {
-                    _obstacles[x, y] = false;
-                }
-            }
+            var map = new HashSet<Vector3Int>(otherObstacles);
 
-            for (int x = 0; x < _tilesObstacles.GetLength(0); x++)
-            {
-                for (int y = 0; y < _tilesObstacles.GetLength(1); y++)
-                {
-                    var node = _tilesObstacles[x, y];
-                    if (node != null)
-                    {
-                        _obstacles[x, y] = true;
-                        _obstacles[x + 1, y] = true;
-                        _obstacles[x, y + 1] = true;
-                        _obstacles[x + 1, y + 1] = true;
-                    }
-                }
-            }
+            var obsticles = _tileMapLevel.LayerObstacles;
 
-            if (otherObstacles != null)
-            {
-                foreach (var obstacle in otherObstacles)
-                {
-                    _obstacles[obstacle.x, obstacle.y] = true;
-                }
-            }
+            var cel = obsticles.cellBounds;
 
-            var startPoint = new Vector3Int(startTilePositon.x - offset.x, startTilePositon.y - offset.y);
-            var endPoint = new Vector3Int(endTilePositon.x - offset.x, endTilePositon.y - offset.y);
-
-            var pathfinder = new Pathfinder(_obstacles, false);
-            var findPath =
-                pathfinder.FindPath(_pathFound, startPoint, endPoint);
-
-            return findPath ? _pathFound : null;
-            */
-
-            return null;
+            return Pathfinder.FindPath(
+                startTilePositon, 
+                endTilePositon,
+                cel.min, cel.max, map);
+        }
+        
+        
+        private void GetTowerCoordinates(TowerBase tower , List<Vector3Int> list)
+        {
+            var point = tower.PointToGrid;
+            //point -= new Vector3Int(1, 1);
+            list.Add(new Vector3Int(point.x, point.y));
+            list.Add(new Vector3Int(point.x + 1, point.y));
+            list.Add(new Vector3Int(point.x + 1, point.y + 1));
+            list.Add(new Vector3Int(point.x, point.y + 1));
         }
     }
 }

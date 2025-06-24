@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8cc919e5f695e2e438bdf1d8cd0114c8
+guid: 2dc31aad630d98d45b84d65c76e4d50f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8921049848675172907
-    second: emeny1_0
+      213: -8259566076447392565
+    second: bg_modal_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -52,8 +52,8 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteBorder: {x: 20, y: 20, z: 20, w: 20}
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: emeny1_0
+      name: bg_modal_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 33
-        height: 43
+        width: 871
+        height: 660
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5ddf92aad60123480800000000000000
-      internalID: -8921049848675172907
+      spriteID: bcc7c7e1a60206d80800000000000000
+      internalID: -8259566076447392565
       vertices: []
       indices: 
       edges: []
@@ -139,7 +139,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      emeny1_0: -8921049848675172907
+      bg_modal_0: -8259566076447392565
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

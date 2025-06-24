@@ -1,8 +1,11 @@
 using System;
+using System.Linq;
 using BlockBlast.Scripts.Common.Extensions;
 using TowerDefense.Scripts.Input;
 using TowerDefense.Scripts.Interactivity;
+using TowerDefense.Scripts.Towers;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace TowerDefense.Scripts.Ui
@@ -11,19 +14,32 @@ namespace TowerDefense.Scripts.Ui
     {
         [SerializeField] private AddTowerToMapController addTowerToMapController;
         [SerializeField] private ShowHideMenuAnimation menuAnimation;
-        [SerializeField] private TowerItem selectItem;
+        [SerializeField] private TowerCollection towerCollection;
+        [SerializeField] private ScrollRect scrollRect;
+        [SerializeField] private TowerItem itemPrefab;
+        [SerializeField] private Transform itemsRoot;
         
-        private InputSwitcher _inputSwitcher;
-
-        [Inject]
-        public void Construct(InputSwitcher inputSwitcher)
+        private void Start()
         {
-            _inputSwitcher = inputSwitcher;
+            foreach (var ch in itemsRoot.Cast<Transform>().ToList())
+            {
+                DestroyImmediate(ch.gameObject);
+            }
+            
+            foreach (var tower in towerCollection.TowersPrefs)       
+            {
+                var prefab = Instantiate(itemPrefab , itemsRoot);
+                prefab.gameObject.SetActive(true);
+                prefab.SetPrefab(tower , scrollRect);
+                prefab.OnSelect = OnSelect;
+            }
         }
-        
+
         private void OnSelect(TowerItem item)
         {
-            selectItem.OnSelect = null;
+            if(!menuAnimation.IsShow)
+                return;
+            
             addTowerToMapController.StartDrag(item.SelectTower);
             menuAnimation.HideMenu();
         }
@@ -37,7 +53,6 @@ namespace TowerDefense.Scripts.Ui
             }
             else
             {
-                selectItem.OnSelect = OnSelect;
                 menuAnimation.ShowMenu();
             }
         }

@@ -13,22 +13,21 @@ namespace TowerDefense.Scripts.Enemies
 {
     public class EnemySpawner : ITickable
     {
-        //public HashSet<Enemy> AllEnemies { get; set; } = new();
-
         private PathfinderToTileMap _pathfinderToTileMap;
-        private EnemyMapPath _enemyMapPath;
         private LevelController _levelController;
         private Enemy.Factory _enemyFactory;
-        private Vector3[] _spawnPoints;
+      //  private Vector3Int[] _spawnPoints;
         private GameStats _gameStats;
         private LevelObjects _levelObjects;
         
         public Action<Enemy> OnCreateNewEnemy;
         public Action<Enemy> OnRemoveEnemy;
         
+        private PathCollections _pathCollections;
+
         [Inject]
         public void Construct(
-            EnemyMapPath enemyMapPath , 
+            PathCollections pathCollections , 
             LevelController levelController, 
             Enemy.Factory factory,
             GameStats gameStats,
@@ -36,7 +35,7 @@ namespace TowerDefense.Scripts.Enemies
         {
             _levelController = levelController;
             _enemyFactory = factory;
-            _enemyMapPath = enemyMapPath;
+            _pathCollections = pathCollections;
             _gameStats = gameStats;
             _levelObjects = levelObjects;
         }
@@ -45,17 +44,14 @@ namespace TowerDefense.Scripts.Enemies
         {
             if(!_levelController.IsMapLoaded)
                 return;
-
-            if (_spawnPoints == null)
-            {
-                _spawnPoints = MapUtils.GetEnemySpawnPoints(_levelController.CurrentMap).
-                    Select(x => x.WorldPosition).ToArray();
-            }
             
-            var movingPath = _enemyMapPath.GetPath(_levelController.CurrentMap);
+            var spawnPoint = _levelController.EnemySpawnPoints
+                [Random.Range(0, _levelController.EnemySpawnPoints.Length)];
+            var movingPath = _pathCollections.FindPath(spawnPoint.Position);
+            
             var enemy = _enemyFactory.Create();
-            enemy.SetStartPosition(_spawnPoints[Random.Range(0, _spawnPoints.Length)]);
-            enemy.SetMovingPath(_levelController.FirstTargetTile.WorldPosition , movingPath);
+            enemy.SetStartPosition(spawnPoint.WorldPosition);
+            enemy.SetMovingPath(movingPath);
             enemy.Reset();
 
             CompositeDisposable composite = new();
@@ -69,11 +65,10 @@ namespace TowerDefense.Scripts.Enemies
         private void OnDead(Enemy enemy, CompositeDisposable composite)
         {
             composite.Dispose();
-            
             enemy.RemoveToPool();
+            
             _levelObjects.Enemies.Remove(enemy);
-            //_levelController.EnemiesToMap.Remove(enemy);
-            _levelObjects.Enemies.Remove(enemy);
+            
             OnRemoveEnemy?.Invoke(enemy);
         }
         

@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: projectilePool.prefab
       value: 
       objectReference: {fileID: 4628104669900416004, guid: 08623c7915101d847baadb0dd582d02c, type: 3}
+    - target: {fileID: 6723142304765973210, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: speedMovingProjectile
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6895744883261217998, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_Name
       value: ArtilleryGunTower
@@ -132,10 +136,11 @@ MonoBehaviour:
   wrongPlaceSprite: {fileID: 5259977838207938243}
   boxCollider2D: {fileID: 2045168384817016411}
   enemyDetector: {fileID: 573714197043444046}
+  spriteRenderer: {fileID: 3291474333954119812}
   detectionDelay: 0.5
-  fireDelay: 5
+  fireDelay: 3
   weapon: {fileID: 1082826921243142406}
-  damage: 10
+  damage: 20
   radiusDamage: 1
 --- !u!114 &1082826921243142406 stripped
 MonoBehaviour:
@@ -151,6 +156,11 @@ MonoBehaviour:
 --- !u!61 &2045168384817016411 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 5632449353503724935, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+  m_PrefabInstance: {fileID: 5930008256437517276}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &3291474333954119812 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 9216112376153236312, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
   m_PrefabInstance: {fileID: 5930008256437517276}
   m_PrefabAsset: {fileID: 0}
 --- !u!212 &5259977838207938243 stripped

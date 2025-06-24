@@ -11,10 +11,13 @@ namespace TowerDefense.Scripts.Towers
         [SerializeField] protected SpriteRenderer wrongPlaceSprite;
         [SerializeField] protected BoxCollider2D boxCollider2D;
         [SerializeField] protected EnemyDetector enemyDetector;
+        [SerializeField] protected SpriteRenderer spriteRenderer;
         [SerializeField] protected float detectionDelay = 0.5f;
         [SerializeField] protected float fireDelay = 0.5f;
         
+        public Vector3Int PointToGrid { get; set; }
         public SpriteRenderer WrongPlaceSprite => wrongPlaceSprite;
+        public SpriteRenderer SpriteRenderer => spriteRenderer;
         public BoxCollider2D BoxCollider2D => boxCollider2D;
         
         private float _currentTime;

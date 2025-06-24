@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ea43abf30e636564cad1ff6ef43ed625
+guid: dc574116598c4844fa8888e7ce812d6f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1344780287051860636
-    second: enemy2_0
+      213: -4803598927782871041
+    second: bg_bott_towers_strip_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,9 +51,9 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 40
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: enemy2_0
+      name: bg_bott_towers_strip_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 33
-        height: 43
+        width: 324
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c9a8caecb8e99a210800000000000000
-      internalID: 1344780287051860636
+      spriteID: ffffd0ac930365db0800000000000000
+      internalID: -4803598927782871041
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      enemy2_0: 1344780287051860636
+      bg_bott_towers_strip_0: -4803598927782871041
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

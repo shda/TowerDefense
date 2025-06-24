@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using TowerDefense.Scripts.Path;
+using TowerDefense.Scripts.TileMap;
 using UnityEngine;
 using Zenject;
 
@@ -19,6 +20,7 @@ namespace TowerDefense.Scripts.Debug
         }
         private void Update()
         {
+            return;
             if(!Application.isEditor)
                 return;
             
@@ -54,80 +56,10 @@ namespace TowerDefense.Scripts.Debug
                 }
             }
 
-            findPath = Pathfinder4.FindPath(
+            var findPath = Pathfinder.FindPath(
                 _levelController.FirstTargetTile.Position, 
                 _levelController.PlayerBase.Position,
                 cel.min, cel.max, map);
         }
-
-        public List<Vector3Int> findPath { get; set; }
-
-        private void OnDrawGizmos()
-        {
-            if (findPath == null)
-                return;
-            
-            if(_levelController == null || !_levelController.IsMapLoaded)
-                return;
-            
-            var tileMapLevel = _levelController.CurrentMap;
-            var tilemap = tileMapLevel.LayerObstacles;
-            var cellBounds = tileMapLevel.LayerObstacles.cellBounds;
-
-            var offset = new Vector3(0.25f, 0.25f);
-            
-            Vector3? pointDraw = null;
-            foreach (var point in findPath)
-            {
-                if (pointDraw == null)
-                {
-                    var worldPos = tilemap.GetCellCenterWorld(point);
-                    worldPos += offset;
-                    pointDraw = worldPos;
-
-                    continue;
-                }
-
-                var newCell = tilemap.GetCellCenterWorld(point);
-                newCell += offset;
-                UnityEngine.Debug.DrawLine(pointDraw.Value, newCell, Color.red);
-                pointDraw = newCell;
-            }
-        }
-
-        /*
-        private void OnDrawGizmos()
-        {
-            if (_findPath == null)
-                return;
-            
-            if(!_levelController.IsMapLoaded)
-                return;
-
-            var tileMapLevel = _levelController.CurrentMap;
-            var tilemap = tileMapLevel.LayerObstacles;
-            var cellBounds = tileMapLevel.LayerObstacles.cellBounds;
-
-            var offset = new Vector3(0.25f, 0.25f);
-            
-            Vector3? pointDraw = null;
-            foreach (var point in _findPath)
-            {
-                if (pointDraw == null)
-                {
-                    var worldPos = tilemap.GetCellCenterWorld(point + cellBounds.position );
-                    worldPos += offset;
-                    pointDraw = worldPos;
-
-                    continue;
-                }
-
-                var newCell = tilemap.GetCellCenterWorld(point + cellBounds.position);
-                newCell += offset;
-                UnityEngine.Debug.DrawLine(pointDraw.Value, newCell, Color.red);
-                pointDraw = newCell;
-            }
-        }
-        */
     }
 }
