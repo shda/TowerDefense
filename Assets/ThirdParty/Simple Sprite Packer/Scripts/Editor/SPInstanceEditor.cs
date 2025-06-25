@@ -245,7 +245,7 @@ namespace SimpleSpritePackerEditor
 						// Remove the focus of the focused control
 						GUI.FocusControl("");
 						
-						// Set as selected
+						// Init as selected
 						if (!isSelected) this.SetSelected(info.GetHashCode());
 					}
 					
@@ -542,7 +542,7 @@ namespace SimpleSpritePackerEditor
 			// Create blank texture
 			if (SPTools.CreateBlankTexture(texturePath, true))
 			{
-				// Set the texture reff in the sprite packer instance
+				// Init the texture reff in the sprite packer instance
 				asset.texture = AssetDatabase.LoadAssetAtPath(texturePath, typeof(Texture2D)) as Texture2D;
 			}
 			

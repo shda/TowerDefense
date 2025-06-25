@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obsticle1x1
       objectReference: {fileID: 0}
+    - target: {fileID: 3146547030388365287, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 196494389333239903}
     - target: {fileID: 5075345186082038256, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Size.x
       value: 2.56

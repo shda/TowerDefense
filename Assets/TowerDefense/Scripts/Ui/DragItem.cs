@@ -1,19 +1,18 @@
 using System;
-using TowerDefense.Scripts.Towers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace TowerDefense.Scripts.Ui
 {
-    public class TowerItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [SerializeField] private float drawValueToSelect;
         [SerializeField] private Image itemImage;
         
         private ScrollRect _scrollRect;
-        public TowerBase SelectTower { get; set; }
-        public Action<TowerItem> OnSelect;
+        public MapDragHandler MapDragHandler { get; set; }
+        public Action<DragItem> OnSelect;
 
         private float _dragValue = 0;
         
@@ -40,11 +39,11 @@ namespace TowerDefense.Scripts.Ui
             _scrollRect.OnEndDrag(eventData);
         }
 
-        public void SetPrefab(TowerBase tower , ScrollRect scrollRect)
+        public void SetHandler(MapDragHandler mapDragHandler , ScrollRect scrollRect)
         {
             _scrollRect = scrollRect;
-            itemImage.sprite = tower.SpriteRenderer.sprite;
-            SelectTower = tower;
+            itemImage.sprite = mapDragHandler.Sprite;
+            MapDragHandler = mapDragHandler;
         }
     }
 }

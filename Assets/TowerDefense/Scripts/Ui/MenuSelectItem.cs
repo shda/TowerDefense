@@ -1,12 +1,9 @@
-using System;
 using System.Linq;
 using BlockBlast.Scripts.Common.Extensions;
-using TowerDefense.Scripts.Input;
 using TowerDefense.Scripts.Interactivity;
 using TowerDefense.Scripts.Towers;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace TowerDefense.Scripts.Ui
 {
@@ -16,31 +13,55 @@ namespace TowerDefense.Scripts.Ui
         [SerializeField] private ShowHideMenuAnimation menuAnimation;
         [SerializeField] private TowerCollection towerCollection;
         [SerializeField] private ScrollRect scrollRect;
-        [SerializeField] private TowerItem itemPrefab;
+        [SerializeField] private DragItem itemPrefab;
         [SerializeField] private Transform itemsRoot;
-        
+
+        [SerializeField] private CursorIconRemove cursorIconRemove;
+        [SerializeField] private Sprite spriteRemoveItem;
+
         private void Start()
         {
+            cursorIconRemove.Hide();
             foreach (var ch in itemsRoot.Cast<Transform>().ToList())
             {
                 DestroyImmediate(ch.gameObject);
             }
-            
-            foreach (var tower in towerCollection.TowersPrefs)       
+
+            CreateRemoveItem();
+            CreateTowerItems();
+        }
+
+        private void CreateRemoveItem()
+        {
+            var prefab = Instantiate(itemPrefab, itemsRoot);
+            prefab.gameObject.SetActive(true);
+
+            RemoverDragHandler mapDragHandler = new(spriteRemoveItem , cursorIconRemove);
+
+            prefab.SetHandler(mapDragHandler, scrollRect);
+            prefab.OnSelect = OnSelect;
+        }
+
+        private void CreateTowerItems()
+        {
+            foreach (var tower in towerCollection.TowersPrefs)
             {
-                var prefab = Instantiate(itemPrefab , itemsRoot);
+                var prefab = Instantiate(itemPrefab, itemsRoot);
                 prefab.gameObject.SetActive(true);
-                prefab.SetPrefab(tower , scrollRect);
+
+                TowerDragHandler mapDragHandler = new(tower);
+
+                prefab.SetHandler(mapDragHandler, scrollRect);
                 prefab.OnSelect = OnSelect;
             }
         }
 
-        private void OnSelect(TowerItem item)
+        private void OnSelect(DragItem item)
         {
-            if(!menuAnimation.IsShow)
+            if (!menuAnimation.IsShow)
                 return;
-            
-            addTowerToMapController.StartDrag(item.SelectTower);
+
+            addTowerToMapController.StartDrag(item.MapDragHandler);
             menuAnimation.HideMenu();
         }
 

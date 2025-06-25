@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TowerDefense.Scripts.Towers;
@@ -6,6 +7,7 @@ using Zenject;
 
 namespace TowerDefense.Scripts.Path
 {
+    [Obsolete]
     public class PathCollections 
     {
         private LevelObjects _levelObjects;

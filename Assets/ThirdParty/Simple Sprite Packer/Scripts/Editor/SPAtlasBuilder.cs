@@ -168,7 +168,7 @@ namespace SimpleSpritePackerEditor
 					// Save the new texture into our array
 					textures[ia] = (texture != null) ? texture : new Texture2D(1, 1);
 					
-					// Set the sprite import data
+					// Init the sprite import data
 					spritesImportData[ia] = importData;
 					
 					// Increase the indexer
@@ -242,7 +242,7 @@ namespace SimpleSpritePackerEditor
 				// Clear the sprites import data array
 				System.Array.Clear(spritesImportData, 0, spritesImportData.Length);
 				
-				// Set dirty
+				// Init dirty
 				EditorUtility.SetDirty(this.m_Instance);
 			}
 			else
@@ -359,7 +359,7 @@ namespace SimpleSpritePackerEditor
 						// Get the texture asset path
 						string assetPath = SPTools.GetAssetPath(texture);
 						
-						// Set new texture format
+						// Init new texture format
 						if (!SPTools.AssetSetFormat(assetPath, TextureImporterFormat.ARGB32))
 						{
 							Debug.LogWarning("Sprite Packer failed to set texture format ARGB32 on asset: " + assetPath);
