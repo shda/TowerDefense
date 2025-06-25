@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using NavMeshPlus.Components;
 using TowerDefense.Scripts.Debug;
 using TowerDefense.Scripts.Input;
 using TowerDefense.Scripts.Path;
@@ -7,6 +8,7 @@ using TowerDefense.Scripts.TileMap;
 using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Utils;
 using UnityEngine;
+using UnityEngine.AI;
 using Zenject;
 
 namespace TowerDefense.Scripts.Interactivity
@@ -16,7 +18,9 @@ namespace TowerDefense.Scripts.Interactivity
         [SerializeField] private LayerMask layerObstaclesTag;
         [SerializeField] private LevelController levelController;
         [SerializeField] private TowerCollection towerCollection;
-
+        [SerializeField] private NavMeshSurface navigationSurface;
+        
+        private NavMeshPath _navMeshPath; 
         private InputSwitcher _inputSwitcher;
 
         private TowerBase _tower;
@@ -30,6 +34,8 @@ namespace TowerDefense.Scripts.Interactivity
             LevelObjects levelObjects , 
             PathCollections pathCollections)
         {
+            _navMeshPath = new(); 
+            
             _levelObjects = levelObjects;
             _pathCollections = pathCollections;
             
@@ -71,9 +77,11 @@ namespace TowerDefense.Scripts.Interactivity
         {
             foreach (var enemy in _levelObjects.Enemies)
             {
-                var startPoint = levelController.CurrentMap.LayerObstacles.WorldToCell(enemy.transform.position);
-                var newPath = _pathCollections.FindPath(startPoint);
-                enemy.SetMovingPath(newPath);
+                enemy.MovingToNavigationMas.Repath();
+                
+             //   var startPoint = levelController.CurrentMap.LayerObstacles.WorldToCell(enemy.transform.position);
+              //  var newPath = _pathCollections.FindPath(startPoint);
+               // enemy.SetMovingPath(newPath);
             }
         }
 
@@ -116,40 +124,25 @@ namespace TowerDefense.Scripts.Interactivity
         private bool IsCanFindPathToBase()
         {
             var tileMapLevel = levelController.CurrentMap;
-            var enemyPoint = MapUtils.GetFirstTargetPoints(tileMapLevel);
-            var target = MapUtils.GetTargetPoints(tileMapLevel);
+            var enemyPoint = levelController.FirstTargetTile.WorldPosition;
+            var target = levelController.PlayerBase.WorldPosition;
 
-            var startTile = enemyPoint.First();
-            var endTile = target.First();
-
-            var list = UnityEngine.Pool.ListPool<Vector3Int>.Get();
+            NavMesh.CalculatePath(enemyPoint, target, NavMesh.AllAreas, _navMeshPath);
             
-           // HashSet<Vector3Int> map = new HashSet<Vector3Int>();
-
-            var obsticles = levelController.CurrentMap.LayerObstacles;
-            var cel = obsticles.cellBounds;
-
-            for (int x = cel.xMin; x < cel.xMax + 1; x++)
+            if (_navMeshPath.status == NavMeshPathStatus.PathPartial)
             {
-                for (int y = cel.yMin; y < cel.yMax + 1; y++)
-                {
-                    var tile = obsticles.GetTile(new Vector3Int(x, y));
-                    if (tile)
-                    {
-                        list.Add(new Vector3Int(x, y));
-                        list.Add(new Vector3Int(x + 1, y));
-                        list.Add(new Vector3Int(x + 1, y + 1));
-                        list.Add(new Vector3Int(x, y + 1));
-                    }
-                }
+                UnityEngine.Debug.Log("Path is partially blocked!");
+                return false;
             }
             
-            OtherPoints(list);
-            var pathfinderToTileMap = new PathfinderToTileMap(tileMapLevel);
-            _findPath = pathfinderToTileMap.FindPathFromTileToTile(startTile.Position, endTile.Position , list);
-
-            UnityEngine.Pool.ListPool<Vector3Int>.Release(list);
-            return _findPath != null;
+            if (_navMeshPath.status == NavMeshPathStatus.PathInvalid)
+            {
+                UnityEngine.Debug.Log("No valid _navMeshPath exists!");
+                return false;
+            }
+            
+            UnityEngine.Debug.Log("Path is ok!");
+            return true;
         }
 
         private void OtherPoints(List<Vector3Int> list)
@@ -215,7 +208,6 @@ namespace TowerDefense.Scripts.Interactivity
             tower.transform.position = layerObstacles.FindNearestPointToGrid(position);
             tower.PointToGrid = layerObstacles.WorldToCell(tower.transform.position);
             tower.PointToGrid -= new Vector3Int(1, 1);
-            UnityEngine.Debug.Log(tower.PointToGrid);
             var isCross = !IsCanInsertTower(tower);
             tower.WrongPlaceSprite.gameObject.SetActive(isCross);
         }

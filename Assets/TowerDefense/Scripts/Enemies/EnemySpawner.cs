@@ -51,7 +51,8 @@ namespace TowerDefense.Scripts.Enemies
             
             var enemy = _enemyFactory.Create();
             enemy.SetStartPosition(spawnPoint.WorldPosition);
-            enemy.SetMovingPath(movingPath);
+            
+            enemy.SetMovingPath(_levelController.PlayerBase.WorldPosition);
             enemy.Reset();
 
             CompositeDisposable composite = new();

@@ -11,13 +11,13 @@ namespace TowerDefense.Scripts.Enemies
 {
     public class Enemy : MonoBehaviour, IPoolable<IMemoryPool>, ITarget
     {
+        [SerializeField] private MovingToNavigationMash movingToNavigationMash;
         [SerializeField] private HitAnimation hitAnimation;
         [SerializeField] private float speedMoving;
-
-        private MovingToPathHandler _movingToPathHandler;
         private EffectHandler _effectHandler;
         private EffectContext _effectContext;
 
+        public MovingToNavigationMash MovingToNavigationMas => movingToNavigationMash;
         public Health Health { get; private set; }
         public bool IsDead => Health.CurrentHealth.Value <= 0;
 
@@ -29,14 +29,9 @@ namespace TowerDefense.Scripts.Enemies
         [Inject]
         public void Construct(
             Health health,
-            MovingToPathHandler movingToPathHandler,
             EffectHandler effectHandler)
         {
             _effectHandler = effectHandler;
-            _movingToPathHandler = movingToPathHandler;
-            _movingToPathHandler.Init(transform, speedMoving);
-            _movingToPathHandler.OnCompleteMove = () => { OnDead?.Execute(); };
-
             Health = health;
             Reset();
 
@@ -52,7 +47,12 @@ namespace TowerDefense.Scripts.Enemies
                 }
             }).AddTo(this);
 
-            _effectContext = new EffectContext(_effectHandler, Health, _movingToPathHandler);
+            _effectContext = new EffectContext(_effectHandler, Health, movingToNavigationMash);
+            movingToNavigationMash.OnMovingComplete = () =>
+            {
+                UnityEngine.Debug.Log("Moving Complete");
+                OnDead?.Execute();
+            };
         }
 
         public EffectContext GetEffectContext()
@@ -69,17 +69,17 @@ namespace TowerDefense.Scripts.Enemies
 
         public void SetStartPosition(Vector3 worldPosition)
         {
-            _movingToPathHandler.SetStartPosition(worldPosition);
+            transform.position = worldPosition;
         }
-        public void SetMovingPath(IEnumerable<Vector3> movingPath)
+        public void SetMovingPath(Vector3 movingPath)
         {
-            _movingToPathHandler.SetMovingToPath(movingPath);
+            movingToNavigationMash.StartMoving(movingPath);
         }
 
         public void CustomUpdate()
         {
             _effectHandler.CustomUpdate();
-            _movingToPathHandler.CustomUpdate();
+            movingToNavigationMash.CustomUpdate();
         }
 
         #region Spawn
@@ -105,7 +105,5 @@ namespace TowerDefense.Scripts.Enemies
         }
 
         #endregion
-
-        
     }
 }

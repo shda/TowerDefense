@@ -1,3 +1,4 @@
+using System;
 using TowerDefense.Scripts.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,6 +8,7 @@ namespace TowerDefense.Scripts.PlayerScripts
 {
     public class PlayerControl : MonoBehaviour , IPointListener
     {
+        [SerializeField] private Transform rootSprites;
         [Header("Settings")]
         [SerializeField] private float moveSpeed = 5f;
         
@@ -52,18 +54,31 @@ namespace TowerDefense.Scripts.PlayerScripts
         void IPointListener.OnPointMoving(Vector2 direction)
         {
             _moveDirection =  direction;
+            
         }
         
         private void FixedUpdate()
         {
             _rb.linearVelocity = _moveDirection * moveSpeed;
             
+            if (_moveDirection.x > 0.5f)
+            {
+                rootSprites.localScale = new Vector3(-1, 1, 1);
+            }
+            
+            if (_moveDirection.x < -0.5f)
+            {
+                rootSprites.localScale = new Vector3(1, 1, 1);
+            }
+            
+            /*
             var direction = (Vector2)_mouseWorldPosition - _rb.position;
             if (direction.sqrMagnitude > 0.01f)
             {
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 _rb.rotation = angle;
             }
+            */
         }
     }
 }

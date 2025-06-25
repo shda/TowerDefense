@@ -1,3 +1,4 @@
+using System;
 using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Towers.Detectors;
 using UniRx;
@@ -12,8 +13,9 @@ namespace TowerDefense.Scripts.PlayerScripts
         [SerializeField] private int damage = 10;
         [SerializeField] private float timeBetweenShots = 0.2f;
         [SerializeField] private float delayDetectTarget = 0.3f;
-        
         [SerializeField] private ProjectileSpawner projectilePool;
+
+        public Action OnFire;
         
         private readonly CompositeDisposable  _disposables = new();
         private ITarget _currentTarget;
@@ -47,6 +49,8 @@ namespace TowerDefense.Scripts.PlayerScripts
             {
                 return;
             }
+            
+            OnFire?.Invoke();
             
             var projectile =  projectilePool.Get();
             projectile.MoveToTarget(transform.position, _currentTarget , speedMovingProjectile);

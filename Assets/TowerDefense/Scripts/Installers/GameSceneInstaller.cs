@@ -40,7 +40,7 @@ namespace TowerDefense.Scripts.Installers
             
             
             Container.BindInterfacesAndSelfTo<EffectHandler>().AsTransient();
-            Container.Bind<MovingToPathHandler>().AsTransient();
+            //Container.Bind<MovingToPathHandler>().AsTransient();
             Container.Bind<Health>().AsTransient();
 
             BindEnemyFactory();

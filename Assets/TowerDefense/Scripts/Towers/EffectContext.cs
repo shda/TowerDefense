@@ -7,12 +7,12 @@ namespace TowerDefense.Scripts.Towers
     {
         public Health Health { get;}
         public EffectHandler EffectHandler { get;}
-        public MovingToPathHandler MovingToPathHandler { get;}
+        public MovingToNavigationMash MovingToPathHandler { get;}
 
         public EffectContext(
             EffectHandler effectHandler, 
             Health health, 
-            MovingToPathHandler movingToPathHandler)
+            MovingToNavigationMash movingToPathHandler)
         {
             Health = health;
             EffectHandler = effectHandler;

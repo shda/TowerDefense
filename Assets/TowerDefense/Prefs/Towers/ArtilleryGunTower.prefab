@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: damage
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 2964995781253220286, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Carve
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3540878944330277549, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -137,6 +141,7 @@ MonoBehaviour:
   boxCollider2D: {fileID: 2045168384817016411}
   enemyDetector: {fileID: 573714197043444046}
   spriteRenderer: {fileID: 3291474333954119812}
+  navMeshObstacle: {fileID: 8894144046456781922}
   detectionDelay: 0.5
   fireDelay: 3
   weapon: {fileID: 1082826921243142406}
@@ -166,5 +171,10 @@ SpriteRenderer:
 --- !u!212 &5259977838207938243 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1924355280516732191, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+  m_PrefabInstance: {fileID: 5930008256437517276}
+  m_PrefabAsset: {fileID: 0}
+--- !u!208 &8894144046456781922 stripped
+NavMeshObstacle:
+  m_CorrespondingSourceObject: {fileID: 2964995781253220286, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
   m_PrefabInstance: {fileID: 5930008256437517276}
   m_PrefabAsset: {fileID: 0}
