@@ -17,9 +17,12 @@ namespace TowerDefense.Scripts.Enemies.Effects
             _target = target;
             _downSpeedModifier = downSpeedModifier;
 
-            _target.OnDead.Subscribe(unit =>
+            _target.Status.Subscribe(status =>
             {
-                Duration = 0;
+                if (status == EnemyStatus.Dead)
+                {
+                    Duration = 0;
+                }
             }).AddTo(composite);
         }
 

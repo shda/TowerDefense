@@ -3,9 +3,10 @@ using UnityEngine;
 
 namespace TowerDefense.Scripts.Ui
 {
-    public class CursorIconRemove : MonoBehaviour
+    public class SpriteResizeToCollider : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private bool setPositionToThis;
 
         public void SetSpriteRenderToSizeCollider(Collider2D targetCollider)
         {
@@ -17,9 +18,19 @@ namespace TowerDefense.Scripts.Ui
                 (colliderSizeInUnits.y * ppu) / spriteSizeInPixels.y
             );
             spriteRenderer.transform.localScale = desiredScale;
-            spriteRenderer.transform.position = targetCollider.bounds.center;
+
+            if (setPositionToThis)
+            {
+                spriteRenderer.transform.position = transform.position;
+            }
+            else
+            {
+                spriteRenderer.transform.position = targetCollider.bounds.center;
+            }
+            
         }
         
+
         public void HideSelectRect() => spriteRenderer.enabled = false;
         public void ShowSelectRect() => spriteRenderer.enabled = true;
     }

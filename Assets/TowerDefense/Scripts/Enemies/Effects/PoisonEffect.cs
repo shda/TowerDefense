@@ -20,10 +20,13 @@ namespace TowerDefense.Scripts.Enemies.Effects
             _target = target;
             _currentTime = float.MaxValue;
 
-            _target.OnDead.Subscribe(unit =>
+            _target.Status.Subscribe(status =>
             {
-                ResetEffect();
-                Duration = 0;
+                if (status == EnemyStatus.Dead)
+                {
+                    ResetEffect();
+                    Duration = 0;
+                }
             }).AddTo(composite);
         }
 

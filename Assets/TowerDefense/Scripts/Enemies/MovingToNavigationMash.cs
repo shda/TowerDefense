@@ -11,7 +11,7 @@ namespace TowerDefense.Scripts.Enemies
 
         public Action OnMovingComplete;
         
-        private readonly float stoppingThreshold = 0.1f; 
+        private readonly float stoppingThreshold = 0.3f; 
         private bool _destinationReached = false;
         private Vector3 _targetPoint;
 
@@ -20,21 +20,26 @@ namespace TowerDefense.Scripts.Enemies
             get => navMeshAgent.speed;
             set => navMeshAgent.speed = value;
         }
-
-        [Button]
+        
         public void StartMoving(Vector3 targetPoint)
         {
+            navMeshAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+            
             _destinationReached = false;
             _targetPoint = targetPoint;
             navMeshAgent.updateRotation = false;
             navMeshAgent.enabled = true;
             navMeshAgent.SetDestination(targetPoint);
         }
+        
+        public void SetStartPosition(Vector3 worldPosition)
+        {
+            transform.position = worldPosition;
+        }
 
         public void Repath()
         {
             _destinationReached = false;
-            navMeshAgent.ResetPath();
             navMeshAgent.SetDestination(_targetPoint);
         }
 
@@ -43,32 +48,11 @@ namespace TowerDefense.Scripts.Enemies
             if(_destinationReached)
                 return;
             
-            if (!navMeshAgent.pathPending)
+            if (Vector3.Distance(transform.position, _targetPoint) < stoppingThreshold)
             {
-                if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance + stoppingThreshold)
-                {
-                    if (!navMeshAgent.hasPath || navMeshAgent.velocity.sqrMagnitude == 0f)
-                    {
-                        _destinationReached = true;
-                        OnMovingComplete?.Invoke();
-                    }
-                }
+                _destinationReached = true;
+                OnMovingComplete?.Invoke();
             }
-            
-            /*
-            if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance && !_destinationReached)
-            {
-                if (!navMeshAgent.hasPath || navMeshAgent.velocity.sqrMagnitude == 0f)
-                {
-                    _destinationReached = true;
-                    OnMovingComplete?.Invoke();
-                }
-            }
-            else if (navMeshAgent.hasPath)
-            {
-                _destinationReached = false;
-            }
-            */
         }
 
         public void CustomUpdate()

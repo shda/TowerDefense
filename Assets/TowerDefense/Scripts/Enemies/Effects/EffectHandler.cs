@@ -16,6 +16,9 @@ namespace TowerDefense.Scripts.Enemies.Effects
 
         private void RemoveEffect(Effect effect)
         {
+            if(_effects == null)
+                return;
+            
             _effects.Remove(effect);
             _effectsTypes.Remove(effect.GetType());
         }
@@ -40,6 +43,17 @@ namespace TowerDefense.Scripts.Enemies.Effects
         public bool IsContainEffectByType(Type type)
         {
             return _effectsTypes.Contains(type);
+        }
+
+        public void RemoveAllEffects()
+        {
+            if(_effects is { Count: 0 })
+                return;
+            
+            foreach (var effect in _effects)
+            {
+                RemoveEffect(effect);
+            }
         }
     }
 }

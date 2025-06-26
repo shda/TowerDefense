@@ -1,3 +1,4 @@
+using TowerDefense.Scripts.Enemies;
 using UniRx;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ namespace TowerDefense.Scripts.Towers
             if(_currentTarget != null)
                 return;
             
-            var targets = enemyDetector.Detect();
+            var targets = towerComponents.EnemyDetector.Detect();
             if (targets is { Length: > 0 })
             {
                 foreach (var enemy in targets)
@@ -41,9 +42,12 @@ namespace TowerDefense.Scripts.Towers
                     {
                         _currentTarget = target;
                         _disposables.Clear();
-                        _currentTarget.OnDead.Subscribe(unit =>
+                        _currentTarget.Status.Subscribe(status =>
                         {
-                            _currentTarget = null;
+                            if (status == EnemyStatus.Dead)
+                            {
+                                _currentTarget = null;
+                            }
                         }).AddTo(_disposables);
                         break;
                     }
@@ -58,7 +62,7 @@ namespace TowerDefense.Scripts.Towers
         
         protected override void CallFire()
         {
-            if (_currentTarget != null && !enemyDetector.CheckStillDetect(_currentTarget.Transform.gameObject))
+            if (_currentTarget != null && !towerComponents.EnemyDetector.CheckStillDetect(_currentTarget.Transform.gameObject))
             {
                 RemoveTarget();
                 return;

@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: c26a0b5cca165ad4684746957e665e5d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3274336ff4f29fc4ebff9fe8264474f0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -212,7 +212,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 30
   m_Sprite: {fileID: 21300000, guid: 768c87bdb76ea2f49a2fb3c9cf0e4b85, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.5019608}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.39607844}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -222,6 +222,108 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5227146097443374731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6470186246705638873}
+  - component: {fileID: 9041815979763642432}
+  - component: {fileID: 5964289609574955368}
+  m_Layer: 0
+  m_Name: Triangle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6470186246705638873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5227146097443374731}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1854531836045039021}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &9041815979763642432
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5227146097443374731}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 40
+  m_Sprite: {fileID: -2413806693520163455, guid: cf164f64b9cc8564cac35033900b70bb, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5686275}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &5964289609574955368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5227146097443374731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 744c3e2827a54295893c7e266928feed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 9041815979763642432}
+  setPositionToThis: 1
 --- !u!1 &6895744883261217998
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,11 +333,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8248317729019170813}
-  - component: {fileID: 2529923919253247527}
+  - component: {fileID: 1797067138252025198}
   - component: {fileID: 6723142304765973210}
   - component: {fileID: 8529191703417235055}
   - component: {fileID: 5632449353503724935}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GunTowerBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +363,7 @@ Transform:
   - {fileID: 6273547383167528193}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2529923919253247527
+--- !u!114 &1797067138252025198
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -270,18 +372,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6895744883261217998}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b215717a2a8d49f0a1a1aedd339683e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 497f9c5ad027497eb83b1434be543c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   wrongPlaceSprite: {fileID: 1924355280516732191}
   boxCollider2D: {fileID: 5632449353503724935}
   enemyDetector: {fileID: 6178271366753026706}
-  spriteRenderer: {fileID: 0}
-  navMeshObstacle: {fileID: 0}
-  detectionDelay: 0.5
-  fireDelay: 2
-  weapon: {fileID: 6723142304765973210}
-  damage: 5
+  spriteRenderer: {fileID: 9216112376153236312}
+  navMeshObstacle: {fileID: 2964995781253220286}
 --- !u!114 &6723142304765973210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,8 +407,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePool:
-    prefab: {fileID: 0}
-    initialPoolSize: 100
+    prefab: {fileID: 4628104669900416004, guid: 08623c7915101d847baadb0dd582d02c, type: 3}
+    initialPoolSize: 10
     root: {fileID: 0}
 --- !u!61 &5632449353503724935
 BoxCollider2D:
@@ -389,7 +487,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6470186246705638873}
   m_Father: {fileID: 8248317729019170813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6178271366753026706
@@ -417,6 +516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde43d1fb49d475c893c08f8cc97883d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteShowDetectRadius: {fileID: 5964289609574955368}
   collider: {fileID: 6350241180432810929}
   enemyLayer:
     serializedVersion: 2

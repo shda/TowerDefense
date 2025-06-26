@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using TowerDefense.Scripts.Enemies;
-using TowerDefense.Scripts.Input;
 using TowerDefense.Scripts.Obstacles;
-using TowerDefense.Scripts.Path;
 using TowerDefense.Scripts.TileMap;
-using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Utils;
 using UnityEngine;
 using Zenject;

@@ -1,11 +1,8 @@
 using System;
 using System.Linq;
-using System.Threading;
-using TowerDefense.Scripts.Path;
+using BlockBlast.Scripts.Common.Extensions;
 using TowerDefense.Scripts.Stats;
-using TowerDefense.Scripts.Utils;
 using UniRx;
-using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -13,21 +10,16 @@ namespace TowerDefense.Scripts.Enemies
 {
     public class EnemySpawner : ITickable
     {
-        private PathfinderToTileMap _pathfinderToTileMap;
         private LevelController _levelController;
         private Enemy.Factory _enemyFactory;
-      //  private Vector3Int[] _spawnPoints;
         private GameStats _gameStats;
         private LevelObjects _levelObjects;
         
         public Action<Enemy> OnCreateNewEnemy;
         public Action<Enemy> OnRemoveEnemy;
         
-        private PathCollections _pathCollections;
-
         [Inject]
         public void Construct(
-            PathCollections pathCollections , 
             LevelController levelController, 
             Enemy.Factory factory,
             GameStats gameStats,
@@ -35,7 +27,6 @@ namespace TowerDefense.Scripts.Enemies
         {
             _levelController = levelController;
             _enemyFactory = factory;
-            _pathCollections = pathCollections;
             _gameStats = gameStats;
             _levelObjects = levelObjects;
         }
@@ -47,45 +38,52 @@ namespace TowerDefense.Scripts.Enemies
             
             var spawnPoint = _levelController.EnemySpawnPoints
                 [Random.Range(0, _levelController.EnemySpawnPoints.Length)];
-            var movingPath = _pathCollections.FindPath(spawnPoint.Position);
             
             var enemy = _enemyFactory.Create();
+            enemy.Show();
             enemy.SetStartPosition(spawnPoint.WorldPosition);
-            
             enemy.SetMovingPath(_levelController.PlayerBase.WorldPosition);
             enemy.Reset();
 
             CompositeDisposable composite = new();
-            enemy.OnDead.Subscribe(_ => OnDead(enemy , composite)).AddTo(composite);
+            enemy.Status.Subscribe(_ => OnChangeEnemyStatus(enemy , composite)).AddTo(composite);
             
             OnCreateNewEnemy?.Invoke(enemy);
             _levelObjects.Enemies.Add(enemy);
             _gameStats.CountEnemy.Value = _levelObjects.Enemies.Count();
         }
 
-        private void OnDead(Enemy enemy, CompositeDisposable composite)
+        private void OnChangeEnemyStatus(Enemy enemy, CompositeDisposable composite)
         {
-            if (enemy.IsDead)
+            if (enemy.Status.Value == EnemyStatus.Dead)
             {
                 _gameStats.ProgressNextTower.Value += 0.02f;
+                ReturnEnemyToPool(enemy , composite);
             }
-            
+            else if (enemy.Status.Value == EnemyStatus.Complete)
+            {
+                ReturnEnemyToPool(enemy , composite);
+            }
+        }
+
+        private void ReturnEnemyToPool(Enemy enemy, CompositeDisposable composite)
+        {
             composite.Dispose();
             enemy.RemoveToPool();
             
             _levelObjects.Enemies.Remove(enemy);
-            
             OnRemoveEnemy?.Invoke(enemy);
         }
         
         public void Tick()
         {
-            //todo pool array
-            var enemies = _levelObjects.Enemies.ToArray();
-            foreach (var enemy in enemies)
+            var tempList = UnityEngine.Pool.ListPool<Enemy>.Get();
+            tempList.AddRange(_levelObjects.Enemies);
+            foreach (var enemy in tempList)
             {
                 enemy.CustomUpdate();
             }
+            UnityEngine.Pool.ListPool<Enemy>.Release(tempList);
         }
     }
 }

@@ -1,3 +1,4 @@
+using TowerDefense.Scripts.Ui;
 using UnityEngine;
 
 namespace TowerDefense.Scripts.Towers.Detectors
@@ -14,6 +15,16 @@ namespace TowerDefense.Scripts.Towers.Detectors
         public bool CheckStillDetect(GameObject target)
         {
             return detector.CheckStillDetect(target);
+        }
+        
+        public void ShowDetectRadius()
+        {
+            detector.ShowDetectRadius();
+        }
+
+        public virtual void HideDetectRadius()
+        {
+            detector.HideDetectRadius();
         }
     }
 }

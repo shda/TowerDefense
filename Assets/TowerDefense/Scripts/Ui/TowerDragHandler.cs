@@ -9,7 +9,7 @@ namespace TowerDefense.Scripts.Ui
     {
         private readonly TowerBase _towerPrefab;
         private TowerBase _currentTower;
-        public override Sprite Sprite => _towerPrefab.SpriteRenderer.sprite;
+        public override Sprite Sprite => _towerPrefab.TowerComponents.SpriteRenderer.sprite;
         
         public TowerDragHandler(TowerBase towerPrefab)
         {
@@ -24,6 +24,7 @@ namespace TowerDefense.Scripts.Ui
                 _currentTower.gameObject.SetActive(true);
             }
 
+            _currentTower.TowerComponents.EnemyDetector.ShowDetectRadius();
             UpdatePositionTower(_currentTower , worldPosition);
         }
 
@@ -31,6 +32,8 @@ namespace TowerDefense.Scripts.Ui
         {
             if (!isPressed)
             {
+                _currentTower.TowerComponents.EnemyDetector.HideDetectRadius();
+                
                 if (!IsCanInsertTower(_currentTower))
                 {
                     Object.DestroyImmediate(_currentTower.gameObject);
@@ -72,17 +75,14 @@ namespace TowerDefense.Scripts.Ui
             
             if (_navMeshPath.status == NavMeshPathStatus.PathPartial)
             {
-                UnityEngine.Debug.Log("Path is partially blocked!");
                 return false;
             }
             
             if (_navMeshPath.status == NavMeshPathStatus.PathInvalid)
             {
-                UnityEngine.Debug.Log("No valid _navMeshPath exists!");
                 return false;
             }
             
-            UnityEngine.Debug.Log("Path is ok!");
             return true;
         }
 
@@ -132,10 +132,8 @@ namespace TowerDefense.Scripts.Ui
         {
             var layerObstacles = _levelController.CurrentMap.LayerObstacles;
             tower.transform.position = layerObstacles.FindNearestPointToGrid(position);
-            tower.PointToGrid = layerObstacles.WorldToCell(tower.transform.position);
-            tower.PointToGrid -= new Vector3Int(1, 1);
             var isCross = !IsCanInsertTower(tower);
-            tower.WrongPlaceSprite.gameObject.SetActive(isCross);
+            tower.TowerComponents.WrongPlaceSprite.gameObject.SetActive(isCross);
         }
     }
 }

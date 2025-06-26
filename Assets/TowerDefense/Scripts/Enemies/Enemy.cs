@@ -14,14 +14,13 @@ namespace TowerDefense.Scripts.Enemies
         [SerializeField] private MovingToNavigationMash movingToNavigationMash;
         [SerializeField] private HitAnimation hitAnimation;
         [SerializeField] private float speedMoving;
+        
         private EffectHandler _effectHandler;
         private EffectContext _effectContext;
-
         public MovingToNavigationMash MovingToNavigationMas => movingToNavigationMash;
         public Health Health { get; private set; }
         public bool IsDead => Health.CurrentHealth.Value <= 0;
-
-        public ReactiveCommand OnDead { get; } = new();
+        public ReactiveProperty<EnemyStatus> Status { get; } = new();
 
         Transform ITarget.Transform => transform;
         bool ITarget.IsCanByTarget => !IsDead;
@@ -35,11 +34,12 @@ namespace TowerDefense.Scripts.Enemies
             Health = health;
             Reset();
 
+            
             Health.CurrentHealth.Subscribe(f =>
             {
                 if (f <= 0)
                 {
-                    OnDead?.Execute();
+                    Status.Value = EnemyStatus.Dead;
                 }
                 else
                 {
@@ -51,7 +51,7 @@ namespace TowerDefense.Scripts.Enemies
             movingToNavigationMash.OnMovingComplete = () =>
             {
                 UnityEngine.Debug.Log("Moving Complete");
-                OnDead?.Execute();
+                Status.Value = EnemyStatus.Complete;
             };
         }
 
@@ -62,17 +62,19 @@ namespace TowerDefense.Scripts.Enemies
 
         public void Reset()
         {
-            //
+            _effectHandler.RemoveAllEffects();
+            Status.Value = EnemyStatus.None;
             Health.CurrentHealth.Value = 100;
             Health.MaxHealth.Value = 100;
         }
 
         public void SetStartPosition(Vector3 worldPosition)
         {
-            transform.position = worldPosition;
+            movingToNavigationMash.SetStartPosition(worldPosition);
         }
         public void SetMovingPath(Vector3 movingPath)
         {
+            Status.Value = EnemyStatus.Moving;
             movingToNavigationMash.StartMoving(movingPath);
         }
 

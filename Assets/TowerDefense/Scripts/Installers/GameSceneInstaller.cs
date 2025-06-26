@@ -1,9 +1,7 @@
 using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Enemies.Effects;
 using TowerDefense.Scripts.Input;
-using TowerDefense.Scripts.Path;
 using TowerDefense.Scripts.Settings;
-using TowerDefense.Scripts.Stats;
 using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Ui;
 using UnityEngine;
@@ -26,13 +24,10 @@ namespace TowerDefense.Scripts.Installers
         {
             Container.BindInstance(gameSettings);
             Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
-           // Container.Bind<EnemyMapPath>().AsSingle();
-            
             Container.BindInterfacesAndSelfTo<ProjectileSpawner>().AsSingle();
             Container.Bind<InputListenerSwitcher>().AsSingle();
             Container.Bind<InputSwitcher>().AsSingle();
             Container.Bind<LevelObjects>().AsSingle();
-            Container.Bind<PathCollections>().AsSingle();
             
             
             Container.Bind<LevelController>().FromComponentInHierarchy().AsSingle();

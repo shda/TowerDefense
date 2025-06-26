@@ -8,61 +8,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1291170350512996131, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1924355280516732191, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: m_Color.a
-      value: 0.39607844
-      objectReference: {fileID: 0}
-    - target: {fileID: 1924355280516732191, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1924355280516732191, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1924355280516732191, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2529923919253247527, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: damage
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2529923919253247527, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: spriteRenderer
-      value: 
-      objectReference: {fileID: 3291474333954119812}
-    - target: {fileID: 2529923919253247527, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: navMeshObstacle
-      value: 
-      objectReference: {fileID: 8894144046456781922}
-    - target: {fileID: 3540878944330277549, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3540878944330277549, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6723142304765973210, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: projectilePool.prefab
-      value: 
-      objectReference: {fileID: 4628104669900416004, guid: 08623c7915101d847baadb0dd582d02c, type: 3}
     - target: {fileID: 6895744883261217998, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_Name
       value: GunTower
-      objectReference: {fileID: 0}
-    - target: {fileID: 6895744883261217998, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7558641531125496915, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8248317729019170813, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -104,30 +52,55 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8529191703417235055, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: projectilePool.prefab
-      value: 
-      objectReference: {fileID: 4628104669900416004, guid: 08623c7915101d847baadb0dd582d02c, type: 3}
-    - target: {fileID: 8529191703417235055, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: projectilePool.initialPoolSize
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 9216112376153236312, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 3274336ff4f29fc4ebff9fe8264474f0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6895744883261217998, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 2800838619773318763}
   m_SourcePrefab: {fileID: 100100000, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
---- !u!212 &3291474333954119812 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 9216112376153236312, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+--- !u!1 &1006840907763803922 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6895744883261217998, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
   m_PrefabInstance: {fileID: 5930008256437517276}
   m_PrefabAsset: {fileID: 0}
---- !u!208 &8894144046456781922 stripped
-NavMeshObstacle:
-  m_CorrespondingSourceObject: {fileID: 2964995781253220286, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+--- !u!114 &2800838619773318763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006840907763803922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b215717a2a8d49f0a1a1aedd339683e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerComponents: {fileID: 5385152991862806194}
+  detectionDelay: 0.5
+  fireDelay: 0.5
+  weapon: {fileID: 1082826921243142406}
+  damage: 10
+--- !u!114 &1082826921243142406 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6723142304765973210, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
   m_PrefabInstance: {fileID: 5930008256437517276}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006840907763803922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7099a26cec7e76840834de2aff67a4db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5385152991862806194 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1797067138252025198, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+  m_PrefabInstance: {fileID: 5930008256437517276}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006840907763803922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 497f9c5ad027497eb83b1434be543c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

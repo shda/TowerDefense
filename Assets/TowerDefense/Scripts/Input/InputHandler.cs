@@ -23,8 +23,6 @@ namespace TowerDefense.Scripts.Input
         {
             _isSendPress = false;
             _isPressButton = context.performed;
-            // OnPress?.Invoke(context.performed);
-            // _isPressButton = context.performed;
         }
         
         public void OnMove(InputAction.CallbackContext context)

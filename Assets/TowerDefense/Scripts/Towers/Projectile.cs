@@ -1,4 +1,5 @@
 using System;
+using TowerDefense.Scripts.Enemies;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -22,10 +23,13 @@ namespace TowerDefense.Scripts.Towers
             _targetPosition = target.Transform.position;
 
             _disposable.Clear();
-            Target.OnDead.Subscribe(unit =>
+            Target.Status.Subscribe(status =>
             {
-                _disposable?.Clear();
-                Target = null;
+                if (status == EnemyStatus.Dead)
+                {
+                    _disposable?.Clear();
+                    Target = null;
+                }
             }).AddTo(_disposable);
         }
 

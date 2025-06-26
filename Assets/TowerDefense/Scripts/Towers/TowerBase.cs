@@ -9,19 +9,11 @@ namespace TowerDefense.Scripts.Towers
 {
     public abstract class TowerBase : MonoBehaviour , IRemoveLevelObject
     {
-        [SerializeField] protected SpriteRenderer wrongPlaceSprite;
-        [SerializeField] protected BoxCollider2D boxCollider2D;
-        [SerializeField] protected EnemyDetector enemyDetector;
-        [SerializeField] protected SpriteRenderer spriteRenderer;
-        [SerializeField] protected NavMeshObstacle  navMeshObstacle; 
+        [SerializeField] protected TowerComponents towerComponents;
         [SerializeField] protected float detectionDelay = 0.5f;
         [SerializeField] protected float fireDelay = 0.5f;
-        
-        public Vector3Int PointToGrid { get; set; }
-        public NavMeshObstacle NavMeshObstacle => navMeshObstacle;
-        public SpriteRenderer WrongPlaceSprite => wrongPlaceSprite;
-        public SpriteRenderer SpriteRenderer => spriteRenderer;
-        public Collider2D Collider => boxCollider2D;
+        public Collider2D Collider => towerComponents.Collider;
+        public TowerComponents TowerComponents => towerComponents;
         
         private float _currentTime;
         private float _currentFireTime;

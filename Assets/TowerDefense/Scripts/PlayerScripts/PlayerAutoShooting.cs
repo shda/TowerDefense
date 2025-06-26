@@ -1,4 +1,5 @@
 using System;
+using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Towers.Detectors;
 using UniRx;
@@ -83,9 +84,14 @@ namespace TowerDefense.Scripts.PlayerScripts
                     {
                         _currentTarget = target;
                         _disposables.Clear();
-                        _currentTarget.OnDead.Subscribe(unit =>
+                        _currentTarget.Status.Subscribe(status =>
                         {
-                            _currentTarget = null;
+                            if (status == EnemyStatus.Dead || 
+                                status == EnemyStatus.Complete)
+                            {
+                                _currentTarget = null;
+                            }
+                            
                         }).AddTo(_disposables);
                         break;
                     }

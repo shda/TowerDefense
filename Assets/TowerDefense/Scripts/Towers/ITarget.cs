@@ -1,4 +1,5 @@
 using System;
+using TowerDefense.Scripts.Enemies;
 using UniRx;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace TowerDefense.Scripts.Towers
         Transform Transform { get; }
         bool IsCanByTarget { get; }
         Health Health { get; }
-        ReactiveCommand OnDead { get; }
+        ReactiveProperty<EnemyStatus> Status { get; }
         EffectContext GetEffectContext();
     }
 }

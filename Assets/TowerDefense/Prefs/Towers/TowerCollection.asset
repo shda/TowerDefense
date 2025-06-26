@@ -15,6 +15,6 @@ MonoBehaviour:
   towersPrefs:
   - {fileID: 5045748230788131527, guid: dcdc94059fd022e46b0fc37228f47a8f, type: 3}
   - {fileID: 7244521611112596785, guid: 2812a0e17259c59458c7b4c8a0111406, type: 3}
-  - {fileID: 8167145371811573243, guid: fc38dcce60bd8a44490d843dd31c3eb3, type: 3}
-  - {fileID: 8167145371811573243, guid: 3bc85bc0383dcef4cbc90edc33bd84ca, type: 3}
+  - {fileID: 735644499883076730, guid: fc38dcce60bd8a44490d843dd31c3eb3, type: 3}
+  - {fileID: 2800838619773318763, guid: 3bc85bc0383dcef4cbc90edc33bd84ca, type: 3}
   - {fileID: 8814082909512673965, guid: ec3fcba147c07e24487fed2d683b5dc8, type: 3}

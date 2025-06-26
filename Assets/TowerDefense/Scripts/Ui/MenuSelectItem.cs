@@ -3,6 +3,7 @@ using BlockBlast.Scripts.Common.Extensions;
 using TowerDefense.Scripts.Interactivity;
 using TowerDefense.Scripts.Towers;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace TowerDefense.Scripts.Ui
@@ -16,12 +17,12 @@ namespace TowerDefense.Scripts.Ui
         [SerializeField] private DragItem itemPrefab;
         [SerializeField] private Transform itemsRoot;
 
-        [SerializeField] private CursorIconRemove cursorIconRemove;
+        [SerializeField] private SpriteResizeToCollider spriteResizeToCollider;
         [SerializeField] private Sprite spriteRemoveItem;
 
         private void Start()
         {
-            cursorIconRemove.Hide();
+            spriteResizeToCollider.Hide();
             foreach (var ch in itemsRoot.Cast<Transform>().ToList())
             {
                 DestroyImmediate(ch.gameObject);
@@ -36,7 +37,7 @@ namespace TowerDefense.Scripts.Ui
             var prefab = Instantiate(itemPrefab, itemsRoot);
             prefab.gameObject.SetActive(true);
 
-            RemoverDragHandler mapDragHandler = new(spriteRemoveItem , cursorIconRemove);
+            RemoverDragHandler mapDragHandler = new(spriteRemoveItem , spriteResizeToCollider);
 
             prefab.SetHandler(mapDragHandler, scrollRect);
             prefab.OnSelect = OnSelect;

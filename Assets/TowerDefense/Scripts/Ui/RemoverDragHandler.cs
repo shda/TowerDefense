@@ -10,13 +10,13 @@ namespace TowerDefense.Scripts.Ui
         public override Sprite Sprite => _spriteItem;
         
         private readonly Sprite _spriteItem;
-        private readonly CursorIconRemove _cursorIconRemove;
+        private readonly SpriteResizeToCollider _spriteResizeToCollider;
         
         private IRemoveLevelObject _selectRemoveObject;
 
-        public RemoverDragHandler(Sprite spriteItem , CursorIconRemove cursorIconRemove)
+        public RemoverDragHandler(Sprite spriteItem , SpriteResizeToCollider spriteResizeToCollider)
         {
-            _cursorIconRemove = cursorIconRemove;
+            _spriteResizeToCollider = spriteResizeToCollider;
             _spriteItem = spriteItem;
         }
         
@@ -24,9 +24,9 @@ namespace TowerDefense.Scripts.Ui
         {
             _selectRemoveObject = null;
             
-            _cursorIconRemove.Show();
-            _cursorIconRemove.HideSelectRect();
-            _cursorIconRemove.transform.position = worldPosition;
+            _spriteResizeToCollider.Show();
+            _spriteResizeToCollider.HideSelectRect();
+            _spriteResizeToCollider.transform.position = worldPosition;
 
             var raycastAll = Physics2D.RaycastAll(worldPosition, Vector2.zero);
             foreach (var obstacle in raycastAll)
@@ -35,8 +35,8 @@ namespace TowerDefense.Scripts.Ui
                 if (_selectRemoveObject != null)
                 {
                     var targetCollider = _selectRemoveObject.Collider;
-                    _cursorIconRemove.SetSpriteRenderToSizeCollider(targetCollider);
-                    _cursorIconRemove.ShowSelectRect();
+                    _spriteResizeToCollider.SetSpriteRenderToSizeCollider(targetCollider);
+                    _spriteResizeToCollider.ShowSelectRect();
                     break;
                 }
             }
@@ -44,7 +44,7 @@ namespace TowerDefense.Scripts.Ui
 
         public override void OnPress(bool isPressed)
         {
-            _cursorIconRemove.Hide();
+            _spriteResizeToCollider.Hide();
             
             UnityEngine.Debug.Log(isPressed);
 
