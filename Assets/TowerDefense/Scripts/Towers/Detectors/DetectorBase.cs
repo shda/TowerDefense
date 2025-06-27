@@ -6,6 +6,7 @@ namespace TowerDefense.Scripts.Towers.Detectors
     public abstract class DetectorBase : MonoBehaviour
     {
         [SerializeField] protected SpriteResizeToCollider spriteShowDetectRadius;
+        public float RadiusMultiplier { get; set; } = 1.0f;
         public abstract RaycastHit2D[] Detect();
         
         public abstract bool CheckStillDetect(GameObject target);

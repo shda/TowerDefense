@@ -26,5 +26,10 @@ namespace TowerDefense.Scripts.Towers.Detectors
         {
             detector.HideDetectRadius();
         }
+
+        public void SetMultiplierRadius(float multiplier)
+        {
+            detector.RadiusMultiplier = multiplier;
+        }
     }
 }

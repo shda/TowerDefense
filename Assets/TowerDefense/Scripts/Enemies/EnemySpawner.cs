@@ -40,7 +40,7 @@ namespace TowerDefense.Scripts.Enemies
             var spawnPoint = _levelController.EnemySpawnPoints
                 [Random.Range(0, _levelController.EnemySpawnPoints.Length)];
             
-            var enemy = _enemyFactory.Create(EnemyType.Fly);
+            var enemy = _enemyFactory.Create(EnemyType.Ground);
             enemy.Show();
             enemy.SetStartPosition(spawnPoint.WorldPosition);
             enemy.SetMovingPath(_levelController.PlayerBase.WorldPosition);

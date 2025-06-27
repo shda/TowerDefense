@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 
-namespace TowerDefense.Scripts.Other
+namespace TowerDefense.Scripts.Utils
 {
     public class HashSetReactive<T> : IEnumerable<T>
     {

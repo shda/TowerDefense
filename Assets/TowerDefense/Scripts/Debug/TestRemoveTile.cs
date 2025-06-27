@@ -2,7 +2,7 @@ using TowerDefense.Scripts.TileMap;
 using TriInspector;
 using UnityEngine;
 
-namespace TowerDefense.Scripts
+namespace TowerDefense.Scripts.Debug
 {
     public class TestRemoveTile : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Obstacles;
-using TowerDefense.Scripts.Other;
 using TowerDefense.Scripts.Towers;
+using TowerDefense.Scripts.Utils;
 
 namespace TowerDefense.Scripts
 {

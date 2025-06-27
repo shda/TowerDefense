@@ -4,6 +4,7 @@ using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Towers.Detectors;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace TowerDefense.Scripts.PlayerScripts
 {
@@ -11,68 +12,84 @@ namespace TowerDefense.Scripts.PlayerScripts
     {
         [SerializeField] protected EnemyDetector enemyDetector;
         [SerializeField] private float speedMovingProjectile = 10.0f;
-        [SerializeField] private int damage = 10;
+        [SerializeField] private float damage = 10;
         [SerializeField] private float timeBetweenShots = 0.2f;
-        [SerializeField] private float delayDetectTarget = 0.3f;
+        [SerializeField] private float startDetectTime = 0.2f;
         [SerializeField] private ProjectileSpawner projectilePool;
 
         public Action OnFire;
         
-        private readonly CompositeDisposable  _disposables = new();
-        private ITarget _currentTarget;
         private float _currentTime;
         private float _currentDetectTime;
+        private int _countTargetOneShot = 3;
+        private float _damageMultiplier = 1.0f;
+
+        [Inject]
+        public void Construct(PlayerStats playerStats)
+        {
+            playerStats.CountTargetOneShot.Subscribe(count =>
+            {
+                _countTargetOneShot = count;
+            }).AddTo(this);
+            
+            playerStats.MultiplierRadiusShot.Subscribe(multiplier =>
+            {
+                enemyDetector.SetMultiplierRadius(multiplier);
+            }).AddTo(this);
+            
+            playerStats.MultiplierDamageShot.Subscribe(multiplier =>
+            {
+                _damageMultiplier = multiplier;
+            }).AddTo(this);
+        }
+
+        private void Awake()
+        {
+            _currentTime = timeBetweenShots;
+        }
+
         private void Update()
         {
-            if (_currentTarget != null && !enemyDetector.CheckStillDetect(_currentTarget.Transform.gameObject))
-            {
-                _currentTarget = null;
-            }
-            
-            _currentDetectTime += Time.deltaTime;
-            if (_currentDetectTime >= timeBetweenShots)
-            {
-                _currentDetectTime = 0;
-                DetectEnemy();
-            }
-            
             _currentTime += Time.deltaTime;
             if (_currentTime >= timeBetweenShots)
             {
-                _currentTime = 0;
-                ShotTo();
+                if (ShotTo())
+                {
+                    _currentTime = 0;
+                }
+                else
+                {
+                    _currentTime = timeBetweenShots - startDetectTime;
+                }
             }
         }
-
-        private void ShotTo()
+        
+        private void ShotToTarget(ITarget target)
         {
-            if (_currentTarget == null || !_currentTarget.IsCanByTarget)
-            {
-                return;
-            }
-            
-            OnFire?.Invoke();
-            
             var projectile =  projectilePool.Get();
-            projectile.MoveToTarget(transform.position, _currentTarget , speedMovingProjectile);
+            projectile.MoveToTarget(transform.position, target , speedMovingProjectile);
             projectile.OnCompleteMove = pr =>
             {
-                if (_currentTarget != null)
+                if (target is { IsCanByTarget: true })
                 {
-                    _currentTarget.Health.CurrentHealth.Value -= damage;
+                    var damageComplete = damage * _damageMultiplier;
+                   // UnityEngine.Debug.Log($"Player shot to target: {target.Transform.name}, damage: {damageComplete}");
+                    target.Health.CurrentHealth.Value -= damageComplete;
                 }
                 
                 projectilePool.ReturnToPool(pr);
             };
         }
-        
-        private void DetectEnemy()
+
+        private bool ShotTo()
         {
-            _currentTarget = null;
+            OnFire?.Invoke();
+            bool isShot = false;
             
             var targets = enemyDetector.Detect();
             if (targets is { Length: > 0 })
             {
+                var targetCountShot = _countTargetOneShot; 
                 foreach (var enemy in targets)
                 {
                     var target = enemy.transform.GetComponent<ITarget>();
@@ -82,21 +99,19 @@ namespace TowerDefense.Scripts.PlayerScripts
                     
                     if (target is { IsCanByTarget: true })
                     {
-                        _currentTarget = target;
-                        _disposables.Clear();
-                        _currentTarget.Status.Subscribe(status =>
+                        isShot = true;
+                        targetCountShot--;
+                        ShotToTarget(target);
+                        
+                        if (targetCountShot <= 0)
                         {
-                            if (status == EnemyStatus.Dead || 
-                                status == EnemyStatus.Complete)
-                            {
-                                _currentTarget = null;
-                            }
-                            
-                        }).AddTo(_disposables);
-                        break;
+                            break;
+                        }
                     }
                 }
             }
+
+            return isShot;
         }
     }
 }

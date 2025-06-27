@@ -1,26 +1,35 @@
 using System.Collections.Generic;
 using TowerDefense.Scripts.Enemies;
+using TowerDefense.Scripts.PlayerScripts;
 using UnityEngine;
 using Zenject;
 
 namespace TowerDefense.Scripts.Ui
 {
-    public class EnemiesHealthLevel : MonoBehaviour
+    public class HealthLevels : MonoBehaviour
     {
         [SerializeField] private RectTransform canvasRectTransform;
 
+        private HealthLevel _platerHealthLevel;
         private EnemySpawner _enemySpawner;
         private HealthLevel.Factory _healthLevelFactory;
+        private PlayerHealth _playerHealth;
+        private Player _player;
+        
         private readonly Dictionary<Enemy, HealthLevel> _healthLevels = new();
 
         [Inject]
         public void Construct(
             EnemySpawner enemySpawner, 
             LevelObjects levelObjects,
-            HealthLevel.Factory healthLevelFactory)
+            HealthLevel.Factory healthLevelFactory,
+            PlayerHealth playerHealth,
+            Player player)
         {
+            _player = player;
             _enemySpawner = enemySpawner;
             _healthLevelFactory = healthLevelFactory;
+            _playerHealth = playerHealth;
 
             _enemySpawner.OnCreateNewEnemy = CreateHealthLevelIfNeed;
             _enemySpawner.OnRemoveEnemy = RemoveHealthLevel;
@@ -51,6 +60,17 @@ namespace TowerDefense.Scripts.Ui
         private void Update()
         {
             UpdateValuesAndPositions();
+            UpdatePlayerHealth();
+        }
+
+        private void UpdatePlayerHealth()
+        {
+            if (_platerHealthLevel == null)
+            {
+                _platerHealthLevel = _healthLevelFactory.Create();
+            }
+
+            SetLife(_playerHealth.Health, _platerHealthLevel, _player.transform.position);
         }
 
         private void UpdateValuesAndPositions()
@@ -59,19 +79,23 @@ namespace TowerDefense.Scripts.Ui
             {
                 var enemy = healthLevel.Key;
                 var hl = healthLevel.Value;
-
-                if (enemy.Health.CurrentHealth.Value >= enemy.Health.MaxHealth.Value)
-                {
-                    hl.gameObject.SetActive(false);
-                    continue;
-                }
-
-                hl.gameObject.SetActive(true);
-                hl.SetLife(
-                    enemy.Health.CurrentHealth.Value,
-                    enemy.Health.MaxHealth.Value);
-                hl.UpdatePositon(canvasRectTransform, enemy.transform.position);
+                SetLife(enemy.Health, hl, enemy.transform.position);
             }
+        }
+
+        private void SetLife(Health health , HealthLevel healthLevel , Vector3 position)
+        {
+            if (health.CurrentHealth.Value >= health.MaxHealth.Value)
+            {
+                healthLevel.gameObject.SetActive(false);
+                return;
+            }
+            
+            healthLevel.gameObject.SetActive(true);
+            healthLevel.SetLife(
+                health.CurrentHealth.Value,
+                health.MaxHealth.Value);
+            healthLevel.UpdatePositon(canvasRectTransform, position);
         }
     }
 }

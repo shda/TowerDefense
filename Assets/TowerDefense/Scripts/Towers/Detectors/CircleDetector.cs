@@ -18,7 +18,7 @@ namespace TowerDefense.Scripts.Towers.Detectors
         public override RaycastHit2D[] Detect()
         {
             _lastCircleCastAll = Physics2D.CircleCastAll(
-                transform.position, collider.radius , Vector2.zero , float.MaxValue , enemyLayer);
+                transform.position, collider.radius * RadiusMultiplier , Vector2.zero , float.MaxValue , enemyLayer);
             return _lastCircleCastAll;
         }
 
