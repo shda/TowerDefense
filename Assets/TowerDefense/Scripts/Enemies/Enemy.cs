@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using DG.Tweening;
 using TowerDefense.Scripts.Enemies.Effects;
 using TowerDefense.Scripts.Towers;
 using UniRx;
@@ -11,14 +8,15 @@ namespace TowerDefense.Scripts.Enemies
 {
     public class Enemy : MonoBehaviour, IPoolable<IMemoryPool>, ITarget
     {
-        [SerializeField] private MovingToNavigationMash movingToNavigationMash;
+        [SerializeField] private MovingHandlerBase movingHandler;
         [SerializeField] private HitAnimation hitAnimation;
+        [SerializeField] private EnemyType enemyType;
         [SerializeField] private float speedMoving;
         
         private EffectHandler _effectHandler;
         private EffectContext _effectContext;
-        public MovingToNavigationMash MovingToNavigationMas => movingToNavigationMash;
         public Health Health { get; private set; }
+        public EnemyType EnemyType => enemyType;
         public bool IsDead => Health.CurrentHealth.Value <= 0;
         public ReactiveProperty<EnemyStatus> Status { get; } = new();
 
@@ -33,26 +31,27 @@ namespace TowerDefense.Scripts.Enemies
             _effectHandler = effectHandler;
             Health = health;
             Reset();
-
             
-            Health.CurrentHealth.Subscribe(f =>
-            {
-                if (f <= 0)
-                {
-                    Status.Value = EnemyStatus.Dead;
-                }
-                else
-                {
-                    hitAnimation.Play();
-                }
-            }).AddTo(this);
+            Health.CurrentHealth.Subscribe(OnChangeHp).AddTo(this);
 
-            _effectContext = new EffectContext(_effectHandler, Health, movingToNavigationMash);
-            movingToNavigationMash.OnMovingComplete = () =>
+            _effectContext = new EffectContext(_effectHandler, Health, movingHandler);
+            movingHandler.OnMovingComplete = () =>
             {
                 UnityEngine.Debug.Log("Moving Complete");
                 Status.Value = EnemyStatus.Complete;
             };
+        }
+
+        private void OnChangeHp(float hp)
+        {
+            if (hp <= 0)
+            {
+                Status.Value = EnemyStatus.Dead;
+            }
+            else
+            {
+                hitAnimation.Play();
+            }
         }
 
         public EffectContext GetEffectContext()
@@ -70,18 +69,24 @@ namespace TowerDefense.Scripts.Enemies
 
         public void SetStartPosition(Vector3 worldPosition)
         {
-            movingToNavigationMash.SetStartPosition(worldPosition);
+            movingHandler.SetStartPosition(worldPosition);
         }
+
         public void SetMovingPath(Vector3 movingPath)
         {
             Status.Value = EnemyStatus.Moving;
-            movingToNavigationMash.StartMoving(movingPath);
+            movingHandler.StartMoving(movingPath);
         }
 
         public void CustomUpdate()
         {
             _effectHandler.CustomUpdate();
-            movingToNavigationMash.CustomUpdate();
+            movingHandler.CustomUpdate();
+        }
+
+        public void Repath()
+        {
+            movingHandler.Repath();
         }
 
         #region Spawn

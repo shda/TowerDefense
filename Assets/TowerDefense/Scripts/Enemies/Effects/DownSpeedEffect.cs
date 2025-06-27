@@ -9,7 +9,7 @@ namespace TowerDefense.Scripts.Enemies.Effects
         private readonly ITarget _target;
         private readonly float _downSpeedModifier;
         private readonly CompositeDisposable composite = new();
-        private float _lastSpeed;
+        //private float _lastSpeed;
 
         public DownSpeedEffect(ITarget target, float downSpeedModifier, float duration)
         {
@@ -28,15 +28,15 @@ namespace TowerDefense.Scripts.Enemies.Effects
 
         public override void SetEffect(EffectContext effectContext)
         {
-            _lastSpeed = effectContext.MovingToPathHandler.SpeedMoving;
-            effectContext.MovingToPathHandler.SpeedMoving *= _downSpeedModifier;
+            //_lastSpeed = effectContext.movingHandler.SpeedMoving;
+            effectContext.movingHandler.SpeedMoving *= _downSpeedModifier;
 
             base.SetEffect(effectContext);
         }
 
         protected override void ResetEffect()
         {
-            _effectContext.MovingToPathHandler.SpeedMoving = _lastSpeed;
+            _effectContext.movingHandler.SpeedMoving /= _downSpeedModifier;
             composite.Dispose();
         }
     }

@@ -11,8 +11,9 @@ namespace TowerDefense.Scripts.Installers
 {
     public class GameSceneInstaller : MonoInstaller
     {
-        [Header("Prefabs")]
-        [SerializeField] private Enemy enemyPrefab;
+        [Header("Prefabs")] 
+        [SerializeField] private Enemy enemyGroundPrefab;
+        [SerializeField] private Enemy enemyFlyPrefab;
         [SerializeField] private Projectile projectilePrefab;
         [SerializeField] private HealthLevel healthLevelPrefab;
         [SerializeField] private Transform rootHealthLevels;
@@ -35,7 +36,7 @@ namespace TowerDefense.Scripts.Installers
             
             
             Container.BindInterfacesAndSelfTo<EffectHandler>().AsTransient();
-            //Container.Bind<MovingToPathHandler>().AsTransient();
+            //Container.Bind<movingHandler>().AsTransient();
             Container.Bind<Health>().AsTransient();
 
             BindEnemyFactory();
@@ -44,11 +45,25 @@ namespace TowerDefense.Scripts.Installers
 
         private void BindEnemyFactory()
         {
+            Container.Bind<EnemyFactory>().AsSingle();;
+            
+            Container.BindMemoryPool<Enemy, EnemyPool>()
+                .WithId(EnemyType.Ground)
+                .FromComponentInNewPrefab(enemyGroundPrefab)
+                .UnderTransformGroup("Enemy");
+            
+            Container.BindMemoryPool<Enemy, EnemyPool>()
+                .WithId(EnemyType.Fly)
+                .FromComponentInNewPrefab(enemyFlyPrefab)
+                .UnderTransformGroup("Enemy");
+            
+            /*
             Container.BindFactory<Enemy, Enemy.Factory>().FromPoolableMemoryPool<Enemy, MemoryEnemyPool>(poolBinder =>
                 poolBinder
                     .WithInitialSize(20)
                     .FromComponentInNewPrefab(enemyPrefab)
                     .UnderTransformGroup("Enemy"));
+                    */
         }
         
         private void BindHealthLevelFactory()

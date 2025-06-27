@@ -5,6 +5,7 @@ namespace TowerDefense.Scripts.Towers
 {
     public class DownSpeedTower : ProjectileGunTowerBase
     {
+        [SerializeField] private int maxEffectsToTarget = 3;
         [SerializeField] private float downSpeedModifier;
         [SerializeField] private float timeEffect;
         protected override void OnHitToTarget(ITarget target)
@@ -20,7 +21,8 @@ namespace TowerDefense.Scripts.Towers
         protected override bool IsCanUsingByTarget(ITarget target)
         {
             var effectContext = target.GetEffectContext();
-            return !effectContext.EffectHandler.IsContainEffectByType(typeof(DownSpeedEffect));
+            var countEffects = effectContext.EffectHandler.CountContainEffectByType(typeof(DownSpeedEffect));
+            return countEffects < maxEffectsToTarget;
         }
     }
 }

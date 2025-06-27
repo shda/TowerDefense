@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6350241180432810929, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_Radius
-      value: 3.82
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6723142304765973210, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: projectilePool.prefab
@@ -134,7 +134,7 @@ MonoBehaviour:
   detectionDelay: 0.5
   fireDelay: 3
   weapon: {fileID: 1082826921243142406}
-  damage: 20
+  damage: 15
   radiusDamage: 1
 --- !u!114 &1082826921243142406 stripped
 MonoBehaviour:

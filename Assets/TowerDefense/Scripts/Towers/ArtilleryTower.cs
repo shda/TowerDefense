@@ -1,3 +1,4 @@
+using TowerDefense.Scripts.Enemies;
 using UnityEngine;
 
 namespace TowerDefense.Scripts.Towers
@@ -16,7 +17,7 @@ namespace TowerDefense.Scripts.Towers
                 {
                     //Todo need optimize
                     var targetHit = hit2D.transform.GetComponent<ITarget>();
-                    if (targetHit != null)
+                    if (targetHit != null && targetHit.EnemyType == EnemyType.Ground)
                     {
                         targetHit.Health.CurrentHealth.Value -= damage;
                     }

@@ -18,8 +18,9 @@ namespace TowerDefense.Scripts.Towers
 
         protected override bool IsCanUsingByTarget(ITarget target)
         {
+            return true;
             var effectContext = target.GetEffectContext();
-            return !effectContext.EffectHandler.IsContainEffectByType(typeof(PoisonEffect));
+            return effectContext.EffectHandler.CountContainEffectByType(typeof(PoisonEffect)) < 0;
         }
     }
 }

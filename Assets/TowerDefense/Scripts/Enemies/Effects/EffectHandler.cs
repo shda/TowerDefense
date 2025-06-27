@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TowerDefense.Scripts.Enemies.Effects
 {
@@ -40,9 +41,9 @@ namespace TowerDefense.Scripts.Enemies.Effects
             UnityEngine.Pool.ListPool<Effect>.Release(list);
         }
         
-        public bool IsContainEffectByType(Type type)
+        public int CountContainEffectByType(Type type)
         {
-            return _effectsTypes.Contains(type);
+            return _effectsTypes.Count(x => x == type);
         }
 
         public void RemoveAllEffects()

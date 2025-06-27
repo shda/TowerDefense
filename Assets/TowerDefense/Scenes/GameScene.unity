@@ -1051,7 +1051,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd19a78cbbf45d09baa60360dedd9cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 4252224712812500756, guid: db27b9f670153db4fbaadefa0d420ba6, type: 3}
+  enemyGroundPrefab: {fileID: 4252224712812500756, guid: db27b9f670153db4fbaadefa0d420ba6, type: 3}
+  enemyFlyPrefab: {fileID: 4252224712812500756, guid: 719e90e4330822f42abb4365d9df18af, type: 3}
   projectilePrefab: {fileID: 8241706715391768651, guid: 6cfcc973d0a88c6409f19d7c46553f17, type: 3}
   healthLevelPrefab: {fileID: 3974437309872762265, guid: 135e85afa1334014ebc81e7b0555cf25, type: 3}
   rootHealthLevels: {fileID: 8084328148046138074}
@@ -3321,6 +3322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 243098368}
+  setPositionToThis: 0
 --- !u!1 &1592224008
 GameObject:
   m_ObjectHideFlags: 0

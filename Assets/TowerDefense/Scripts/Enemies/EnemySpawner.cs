@@ -11,7 +11,8 @@ namespace TowerDefense.Scripts.Enemies
     public class EnemySpawner : ITickable
     {
         private LevelController _levelController;
-        private Enemy.Factory _enemyFactory;
+        private EnemyFactory _enemyFactory;
+        
         private GameStats _gameStats;
         private LevelObjects _levelObjects;
         
@@ -21,7 +22,7 @@ namespace TowerDefense.Scripts.Enemies
         [Inject]
         public void Construct(
             LevelController levelController, 
-            Enemy.Factory factory,
+            EnemyFactory factory,
             GameStats gameStats,
             LevelObjects  levelObjects)
         {
@@ -39,7 +40,7 @@ namespace TowerDefense.Scripts.Enemies
             var spawnPoint = _levelController.EnemySpawnPoints
                 [Random.Range(0, _levelController.EnemySpawnPoints.Length)];
             
-            var enemy = _enemyFactory.Create();
+            var enemy = _enemyFactory.Create(EnemyType.Fly);
             enemy.Show();
             enemy.SetStartPosition(spawnPoint.WorldPosition);
             enemy.SetMovingPath(_levelController.PlayerBase.WorldPosition);
@@ -58,6 +59,7 @@ namespace TowerDefense.Scripts.Enemies
             if (enemy.Status.Value == EnemyStatus.Dead)
             {
                 _gameStats.ProgressNextTower.Value += 0.02f;
+                
                 ReturnEnemyToPool(enemy , composite);
             }
             else if (enemy.Status.Value == EnemyStatus.Complete)
@@ -69,7 +71,8 @@ namespace TowerDefense.Scripts.Enemies
         private void ReturnEnemyToPool(Enemy enemy, CompositeDisposable composite)
         {
             composite.Dispose();
-            enemy.RemoveToPool();
+            _enemyFactory.Relase(enemy);
+           // enemy.RemoveToPool();
             
             _levelObjects.Enemies.Remove(enemy);
             OnRemoveEnemy?.Invoke(enemy);

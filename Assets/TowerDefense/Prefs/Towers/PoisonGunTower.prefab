@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6350241180432810929, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_Radius
-      value: 2.5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 6723142304765973210, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: projectilePool.prefab
@@ -119,11 +119,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerComponents: {fileID: 5385152991862806194}
-  detectionDelay: 0.5
-  fireDelay: 1
+  detectionDelay: 0.3
+  fireDelay: 3
   weapon: {fileID: 1082826921243142406}
   poisonData:
-    <DamageOnIneHit>k__BackingField: 3
+    <DamageOnIneHit>k__BackingField: 5
     <MaxDamages>k__BackingField: 5
     <DelayBetweenDamages>k__BackingField: 1
 --- !u!114 &1082826921243142406 stripped

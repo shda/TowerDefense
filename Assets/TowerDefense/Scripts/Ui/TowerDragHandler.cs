@@ -52,7 +52,7 @@ namespace TowerDefense.Scripts.Ui
         {
             foreach (var enemy in _levelObjects.Enemies)
             {
-                enemy.MovingToNavigationMas.Repath();
+                enemy.Repath();
             }
         }
         

@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6350241180432810929, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: m_Radius
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6723142304765973210, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: projectilePool.prefab
       value: 
@@ -87,7 +91,7 @@ PrefabInstance:
     - target: {fileID: 9216112376153236312, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 99779c70c3967aa4bb007479a524f689, type: 3}
+      objectReference: {fileID: 21300000, guid: 3274336ff4f29fc4ebff9fe8264474f0, type: 3}
     m_RemovedComponents:
     - {fileID: 2529923919253247527, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
     - {fileID: 6312707663358178625, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
@@ -116,11 +120,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerComponents: {fileID: 5385152991862806194}
-  detectionDelay: 0.5
-  fireDelay: 0.5
+  detectionDelay: 0.3
+  fireDelay: 2
   weapon: {fileID: 1082826921243142406}
+  maxEffectsToTarget: 3
   downSpeedModifier: 0.5
-  timeEffect: 1
+  timeEffect: 5
 --- !u!114 &1082826921243142406 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6723142304765973210, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
