@@ -4,22 +4,19 @@ using UnityEngine;
 
 namespace TowerDefense.Scripts.Enemies.Effects
 {
-    public class DownSpeedEffect : Effect
+    public class SlowdownEffect : Effect
     {
-        private readonly ITarget _target;
         private readonly float _downSpeedModifier;
         private readonly CompositeDisposable composite = new();
-        //private float _lastSpeed;
-
-        public DownSpeedEffect(ITarget target, float downSpeedModifier, float duration)
+        
+        public SlowdownEffect(ITarget target, float downSpeedModifier, float duration)
         {
             Duration = duration;
-            _target = target;
             _downSpeedModifier = downSpeedModifier;
 
-            _target.Status.Subscribe(status =>
+            target.Status.Subscribe(status =>
             {
-                if (status == EnemyStatus.Dead)
+                if (status == EnemyActionStatus.Dead)
                 {
                     Duration = 0;
                 }

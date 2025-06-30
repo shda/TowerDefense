@@ -5,37 +5,37 @@ namespace TowerDefense.Scripts.Enemies
 {
     public class EnemyFactory
     {
-        private EnemyPool _flyEnemy;
-        private EnemyPool _groundEnemy;
+        private EnemyPool _flyEnemiesPool;
+        private EnemyPool _groundEnemiesPool;
 
         [Inject]
         public void Construct(
-            [Inject(Id = EnemyType.Fly)] EnemyPool flyEnemy , 
-            [Inject(Id = EnemyType.Ground)]EnemyPool groundEnemy)
+            [Inject(Id = EnemyType.Fly)] EnemyPool flyEnemiesPool , 
+            [Inject(Id = EnemyType.Ground)]EnemyPool groundEnemiesPool)
         {
-            _flyEnemy = flyEnemy;
-            _groundEnemy = groundEnemy;
+            _flyEnemiesPool = flyEnemiesPool;
+            _groundEnemiesPool = groundEnemiesPool;
         }
         
         public Enemy Create(EnemyType enemyType)
         {
             return enemyType switch
             {
-                EnemyType.Fly => _flyEnemy.Spawn(),
-                EnemyType.Ground => _groundEnemy.Spawn(),
+                EnemyType.Fly => _flyEnemiesPool.Spawn(),
+                EnemyType.Ground => _groundEnemiesPool.Spawn(),
                 _ => throw new ArgumentOutOfRangeException(nameof(enemyType), enemyType, null)
             };
         }
         
-        public void Relase(Enemy enemy)
+        public void Release(Enemy enemy)
         {
             switch (enemy.EnemyType)
             {
                 case EnemyType.Fly:
-                    _flyEnemy.Despawn(enemy);
+                    _flyEnemiesPool.Despawn(enemy);
                     break;
                 case EnemyType.Ground:
-                    _groundEnemy.Despawn(enemy);
+                    _groundEnemiesPool.Despawn(enemy);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(enemy.EnemyType), enemy.EnemyType, null);

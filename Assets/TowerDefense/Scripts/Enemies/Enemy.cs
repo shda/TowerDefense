@@ -10,7 +10,7 @@ namespace TowerDefense.Scripts.Enemies
     public class Enemy : MonoBehaviour, ITarget
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private MovingHandlerBase movingHandler;
+        [SerializeField] private BaseMovement movingHandler;
         [SerializeField] private DamageAnimation damageAnimation;
         [SerializeField] private EnemyType enemyType;
 
@@ -19,7 +19,7 @@ namespace TowerDefense.Scripts.Enemies
         public Health Health { get; private set; }
         public EnemyType EnemyType => enemyType;
         public bool IsDead => Health.CurrentHealth.Value <= 0;
-        public ReactiveProperty<EnemyStatus> Status { get; } = new();
+        public ReactiveProperty<EnemyActionStatus> Status { get; } = new();
         public EnemySettings Settings { get; private set; }
 
         Transform ITarget.Transform => transform;
@@ -42,7 +42,7 @@ namespace TowerDefense.Scripts.Enemies
             movingHandler.OnMovingComplete = () =>
             {
                 UnityEngine.Debug.Log("Moving Complete");
-                Status.Value = EnemyStatus.Complete;
+                Status.Value = EnemyActionStatus.Complete;
                 OnDestinationReached?.Invoke(this);
             };
         }
@@ -63,7 +63,7 @@ namespace TowerDefense.Scripts.Enemies
         {
             if (hp <= 0)
             {
-                Status.Value = EnemyStatus.Dead;
+                Status.Value = EnemyActionStatus.Dead;
             }
             else
             {
@@ -79,7 +79,7 @@ namespace TowerDefense.Scripts.Enemies
         public void Reset()
         {
             _effectHandler.RemoveAllEffects();
-            Status.Value = EnemyStatus.None;
+            Status.Value = EnemyActionStatus.None;
             movingHandler.Stop();
         }
 
@@ -90,7 +90,7 @@ namespace TowerDefense.Scripts.Enemies
 
         public void SetMovingPath(Vector3 movingPath)
         {
-            Status.Value = EnemyStatus.Moving;
+            Status.Value = EnemyActionStatus.Moving;
             movingHandler.StartMoving(movingPath);
         }
 

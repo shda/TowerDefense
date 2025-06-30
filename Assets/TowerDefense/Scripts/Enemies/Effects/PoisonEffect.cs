@@ -22,7 +22,7 @@ namespace TowerDefense.Scripts.Enemies.Effects
 
             _target.Status.Subscribe(status =>
             {
-                if (status == EnemyStatus.Dead)
+                if (status == EnemyActionStatus.Dead)
                 {
                     ResetEffect();
                     Duration = 0;

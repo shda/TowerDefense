@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TowerDefense.Scripts.Enemies
 {
-    public class MovingToLine : MovingHandlerBase
+    public class FlyMovement : BaseMovement
     {
         [SerializeField] public float speedMoving = 3.5f;
         public override float SpeedMoving => speedMoving;

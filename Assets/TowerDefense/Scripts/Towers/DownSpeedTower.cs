@@ -12,7 +12,7 @@ namespace TowerDefense.Scripts.Towers
         {
             if (target is { IsCanByTarget: true } && IsCanUsingByTarget(target))
             {
-               var effect = EffectMake.MakeDownSpeedEffect(target , downSpeedModifier , timeEffect);
+               var effect = EffectMaker.MakeDownSpeedEffect(target , downSpeedModifier , timeEffect);
                var effectContext = target.GetEffectContext();
                effect.SetEffect(effectContext);
             }
@@ -21,7 +21,7 @@ namespace TowerDefense.Scripts.Towers
         protected override bool IsCanUsingByTarget(ITarget target)
         {
             var effectContext = target.GetEffectContext();
-            var countEffects = effectContext.EffectHandler.CountContainEffectByType(typeof(DownSpeedEffect));
+            var countEffects = effectContext.EffectHandler.CountContainEffectByType(typeof(SlowdownEffect));
             return countEffects < maxEffectsToTarget;
         }
     }

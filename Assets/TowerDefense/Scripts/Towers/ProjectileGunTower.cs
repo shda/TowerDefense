@@ -44,7 +44,7 @@ namespace TowerDefense.Scripts.Towers
                         _disposables.Clear();
                         _currentTarget.Status.Subscribe(status =>
                         {
-                            if (status == EnemyStatus.Dead)
+                            if (status == EnemyActionStatus.Dead)
                             {
                                 _currentTarget = null;
                             }

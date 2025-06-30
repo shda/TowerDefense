@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using BlockBlast.Scripts.Common.Extensions;
-using Cysharp.Threading.Tasks;
 using TowerDefense.Scripts.Game;
 using TowerDefense.Scripts.Stats;
 using UniRx;
@@ -60,12 +59,12 @@ namespace TowerDefense.Scripts.Enemies
 
         private void OnChangeEnemyStatus(Enemy enemy, CompositeDisposable composite)
         {
-            if (enemy.Status.Value == EnemyStatus.Dead)
+            if (enemy.Status.Value == EnemyActionStatus.Dead)
             {
                 _gameStats.ProgresscPoints.Value += enemy.Settings.givesPointsAftetDeath;
                 ReturnEnemyToPool(enemy , composite);
             }
-            else if (enemy.Status.Value == EnemyStatus.Complete)
+            else if (enemy.Status.Value == EnemyActionStatus.Complete)
             {
                 ReturnEnemyToPool(enemy , composite);
             }
@@ -74,7 +73,7 @@ namespace TowerDefense.Scripts.Enemies
         private void ReturnEnemyToPool(Enemy enemy, CompositeDisposable composite)
         {
             composite.Dispose();
-            _enemyFactory.Relase(enemy);
+            _enemyFactory.Release(enemy);
             _levelObjects.Enemies.Remove(enemy);
             OnRemoveEnemy?.Invoke(enemy);
         }

@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 namespace TowerDefense.Scripts.Enemies
 {
-    public class MovingToNavigationMash : MovingHandlerBase
+    public class NavigationMashMovement : BaseMovement
     {
         [SerializeField] private NavMeshAgent navMeshAgent;
         private const float StoppingThreshold = 0.3f;

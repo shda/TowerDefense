@@ -11,7 +11,7 @@ namespace TowerDefense.Scripts.Towers
         {
             if (target is { IsCanByTarget: true } && IsCanUsingByTarget(target))
             {
-                var effect = EffectMake.MakePoisonEffect(target , poisonData);
+                var effect = EffectMaker.MakePoisonEffect(target , poisonData);
                 var effectContext = target.GetEffectContext();
                 effect.SetEffect(effectContext);
             }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TowerDefense.Scripts.Enemies
 {
-    public class MovingHandlerBase : MonoBehaviour
+    public class BaseMovement : MonoBehaviour
     {
         public virtual float SpeedMoving { get; set; }
         public Action OnMovingComplete { get; set; }

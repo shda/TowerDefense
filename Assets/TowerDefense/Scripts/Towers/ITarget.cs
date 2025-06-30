@@ -11,7 +11,7 @@ namespace TowerDefense.Scripts.Towers
         bool IsCanByTarget { get; }
         Health Health { get; }
         EnemyType EnemyType { get; }
-        ReactiveProperty<EnemyStatus> Status { get; }
+        ReactiveProperty<EnemyActionStatus> Status { get; }
         EffectContext GetEffectContext();
     }
 }

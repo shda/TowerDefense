@@ -1,6 +1,6 @@
 namespace TowerDefense.Scripts.Enemies
 {
-    public enum EnemyStatus
+    public enum EnemyActionStatus
     {
         None,
         Moving,
