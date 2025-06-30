@@ -6,6 +6,7 @@ using TowerDefense.Scripts.PlayerScripts;
 using TowerDefense.Scripts.Stats;
 using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Ui;
+using TowerDefense.Scripts.Ui.GameSceneUi;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
@@ -64,23 +65,23 @@ namespace TowerDefense.Scripts.Installers
             
             Container.BindMemoryPool<Enemy, EnemyPool>()
                 .WithId(EnemyType.Ground)
+                .WithInitialSize(20)
                 .FromComponentInNewPrefab(enemyGroundPrefab)
                 .UnderTransformGroup("Enemy");
             
             Container.BindMemoryPool<Enemy, EnemyPool>()
-                .WithId(EnemyType.Fly)
+                .WithId(EnemyType.Fly).WithInitialSize(20)
                 .FromComponentInNewPrefab(enemyFlyPrefab)
                 .UnderTransformGroup("Enemy");
         }
         
         private void BindHealthLevelFactory()
         {
-            Container.BindFactory<HealthLevel, HealthLevel.Factory>()
-                .FromPoolableMemoryPool<HealthLevel, HealthLevel.MemoryPool>(poolBinder =>
-                    poolBinder
-                        .WithInitialSize(20)
-                        .FromComponentInNewPrefab(healthLevelPrefab)
-                        .UnderTransform(rootHealthLevels));
+            Container.BindMemoryPool<HealthLevel, HealthLevelPool>()
+                .WithInitialSize(20)
+                .FromComponentInNewPrefab(healthLevelPrefab)
+                .UnderTransform(rootHealthLevels);
         }
+        
     }
 }

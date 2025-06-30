@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace TowerDefense.Scripts.Ui
+namespace TowerDefense.Scripts.Ui.GameSceneUi
 {
-    public class NextTowerProgressBar : MonoBehaviour
+    public class LevelUpProgressBar : MonoBehaviour
     {
         [SerializeField] private Image progressBarImage; 
         

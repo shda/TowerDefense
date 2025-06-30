@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TowerDefense.Scripts.Ui
+namespace TowerDefense.Scripts.Ui.DownMenu
 {
     public class ShowHideMenuAnimation : MonoBehaviour
     {

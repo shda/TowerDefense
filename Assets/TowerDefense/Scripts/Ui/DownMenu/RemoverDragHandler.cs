@@ -1,7 +1,7 @@
 using BlockBlast.Scripts.Common.Extensions;
 using UnityEngine;
 
-namespace TowerDefense.Scripts.Ui
+namespace TowerDefense.Scripts.Ui.DownMenu
 {
     public class RemoverDragHandler : MapDragHandler
     {

@@ -1,5 +1,6 @@
 using System;
 using TowerDefense.Scripts.Enemies.Effects;
+using TowerDefense.Scripts.Enemies.Movements;
 using TowerDefense.Scripts.Towers;
 using UniRx;
 using UnityEngine;

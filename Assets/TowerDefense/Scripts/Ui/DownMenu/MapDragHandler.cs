@@ -3,7 +3,7 @@ using TowerDefense.Scripts.Game;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace TowerDefense.Scripts.Ui
+namespace TowerDefense.Scripts.Ui.DownMenu
 {
     public abstract class MapDragHandler
     {

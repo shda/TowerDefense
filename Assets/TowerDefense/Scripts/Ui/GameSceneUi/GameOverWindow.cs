@@ -1,9 +1,8 @@
-using System;
 using BlockBlast.Scripts.Common.Extensions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace TowerDefense.Scripts.Game
+namespace TowerDefense.Scripts.Ui.GameSceneUi
 {
     public class GameOverWindow : MonoBehaviour
     {

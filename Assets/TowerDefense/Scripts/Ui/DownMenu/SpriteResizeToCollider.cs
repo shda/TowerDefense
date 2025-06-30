@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace TowerDefense.Scripts.Ui
+namespace TowerDefense.Scripts.Ui.DownMenu
 {
     public class SpriteResizeToCollider : MonoBehaviour
     {

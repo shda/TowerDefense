@@ -7,9 +7,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace TowerDefense.Scripts.Ui
+namespace TowerDefense.Scripts.Ui.DownMenu
 {
-    public class WindowPlayerItems : MonoBehaviour
+    public class WindowSelectItems : MonoBehaviour
     {
         [SerializeField] private AddTowerToMapController addTowerToMapController;
         [SerializeField] private ShowHideMenuAnimation menuAnimation;

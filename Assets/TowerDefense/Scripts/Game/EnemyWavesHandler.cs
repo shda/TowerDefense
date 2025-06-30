@@ -6,6 +6,7 @@ using BlockBlast.Scripts.Common.Extensions;
 using Cysharp.Threading.Tasks;
 using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Stats;
+using TowerDefense.Scripts.Ui.GameSceneUi;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;

@@ -4,12 +4,12 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 
-namespace TowerDefense.Scripts.Ui
+namespace TowerDefense.Scripts.Ui.GameSceneUi
 {
-    public class LevelLabel : MonoBehaviour
+    public class CountEnemyLabel : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI levelText; 
-        
+        [SerializeField] private TextMeshProUGUI label;
+
         private GameStats _gameStats;
         
         [Inject]
@@ -20,12 +20,10 @@ namespace TowerDefense.Scripts.Ui
 
         private void Start()
         {
-            _gameStats.Level.Subscribe(OnChangeLevel).AddTo(this);
-        }
-
-        private void OnChangeLevel(int level)
-        {
-            levelText.text = level.ToString();
+            _gameStats.CountEnemy.Subscribe(i =>
+            {
+                label.text = i.ToString();
+            }).AddTo(this);
         }
     }
 }

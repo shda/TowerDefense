@@ -5,7 +5,7 @@ using TowerDefense.Scripts.PlayerScripts;
 using UnityEngine;
 using Zenject;
 
-namespace TowerDefense.Scripts.Ui
+namespace TowerDefense.Scripts.Ui.GameSceneUi
 {
     public class HealthLevels : MonoBehaviour
     {
@@ -13,7 +13,7 @@ namespace TowerDefense.Scripts.Ui
 
         private HealthLevel _platerHealthLevel;
         private EnemySpawner _enemySpawner;
-        private HealthLevel.Factory _healthLevelFactory;
+        private HealthLevelPool _healthLevelFactory;
         private PlayerHealth _playerHealth;
         private Player _player;
         
@@ -23,7 +23,7 @@ namespace TowerDefense.Scripts.Ui
         public void Construct(
             EnemySpawner enemySpawner, 
             LevelObjects levelObjects,
-            HealthLevel.Factory healthLevelFactory,
+            HealthLevelPool healthLevelFactory,
             PlayerHealth playerHealth,
             Player player)
         {
@@ -46,14 +46,14 @@ namespace TowerDefense.Scripts.Ui
             if (_healthLevels.ContainsKey(enemy))
                 return;
 
-            _healthLevels[enemy] = _healthLevelFactory.Create();
+            _healthLevels[enemy] = _healthLevelFactory.Spawn();
         }
 
         private void RemoveHealthLevel(Enemy enemy)
         {
             if (_healthLevels.TryGetValue(enemy, out HealthLevel level))
             {
-                level.RemoveToPool();
+                _healthLevelFactory.Despawn(level);
                 _healthLevels.Remove(enemy);
             }
         }
@@ -68,7 +68,7 @@ namespace TowerDefense.Scripts.Ui
         {
             if (_platerHealthLevel == null)
             {
-                _platerHealthLevel = _healthLevelFactory.Create();
+                _platerHealthLevel = _healthLevelFactory.Spawn();
             }
 
             SetLife(_playerHealth.Health, _platerHealthLevel, _player.transform.position);

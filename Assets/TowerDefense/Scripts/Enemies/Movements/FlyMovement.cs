@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TowerDefense.Scripts.Enemies
+namespace TowerDefense.Scripts.Enemies.Movements
 {
     public class FlyMovement : BaseMovement
     {

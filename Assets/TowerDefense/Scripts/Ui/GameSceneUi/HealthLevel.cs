@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace TowerDefense.Scripts.Ui
+namespace TowerDefense.Scripts.Ui.GameSceneUi
 {
-    public class HealthLevel : MonoBehaviour, IPoolable<IMemoryPool>
+    public class HealthLevel : MonoBehaviour
     {
         [SerializeField] private RectTransform rectTransform;
         [SerializeField] private Image sliderLine;
@@ -40,29 +40,5 @@ namespace TowerDefense.Scripts.Ui
             
             rectTransform.localPosition = localPoint;
         }
-
-        #region Spawn
-        public void OnDespawned()
-        {
-            
-        }
-
-        public void OnSpawned(IMemoryPool p1)
-        {
-            _memoryPool = p1;
-        }
-        public void RemoveToPool()
-        {
-            _memoryPool.Despawn(this);
-        }
-        
-        public class Factory : PlaceholderFactory<HealthLevel>
-        {
-        }
-        
-        public class MemoryPool : MonoPoolableMemoryPool<IMemoryPool, HealthLevel>
-        {
-        }
-        #endregion
     }
 }
