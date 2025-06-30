@@ -1,11 +1,9 @@
-using System.Linq;
 using BlockBlast.Scripts.Common.Extensions;
 using TowerDefense.Scripts.Interactivity;
 using TowerDefense.Scripts.PlayerScripts;
 using TowerDefense.Scripts.Towers;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
@@ -22,10 +20,8 @@ namespace TowerDefense.Scripts.Ui
 
         [SerializeField] private SpriteResizeToCollider spriteResizeToCollider;
         [SerializeField] private Sprite spriteRemoveItem;
-        
         private PlayerInventory _playerInventory;
-
-
+        
         [Inject]
         public void Construct(PlayerInventory playerInventory)
         {
@@ -34,20 +30,7 @@ namespace TowerDefense.Scripts.Ui
         private void Start()
         {
             spriteResizeToCollider.Hide();
-            
             _playerInventory.OnChangeCollection.Subscribe(_ => CreateItems()).AddTo(this);
-            
-            /*
-            foreach (var ch in itemsRoot.Cast<Transform>().ToList())
-            {
-                DestroyImmediate(ch.gameObject);
-            }
-            8/
-
-            /*
-            CreateRemoveItem();
-            CreateTowerItems();
-            */
         }
 
         private void CreateItems()
@@ -84,8 +67,13 @@ namespace TowerDefense.Scripts.Ui
 
             prefab.SetHandler(mapDragHandler, count , scrollRect);
             prefab.OnSelect = OnSelect;
+            
+            mapDragHandler.OnSuccess = _ =>
+            {
+                _playerInventory.RemoveItem(itemsCollection.IdRemoveCell);
+            };
         }
-
+        
         private void CreateTowerItems(TowerBase towerBase, int count)
         {
             var prefab = Instantiate(itemPrefab, itemsRoot);
@@ -95,6 +83,11 @@ namespace TowerDefense.Scripts.Ui
 
             prefab.SetHandler(mapDragHandler, count , scrollRect);
             prefab.OnSelect = OnSelect;
+            
+            mapDragHandler.OnSuccess = _ =>
+            {
+                _playerInventory.RemoveItem(towerBase.TowerComponents.TowerId);
+            };
         }
 
         private void OnSelect(DragItem item)

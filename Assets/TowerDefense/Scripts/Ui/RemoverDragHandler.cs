@@ -52,6 +52,8 @@ namespace TowerDefense.Scripts.Ui
             {
                 _selectRemoveObject.Remove(_levelObjects);
                 _selectRemoveObject = null;
+                
+                OnSuccess?.Invoke(this);
             }
         }
     }

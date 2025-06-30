@@ -51,7 +51,7 @@ namespace TowerDefense.Scripts.Enemies.Effects
             if(_effects is { Count: 0 })
                 return;
             
-            foreach (var effect in _effects)
+            foreach (var effect in _effects.ToArray())
             {
                 RemoveEffect(effect);
             }

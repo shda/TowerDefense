@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +11,8 @@ namespace TowerDefense.Scripts.Ui
         protected LevelObjects _levelObjects;
         protected NavMeshPath _navMeshPath;
         public abstract Sprite Sprite { get;}
+        
+        public Action<MapDragHandler> OnSuccess { get; set; }
 
         public void Init(
             LevelController levelController,

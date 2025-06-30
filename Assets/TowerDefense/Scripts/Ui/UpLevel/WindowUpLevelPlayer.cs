@@ -64,7 +64,7 @@ namespace TowerDefense.Scripts.Ui.UpLevel
 
         private void HideWindow()
         {
-           // transform.Hide();
+            transform.Hide();
         }
 
         private void RemoveOldItems()

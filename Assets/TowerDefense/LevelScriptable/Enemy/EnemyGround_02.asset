@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tzName: "\u0441\u0438\u043D\u0438\u0439 \xAB8-side-\u0432\u0438\u0440\u0443\u0441\xBB
     (\u0440\u044F\u0434\u043E\u0432\u043E\u0439)"
-  sprite: {fileID: 21300000, guid: 9db58da64cf77e54592b7b7e195b36cd, type: 3}
+  sprite: {fileID: 21300000, guid: 94eab79e474d83b42885503c76a7bd6d, type: 3}
   enemyType: 1
   health: 20
   speedMoving: 0.5

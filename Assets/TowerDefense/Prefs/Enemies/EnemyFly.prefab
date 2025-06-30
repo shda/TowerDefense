@@ -48,10 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa73fc1b67c64f88bf04d0de9ea45c44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 5123894791850254180}
   movingHandler: {fileID: 8072136590286078612}
   hitAnimation: {fileID: 6135711732254309845}
   enemyType: 0
-  speedMoving: 1
 --- !u!114 &8072136590286078612
 MonoBehaviour:
   m_ObjectHideFlags: 0

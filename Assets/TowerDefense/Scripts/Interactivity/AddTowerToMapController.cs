@@ -13,20 +13,20 @@ namespace TowerDefense.Scripts.Interactivity
     {
         [SerializeField] private LayerMask layerObstaclesTag;
         [SerializeField] private LevelController levelController;
-        [FormerlySerializedAs("towerCollection")] [SerializeField] private ItemsCollection itemsCollection;
+        [SerializeField] private ItemsCollection itemsCollection;
         [SerializeField] private NavMeshSurface navigationSurface;
-        
-        private NavMeshPath _navMeshPath; 
+
+        private NavMeshPath _navMeshPath;
         private InputSwitcher _inputSwitcher;
         private MapDragHandler _dragHandler;
         private LevelObjects _levelObjects;
-        
+
         [Inject]
         public void Construct(
-            InputSwitcher inputSwitcher , 
+            InputSwitcher inputSwitcher,
             LevelObjects levelObjects)
         {
-            _navMeshPath = new(); 
+            _navMeshPath = new();
             _levelObjects = levelObjects;
             _inputSwitcher = inputSwitcher;
             _inputSwitcher.SetChangeMap(this);
@@ -36,9 +36,9 @@ namespace TowerDefense.Scripts.Interactivity
         {
             _dragHandler = dragHandler;
             _dragHandler.Init(
-                levelController , 
-                layerObstaclesTag , 
-                _levelObjects , 
+                levelController,
+                layerObstaclesTag,
+                _levelObjects,
                 _navMeshPath);
             _inputSwitcher.SwitchToChangeMapHandlerControl();
             Time.timeScale = 0.05f;
@@ -46,17 +46,19 @@ namespace TowerDefense.Scripts.Interactivity
 
         public void OnPress(bool isPressed)
         {
-            _dragHandler.OnPress(isPressed);
+            _dragHandler?.OnPress(isPressed);
             if (!isPressed)
             {
                 _inputSwitcher.SwitchToPlayerControl();
                 Time.timeScale = 1.0f;
+                
+                _dragHandler = null;
             }
         }
 
         public void OnPointWorld(Vector3 worldPosition)
         {
-            _dragHandler.OnUpdateWorldPosition(worldPosition);
+            _dragHandler?.OnUpdateWorldPosition(worldPosition);
         }
 
         public void OnPointMoving(Vector2 direction)

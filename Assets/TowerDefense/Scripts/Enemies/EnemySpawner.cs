@@ -32,10 +32,10 @@ namespace TowerDefense.Scripts.Enemies
             _levelObjects = levelObjects;
         }
 
-        public void AddEnemyToMap()
+        public Enemy AddEnemyToMap()
         {
             if(!_levelController.IsMapLoaded)
-                return;
+                return null;
             
             var spawnPoint = _levelController.EnemySpawnPoints
                 [Random.Range(0, _levelController.EnemySpawnPoints.Length)];
@@ -52,13 +52,16 @@ namespace TowerDefense.Scripts.Enemies
             OnCreateNewEnemy?.Invoke(enemy);
             _levelObjects.Enemies.Add(enemy);
             _gameStats.CountEnemy.Value = _levelObjects.Enemies.Count();
+
+            return enemy;
         }
 
         private void OnChangeEnemyStatus(Enemy enemy, CompositeDisposable composite)
         {
             if (enemy.Status.Value == EnemyStatus.Dead)
             {
-                _gameStats.ProgressNextTower.Value += 0.02f;
+                
+                _gameStats.ProgressNextTower.Value += enemy.Settings.givesPointsAftetDeath;
                 
                 ReturnEnemyToPool(enemy , composite);
             }
@@ -72,8 +75,6 @@ namespace TowerDefense.Scripts.Enemies
         {
             composite.Dispose();
             _enemyFactory.Relase(enemy);
-           // enemy.RemoveToPool();
-            
             _levelObjects.Enemies.Remove(enemy);
             OnRemoveEnemy?.Invoke(enemy);
         }

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4252224712812500756}
   - component: {fileID: 5558184725391885105}
   - component: {fileID: 6135711732254309845}
-  - component: {fileID: 5708537536406459583}
   - component: {fileID: 1570772509292643391}
   - component: {fileID: 5917652265712883288}
   m_Layer: 6
@@ -50,10 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa73fc1b67c64f88bf04d0de9ea45c44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 5123894791850254180}
   movingHandler: {fileID: 5558184725391885105}
   hitAnimation: {fileID: 6135711732254309845}
   enemyType: 1
-  speedMoving: 1
 --- !u!114 &5558184725391885105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,29 +79,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 5123894791850254180}
---- !u!114 &5708537536406459583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013698729038697969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d739d4076a2c437ab87a24ff9f6e60ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 5123894791850254180}
-  sprites:
-  - {fileID: 21300000, guid: 2e098af1859005147be919c455d825d3, type: 3}
-  - {fileID: 21300000, guid: 0cb2ed3b63d61004280b2917562a172b, type: 3}
-  - {fileID: 21300000, guid: 9db58da64cf77e54592b7b7e195b36cd, type: 3}
-  - {fileID: 21300000, guid: 94eab79e474d83b42885503c76a7bd6d, type: 3}
-  - {fileID: 21300000, guid: f6cd19eebc6ff9147a6bdf2584feb3be, type: 3}
-  - {fileID: 21300000, guid: 0082e164f56a72145ad8e5e414cf5e3d, type: 3}
-  - {fileID: 21300000, guid: 9babca51d7636d041a18b8ec47482ef7, type: 3}
-  - {fileID: 21300000, guid: 29cfe828ea499da40b374f0548f57ba2, type: 3}
-  - {fileID: 21300000, guid: 5258b3d108bfebb42aa0cd0fc2699e61, type: 3}
 --- !u!58 &1570772509292643391
 CircleCollider2D:
   m_ObjectHideFlags: 0

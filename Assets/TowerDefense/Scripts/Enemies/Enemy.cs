@@ -8,10 +8,10 @@ namespace TowerDefense.Scripts.Enemies
 {
     public class Enemy : MonoBehaviour, IPoolable<IMemoryPool>, ITarget
     {
+        [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private MovingHandlerBase movingHandler;
         [SerializeField] private HitAnimation hitAnimation;
         [SerializeField] private EnemyType enemyType;
-        [SerializeField] private float speedMoving;
         
         private EffectHandler _effectHandler;
         private EffectContext _effectContext;
@@ -19,6 +19,7 @@ namespace TowerDefense.Scripts.Enemies
         public EnemyType EnemyType => enemyType;
         public bool IsDead => Health.CurrentHealth.Value <= 0;
         public ReactiveProperty<EnemyStatus> Status { get; } = new();
+        public EnemySettings Settings { get; private set; }
 
         Transform ITarget.Transform => transform;
         bool ITarget.IsCanByTarget => !IsDead;
@@ -31,7 +32,7 @@ namespace TowerDefense.Scripts.Enemies
             _effectHandler = effectHandler;
             Health = health;
             Reset();
-            
+
             Health.CurrentHealth.Subscribe(OnChangeHp).AddTo(this);
 
             _effectContext = new EffectContext(_effectHandler, Health, movingHandler);
@@ -40,6 +41,18 @@ namespace TowerDefense.Scripts.Enemies
                 UnityEngine.Debug.Log("Moving Complete");
                 Status.Value = EnemyStatus.Complete;
             };
+        }
+
+        public void SetInfo(EnemySettings settings)
+        {
+            Settings = settings;
+            
+            enemyType = settings.enemyType;
+            spriteRenderer.sprite = settings.sprite;
+
+            Health.CurrentHealth.Value = settings.health;
+            Health.MaxHealth.Value = settings.health;
+            movingHandler.SpeedMoving = settings.speedMoving;
         }
 
         private void OnChangeHp(float hp)
@@ -92,6 +105,7 @@ namespace TowerDefense.Scripts.Enemies
         #region Spawn
 
         private IMemoryPool _memoryPool;
+        
 
         void IPoolable<IMemoryPool>.OnDespawned()
         {

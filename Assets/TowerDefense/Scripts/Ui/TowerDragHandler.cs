@@ -41,6 +41,7 @@ namespace TowerDefense.Scripts.Ui
                 else
                 {
                     _levelObjects.Towers.Add(_currentTower);
+                    OnSuccess?.Invoke(this);
                 }
 
                 _currentTower = null;

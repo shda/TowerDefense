@@ -23,9 +23,9 @@ namespace TowerDefense.Scripts.Ui
             _gameStats.ProgressNextTower.Subscribe(OnChangeProgress).AddTo(this);
         }
 
-        private void OnChangeProgress(float progress)
+        private void OnChangeProgress(int progress)
         {
-            progressBarImage.fillAmount = progress;
+            progressBarImage.fillAmount = _gameStats.GetProgressToNextLevel01();
         }
     }
 }
