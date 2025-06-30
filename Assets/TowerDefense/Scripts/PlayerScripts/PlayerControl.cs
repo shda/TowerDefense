@@ -7,7 +7,6 @@ namespace TowerDefense.Scripts.PlayerScripts
     public class PlayerControl : MonoBehaviour , IPointListener
     {
         [SerializeField] private Transform rootSprites;
-        [Header("Settings")]
         
         private Rigidbody2D _rb;
         private Vector2 _moveDirection;

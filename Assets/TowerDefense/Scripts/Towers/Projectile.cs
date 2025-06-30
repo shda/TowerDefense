@@ -2,7 +2,6 @@ using System;
 using TowerDefense.Scripts.Enemies;
 using UniRx;
 using UnityEngine;
-using Zenject;
 
 namespace TowerDefense.Scripts.Towers
 {

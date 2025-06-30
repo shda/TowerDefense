@@ -23,24 +23,22 @@ namespace TowerDefense.Scripts.Installers
         
         public override void InstallBindings()
         {
-            
             Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProjectileSpawner>().AsSingle();
             Container.Bind<InputListenerSwitcher>().AsSingle();
             Container.Bind<InputSwitcher>().AsSingle();
             Container.Bind<LevelObjects>().AsSingle();
             
-            BindPlayer();
-
+            Container.Bind<TowerStatsCollection>().AsSingle();
+            
             Container.Bind<LevelController>().FromComponentInHierarchy().AsSingle();
             Container.Bind<InputHandler>().FromComponentInHierarchy().AsSingle();
-            Container.Bind<Player>().FromComponentInHierarchy().AsSingle();
-            
             
             
             Container.BindInterfacesAndSelfTo<EffectHandler>().AsTransient();
             Container.Bind<Health>().AsTransient();
 
+            BindPlayer();
             BindEnemyFactory();
             BindHealthLevelFactory();
         }
@@ -48,6 +46,7 @@ namespace TowerDefense.Scripts.Installers
         private void BindPlayer()
         {
             Container.BindInstance(playerSettings);
+            Container.Bind<Player>().FromComponentInHierarchy().AsSingle();
             Container.Bind<PlayerStats>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerHealth>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerRecoveryHealthToTime>().AsSingle().NonLazy();
