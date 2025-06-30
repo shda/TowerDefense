@@ -304,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drawValueToSelect: 2
   itemImage: {fileID: 2790978656195293666}
+  countText: {fileID: 6884352352418525703}
 --- !u!114 &4147666790383106276
 MonoBehaviour:
   m_ObjectHideFlags: 0

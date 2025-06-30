@@ -1331,7 +1331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   addTowerToMapController: {fileID: 1152155141}
   menuAnimation: {fileID: 242743353}
-  towerCollection: {fileID: 11400000, guid: bf51ad74331b6a045981649c96bae9bd, type: 2}
+  itemsCollection: {fileID: 11400000, guid: bf51ad74331b6a045981649c96bae9bd, type: 2}
   scrollRect: {fileID: 843051882}
   itemPrefab: {fileID: 1747557186731431636, guid: 45531c4b35034434f9edad3a27046827, type: 3}
   itemsRoot: {fileID: 287827152}
@@ -1798,7 +1798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1806,7 +1806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1846,11 +1846,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1887,7 +1887,7 @@ GameObject:
   - component: {fileID: 843051883}
   - component: {fileID: 843051882}
   m_Layer: 5
-  m_Name: SelectItem
+  m_Name: Items
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2524,7 +2524,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   levelController: {fileID: 1113243378}
-  towerCollection: {fileID: 11400000, guid: bf51ad74331b6a045981649c96bae9bd, type: 2}
+  itemsCollection: {fileID: 11400000, guid: bf51ad74331b6a045981649c96bae9bd, type: 2}
   navigationSurface: {fileID: 1932619604}
 --- !u!1 &1155434551
 GameObject:
@@ -4226,6 +4226,7 @@ GameObject:
   - component: {fileID: 1628076195}
   - component: {fileID: 1628076197}
   - component: {fileID: 1628076198}
+  - component: {fileID: 1628076199}
   m_Layer: 5
   m_Name: LevelUpWindow
   m_TagString: Untagged
@@ -4335,6 +4336,25 @@ MonoBehaviour:
   upPlayerDamage: {fileID: 11400000, guid: 78f9ee6bd0a196444a25462b36504d26, type: 2}
   upPlayerHealth: {fileID: 11400000, guid: bc1091fab554b5447a8af490cf7110fc, type: 2}
   upPlayerCountTargetOneShot: {fileID: 11400000, guid: 4778b0e8efe5e4d49b836856a0e4c119, type: 2}
+  towerCollection: {fileID: 1628076199}
+  clearCellItemSettings: {fileID: 11400000, guid: e0a2656489f557b40bff6be6daebc016, type: 2}
+--- !u!114 &1628076199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628076193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d060b247b9c6420cac695ce78413f9df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  artilleryTower: {fileID: 11400000, guid: a290385483dae9c4994baa7f87f298e3, type: 2}
+  gunTower: {fileID: 11400000, guid: c6a42d3082226d24585e262982b5600a, type: 2}
+  flyTower: {fileID: 11400000, guid: 59e263ede1d19904da1d4ce0d65d0fe9, type: 2}
+  downSpeedTower: {fileID: 11400000, guid: bdd9478178c704c408fc57e292a5820d, type: 2}
+  poisonTower: {fileID: 11400000, guid: bcae496ce5761cc4fa8b8f3b5a69f0af, type: 2}
 --- !u!1001 &1645797461
 PrefabInstance:
   m_ObjectHideFlags: 0

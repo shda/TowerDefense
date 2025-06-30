@@ -48,6 +48,7 @@ namespace TowerDefense.Scripts.Installers
             Container.BindInstance(playerSettings);
             Container.Bind<Player>().FromComponentInHierarchy().AsSingle();
             Container.Bind<PlayerStats>().AsSingle();
+            Container.Bind<PlayerInventory>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerHealth>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerRecoveryHealthToTime>().AsSingle().NonLazy();
         }

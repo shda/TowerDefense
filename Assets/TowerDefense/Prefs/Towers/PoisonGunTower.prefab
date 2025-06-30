@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1797067138252025198, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: towerName
+      value: "\u0437\u0435\u043B\u0435\u043D\u0430\u044F \u0431\u0430\u0448\u043D\u044F "
+      objectReference: {fileID: 0}
     - target: {fileID: 2529923919253247527, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: damage
       value: 15

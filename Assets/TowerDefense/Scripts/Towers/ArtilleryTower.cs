@@ -17,7 +17,7 @@ namespace TowerDefense.Scripts.Towers
                 {
                     //Todo need optimize
                     var targetHit = hit2D.transform.GetComponent<ITarget>();
-                    if (targetHit != null && targetHit.EnemyType == EnemyType.Ground)
+                    if (targetHit is { EnemyType: EnemyType.Ground })
                     {
                         targetHit.Health.CurrentHealth.Value -= damage;
                     }

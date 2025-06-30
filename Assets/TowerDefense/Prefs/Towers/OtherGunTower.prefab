@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1797067138252025198, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: towerName
+      value: "old-school-\u0431\u0430\u0448\u043D\u044F "
+      objectReference: {fileID: 0}
     - target: {fileID: 3540878944330277549, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: m_Layer
       value: 0

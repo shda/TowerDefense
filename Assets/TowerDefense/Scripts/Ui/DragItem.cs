@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ namespace TowerDefense.Scripts.Ui
     {
         [SerializeField] private float drawValueToSelect;
         [SerializeField] private Image itemImage;
+        [SerializeField] private TextMeshProUGUI countText;
         
         private ScrollRect _scrollRect;
         public MapDragHandler MapDragHandler { get; set; }
@@ -39,8 +41,10 @@ namespace TowerDefense.Scripts.Ui
             _scrollRect.OnEndDrag(eventData);
         }
 
-        public void SetHandler(MapDragHandler mapDragHandler , ScrollRect scrollRect)
+        public void SetHandler(MapDragHandler mapDragHandler, int count, ScrollRect scrollRect)
         {
+            countText.text = count.ToString();
+            
             _scrollRect = scrollRect;
             itemImage.sprite = mapDragHandler.Sprite;
             MapDragHandler = mapDragHandler;

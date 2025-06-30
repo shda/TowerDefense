@@ -4,6 +4,7 @@ using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Ui;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace TowerDefense.Scripts.Interactivity
@@ -12,7 +13,7 @@ namespace TowerDefense.Scripts.Interactivity
     {
         [SerializeField] private LayerMask layerObstaclesTag;
         [SerializeField] private LevelController levelController;
-        [SerializeField] private TowerCollection towerCollection;
+        [FormerlySerializedAs("towerCollection")] [SerializeField] private ItemsCollection itemsCollection;
         [SerializeField] private NavMeshSurface navigationSurface;
         
         private NavMeshPath _navMeshPath; 

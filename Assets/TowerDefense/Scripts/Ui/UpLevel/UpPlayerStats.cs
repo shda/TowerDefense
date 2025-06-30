@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace TowerDefense.Scripts.Ui.UpLevel
 {
-    [CreateAssetMenu(menuName = "Create TowerDefense/UpPlayerStats", fileName = "ItemDescription", order = 0)]
-    public class UpPlayerStats : ItemDescription
+    [CreateAssetMenu(menuName = "Create TowerDefense/UpPlayerStats", fileName = "UpPlayerStats", order = 0)]
+    public class UpPlayerStats : UpLevelSettings
     {
         [SerializeField] private float multiplierRadiusShot;
         [SerializeField] private float multiplierDamageShot;
