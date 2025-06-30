@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TowerDefense.Scripts.Enemies
 {
-    public class HitAnimation : MonoBehaviour
+    public class DamageAnimation : MonoBehaviour
     {
         [SerializeField] protected SpriteRenderer spriteRenderer;
         

@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 5123894791850254180}
   movingHandler: {fileID: 5558184725391885105}
-  hitAnimation: {fileID: 6135711732254309845}
+  damageAnimation: {fileID: 6135711732254309845}
   enemyType: 1
 --- !u!114 &5558184725391885105
 MonoBehaviour:

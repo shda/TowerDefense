@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3ed8167ee6e46f3a2d59ee5de8eddac, type: 3}
   m_Name: UpPlayerStatsCollection
   m_EditorClassIdentifier: 
-  upPlayerRadius: {fileID: 11400000, guid: e25db219094b4894584923da72790e0f, type: 2}
-  upPlayerDamage: {fileID: 11400000, guid: 78f9ee6bd0a196444a25462b36504d26, type: 2}
-  upPlayerHealth: {fileID: 11400000, guid: bc1091fab554b5447a8af490cf7110fc, type: 2}
-  upPlayerCountTargetOneShot: {fileID: 11400000, guid: 4778b0e8efe5e4d49b836856a0e4c119, type: 2}
+  levelUpPlayerRadius: {fileID: 11400000, guid: e25db219094b4894584923da72790e0f, type: 2}
+  levelUpPlayerDamage: {fileID: 11400000, guid: 78f9ee6bd0a196444a25462b36504d26, type: 2}
+  levelUpPlayerHealth: {fileID: 11400000, guid: bc1091fab554b5447a8af490cf7110fc, type: 2}
+  levelUpPlayerCountTargetOneShot: {fileID: 11400000, guid: 4778b0e8efe5e4d49b836856a0e4c119, type: 2}

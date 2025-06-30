@@ -20,8 +20,7 @@ namespace TowerDefense.Scripts.Installers
         [SerializeField] private Projectile projectilePrefab;
         [SerializeField] private HealthLevel healthLevelPrefab;
         [SerializeField] private Transform rootHealthLevels;
-
-        [FormerlySerializedAs("playerStats")]
+        
         [Header("Settings")]
         [SerializeField] private PlayerSettings playerSettings;
         
@@ -61,7 +60,7 @@ namespace TowerDefense.Scripts.Installers
 
         private void BindEnemyFactory()
         {
-            Container.Bind<EnemyFactory>().AsSingle();;
+            Container.Bind<EnemyFactory>().AsSingle();
             
             Container.BindMemoryPool<Enemy, EnemyPool>()
                 .WithId(EnemyType.Ground)
@@ -82,10 +81,6 @@ namespace TowerDefense.Scripts.Installers
                         .WithInitialSize(20)
                         .FromComponentInNewPrefab(healthLevelPrefab)
                         .UnderTransform(rootHealthLevels));
-        }
-
-        private class MemoryEnemyPool : MonoPoolableMemoryPool<IMemoryPool, Enemy>
-        {
         }
     }
 }

@@ -69,7 +69,7 @@ namespace TowerDefense.Scripts.Game
         {
             var enemy = _enemySpawner.AddEnemyToMap(settings.enemyType);
             enemy.SetInfo(settings);
-            enemy.OnTargetHit = OnHitToBase;
+            enemy.OnDestinationReached = OnHitToBase;
         }
 
         private void OnHitToBase(Enemy enemy)

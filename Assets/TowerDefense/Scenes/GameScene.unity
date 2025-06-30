@@ -1194,7 +1194,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8241706715391768651, guid: 6cfcc973d0a88c6409f19d7c46553f17, type: 3}
   healthLevelPrefab: {fileID: 3974437309872762265, guid: 135e85afa1334014ebc81e7b0555cf25, type: 3}
   rootHealthLevels: {fileID: 8084328148046138074}
-  playerStats: {fileID: 11400000, guid: 1a89be1f73b3a894eb7e47c1a004eb7e, type: 2}
+  playerSettings: {fileID: 11400000, guid: 1a89be1f73b3a894eb7e47c1a004eb7e, type: 2}
 --- !u!114 &505087301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1253,7 +1253,7 @@ GameObject:
   - component: {fileID: 616891593}
   - component: {fileID: 616891594}
   m_Layer: 5
-  m_Name: MenuAddTower
+  m_Name: WindowItems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1724,7 +1724,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4153946780843484269, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_Name
-      value: ItemUpLeve
+      value: LevelUpItem
       objectReference: {fileID: 0}
     - target: {fileID: 4153946780843484269, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_IsActive
@@ -1748,7 +1748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1756,7 +1756,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1796,11 +1796,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2653,7 +2653,7 @@ MonoBehaviour:
   countTowersInMenu: 3
   upPlayerStatsCollection: {fileID: 11400000, guid: 6d87946830b60d146adaee8cd67a5773, type: 2}
   towerSettingsCollection: {fileID: 11400000, guid: d437619c60098f14eb3396bd399a373b, type: 2}
-  windowUpLevelPlayer: {fileID: 1628076198}
+  windowLevelUpPlayer: {fileID: 1628076198}
 --- !u!1 &1155434551
 GameObject:
   m_ObjectHideFlags: 0
@@ -4681,7 +4681,7 @@ GameObject:
   - component: {fileID: 1628076197}
   - component: {fileID: 1628076198}
   m_Layer: 5
-  m_Name: LevelUpWindow
+  m_Name: WindowLevelUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

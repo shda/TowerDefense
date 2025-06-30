@@ -7,13 +7,13 @@ using Zenject;
 
 namespace TowerDefense.Scripts.Enemies
 {
-    public class Enemy : MonoBehaviour, IPoolable<IMemoryPool>, ITarget
+    public class Enemy : MonoBehaviour, ITarget
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private MovingHandlerBase movingHandler;
-        [SerializeField] private HitAnimation hitAnimation;
+        [SerializeField] private DamageAnimation damageAnimation;
         [SerializeField] private EnemyType enemyType;
-        
+
         private EffectHandler _effectHandler;
         private EffectContext _effectContext;
         public Health Health { get; private set; }
@@ -24,9 +24,9 @@ namespace TowerDefense.Scripts.Enemies
 
         Transform ITarget.Transform => transform;
         bool ITarget.IsCanByTarget => !IsDead;
-        
-        public Action<Enemy> OnTargetHit { get; set; }
-        
+
+        public Action<Enemy> OnDestinationReached { get; set; }
+
         [Inject]
         public void Construct(
             Health health,
@@ -43,14 +43,14 @@ namespace TowerDefense.Scripts.Enemies
             {
                 UnityEngine.Debug.Log("Moving Complete");
                 Status.Value = EnemyStatus.Complete;
-                OnTargetHit?.Invoke(this);
+                OnDestinationReached?.Invoke(this);
             };
         }
 
         public void SetInfo(EnemySettings settings)
         {
             Settings = settings;
-            
+
             enemyType = settings.enemyType;
             spriteRenderer.sprite = settings.sprite;
 
@@ -67,7 +67,7 @@ namespace TowerDefense.Scripts.Enemies
             }
             else
             {
-                hitAnimation.Play();
+                damageAnimation.Play();
             }
         }
 
@@ -104,30 +104,5 @@ namespace TowerDefense.Scripts.Enemies
         {
             movingHandler.Repath();
         }
-
-        #region Spawn
-
-        private IMemoryPool _memoryPool;
-        
-
-        void IPoolable<IMemoryPool>.OnDespawned()
-        {
-        }
-
-        void IPoolable<IMemoryPool>.OnSpawned(IMemoryPool pool)
-        {
-            _memoryPool = pool;
-        }
-
-        public void RemoveToPool()
-        {
-            _memoryPool.Despawn(this);
-        }
-
-        public class Factory : PlaceholderFactory<Enemy>
-        {
-        }
-
-        #endregion
     }
 }
