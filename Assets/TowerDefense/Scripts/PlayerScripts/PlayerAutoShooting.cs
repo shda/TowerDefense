@@ -25,19 +25,19 @@ namespace TowerDefense.Scripts.PlayerScripts
         private float _damageMultiplier = 1.0f;
 
         [Inject]
-        public void Construct(PlayerStats playerStats)
+        public void Construct(PlayerModifiers playerModifiers)
         {
-            playerStats.CountTargetOneShot.Subscribe(count =>
+            playerModifiers.CountTargetOneShot.Subscribe(count =>
             {
                 _countTargetOneShot = count;
             }).AddTo(this);
             
-            playerStats.MultiplierRadiusShot.Subscribe(multiplier =>
+            playerModifiers.MultiplierRadiusShot.Subscribe(multiplier =>
             {
                 enemyDetector.SetMultiplierRadius(multiplier);
             }).AddTo(this);
             
-            playerStats.MultiplierDamageShot.Subscribe(multiplier =>
+            playerModifiers.MultiplierDamageShot.Subscribe(multiplier =>
             {
                 _damageMultiplier = multiplier;
             }).AddTo(this);

@@ -8,7 +8,6 @@ namespace TowerDefense.Scripts.PlayerScripts
         public float StartHealth = 50f;
         public float UpHealth = 5f;
         public float DelayRecoveryHealth = 1f;
-
         public float MoveSpeed = 5.0f;
     }
 }

@@ -14,23 +14,23 @@ namespace TowerDefense.Scripts.PlayerScripts
         
         public float downHealth = 5.0f;
         
-        private PlayerStats _playerStats;
+        private PlayerModifiers _playerModifiers;
         private PlayerHealth _playerHealth;
 
         [Inject]
-        public void Construct(PlayerStats playerStats , PlayerHealth playerHealth)
+        public void Construct(PlayerModifiers playerModifiers , PlayerHealth playerHealth)
         {
             _playerHealth = playerHealth;
-            _playerStats = playerStats;
+            _playerModifiers = playerModifiers;
         }
         
         [Button]
         private void ChangeStats()
         {
-            _playerStats.MultiplierRadiusShot.Value = multiplierRadiusShot;
-            _playerStats.MultiplierDamageShot.Value = multiplierDamageShot;
-            _playerStats.MultiplierHealth.Value = multiplierHealth;
-            _playerStats.CountTargetOneShot.Value = countTargetOneShot;
+            _playerModifiers.MultiplierRadiusShot.Value = multiplierRadiusShot;
+            _playerModifiers.MultiplierDamageShot.Value = multiplierDamageShot;
+            _playerModifiers.MultiplierHealth.Value = multiplierHealth;
+            _playerModifiers.CountTargetOneShot.Value = countTargetOneShot;
         }
 
         [Button]

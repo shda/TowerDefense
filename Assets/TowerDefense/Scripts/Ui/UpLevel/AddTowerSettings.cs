@@ -4,7 +4,7 @@ using UnityEngine;
 namespace TowerDefense.Scripts.Ui.UpLevel
 {
     [CreateAssetMenu(menuName = "Create TowerDefense/AddTowerSettings", fileName = "AddTowerSettings", order = 0)]
-    public class AddTowerSettings : UpLevelSettings
+    public class AddTowerSettings : LevelUpItemSettings
     {
         [SerializeField] private TowerBase towerPrefab;
         public override Sprite Icon => towerPrefab.TowerComponents.SpriteRenderer.sprite;

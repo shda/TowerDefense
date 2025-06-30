@@ -3,14 +3,14 @@ using Zenject;
 
 namespace TowerDefense.Scripts.PlayerScripts
 {
-    public class PlayerRecoveryHealthToTime : ITickable
+    public class PlayerHealthRegenerator : ITickable
     {
         private readonly PlayerHealth _playerHealth;
         private readonly PlayerSettings _settings;
         
         private float _currentTime = 0f;
 
-        public PlayerRecoveryHealthToTime(
+        public PlayerHealthRegenerator(
             PlayerHealth playerHealth , 
             PlayerSettings settings)
         {

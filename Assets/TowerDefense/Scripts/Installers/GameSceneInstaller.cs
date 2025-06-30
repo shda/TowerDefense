@@ -7,6 +7,7 @@ using TowerDefense.Scripts.Stats;
 using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Ui;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace TowerDefense.Scripts.Installers
@@ -20,6 +21,7 @@ namespace TowerDefense.Scripts.Installers
         [SerializeField] private HealthLevel healthLevelPrefab;
         [SerializeField] private Transform rootHealthLevels;
 
+        [FormerlySerializedAs("playerStats")]
         [Header("Settings")]
         [SerializeField] private PlayerSettings playerSettings;
         
@@ -51,10 +53,10 @@ namespace TowerDefense.Scripts.Installers
         {
             Container.BindInstance(playerSettings);
             Container.Bind<Player>().FromComponentInHierarchy().AsSingle();
-            Container.Bind<PlayerStats>().AsSingle();
+            Container.Bind<PlayerModifiers>().AsSingle();
             Container.Bind<PlayerInventory>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerHealth>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<PlayerRecoveryHealthToTime>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerHealthRegenerator>().AsSingle().NonLazy();
         }
 
         private void BindEnemyFactory()

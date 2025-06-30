@@ -9,7 +9,7 @@ using Zenject;
 
 namespace TowerDefense.Scripts.Ui
 {
-    public class WindowsSelectItem : MonoBehaviour
+    public class WindowPlayerItems : MonoBehaviour
     {
         [SerializeField] private AddTowerToMapController addTowerToMapController;
         [SerializeField] private ShowHideMenuAnimation menuAnimation;

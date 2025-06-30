@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 namespace TowerDefense.Scripts.Ui.UpLevel
 {
-    public class UpLevelItem : MonoBehaviour
+    public class LevelUpItem : MonoBehaviour
     {
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI textLabel;
         
-        private Action<UpLevelItem> PressItem;
+        private Action<LevelUpItem> PressItem;
         
-        public void SetInfo(Sprite sprite , string text , Action<UpLevelItem> pressItem)
+        public void SetInfo(Sprite sprite , string text , Action<LevelUpItem> pressItem)
         {
             if (image != null)
                 image.sprite = sprite;

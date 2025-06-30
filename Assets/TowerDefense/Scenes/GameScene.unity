@@ -1194,7 +1194,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8241706715391768651, guid: 6cfcc973d0a88c6409f19d7c46553f17, type: 3}
   healthLevelPrefab: {fileID: 3974437309872762265, guid: 135e85afa1334014ebc81e7b0555cf25, type: 3}
   rootHealthLevels: {fileID: 8084328148046138074}
-  playerSettings: {fileID: 11400000, guid: 1a89be1f73b3a894eb7e47c1a004eb7e, type: 2}
+  playerStats: {fileID: 11400000, guid: 1a89be1f73b3a894eb7e47c1a004eb7e, type: 2}
 --- !u!114 &505087301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1479,16 +1479,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 671712110}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 68.35443}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1498089361}
-  m_Father: {fileID: 683036117}
+  m_Father: {fileID: 1986228907}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 16.100006, y: -10.5}
+  m_AnchoredPosition: {x: 16.100006, y: -11.700012}
   m_SizeDelta: {x: 58.5, y: 32.9}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &671712112
@@ -1573,7 +1573,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 671712111}
   - {fileID: 8084328148046138074}
   - {fileID: 144861488}
   - {fileID: 1193892590}
@@ -1749,7 +1748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1757,7 +1756,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1797,11 +1796,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 7968631136282281322, guid: 85b45b9a5afc3f94990a66c34f72be30, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5714,6 +5713,7 @@ RectTransform:
   - {fileID: 1628076194}
   - {fileID: 245155932}
   - {fileID: 1687365944}
+  - {fileID: 671712111}
   - {fileID: 1269916120}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5911,7 +5911,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 190.89, y: 40.22}
+  m_SizeDelta: {x: 146.21, y: 30.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2040082345
 MonoBehaviour:
@@ -5949,8 +5949,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u041A\u043E\u043D\u0435\u0446 \u0438\u0433\u0440\u044B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 852aac425e4932c42878bb2ecaf9ae34, type: 2}
+  m_sharedMaterial: {fileID: 2663234007824723220, guid: 852aac425e4932c42878bb2ecaf9ae34, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5981,8 +5981,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -6554,6 +6554,10 @@ PrefabInstance:
     - target: {fileID: 6847410610126425679, guid: 42b3cec27e095294a81da891221b2141, type: 3}
       propertyPath: speedMovingProjectile
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8756850209023957440, guid: 42b3cec27e095294a81da891221b2141, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9096426960884136049, guid: 42b3cec27e095294a81da891221b2141, type: 3}
       propertyPath: m_LocalPosition.x

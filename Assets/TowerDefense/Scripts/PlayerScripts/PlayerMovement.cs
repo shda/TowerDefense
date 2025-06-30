@@ -4,7 +4,7 @@ using Zenject;
 
 namespace TowerDefense.Scripts.PlayerScripts
 {
-    public class PlayerControl : MonoBehaviour , IPointListener
+    public class PlayerMovement : MonoBehaviour , IPointListener
     {
         [SerializeField] private Transform rootSprites;
         

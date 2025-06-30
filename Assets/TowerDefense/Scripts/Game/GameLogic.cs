@@ -7,6 +7,7 @@ using TowerDefense.Scripts.Stats;
 using TowerDefense.Scripts.Ui.UpLevel;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -18,7 +19,7 @@ namespace TowerDefense.Scripts.Game
         [SerializeField] private int countTowersInMenu = 3;
         [SerializeField] private UpPlayerStatsCollection upPlayerStatsCollection;
         [SerializeField] private TowerSettingsCollection towerSettingsCollection;
-        [SerializeField] private WindowUpLevelPlayer windowUpLevelPlayer;
+        [SerializeField] private WindowLevelUpPlayer windowLevelUpPlayer;
 
         private CancellationTokenSource _tokenSource;
         private GameStats _gameStats;
@@ -32,7 +33,7 @@ namespace TowerDefense.Scripts.Game
         private void Start()
         {
             _gameStats.LevelUp.Subscribe(OnLevelUp).AddTo(this);
-            windowUpLevelPlayer.Hide();
+            windowLevelUpPlayer.Hide();
             StartGame().Forget();
         }
 
@@ -49,11 +50,11 @@ namespace TowerDefense.Scripts.Game
                 var random = Random.Range(0f, 100f);
                 if (random > 50)
                 {
-                    windowUpLevelPlayer.CreateClearCellItem();
+                    windowLevelUpPlayer.CreateClearCellItem();
                 }
                 else
                 {
-                    windowUpLevelPlayer.CreatePlayerUpItem(upPlayerStatsCollection.GetRandomUpPlayerStats());
+                    windowLevelUpPlayer.CreatePlayerUpItem(upPlayerStatsCollection.GetRandomUpPlayerStats());
                 }
             }
         }
@@ -70,7 +71,7 @@ namespace TowerDefense.Scripts.Game
             for (int i = 0; i < countStartTowers; i++)
             {
                 CreateRandomTowers(countTowersInMenu);
-                await UniTask.WaitUntil(() => windowUpLevelPlayer.gameObject.activeSelf);
+                await UniTask.WaitUntil(() => windowLevelUpPlayer.gameObject.activeSelf);
                 await UniTask.Delay(TimeSpan.FromSeconds(0.2f) , cancellationToken: tokenSource.Token);
             
                 if(tokenSource.IsCancellationRequested)
@@ -80,13 +81,13 @@ namespace TowerDefense.Scripts.Game
 
         private void CreateRandomTowers(int count)
         {
-            windowUpLevelPlayer.RemoveOldItems();
+            windowLevelUpPlayer.RemoveOldItems();
             var getShuffleTowers = towerSettingsCollection.GetShuffleTowers();
             for (int i = 0; i < count; i++)
             {
-                windowUpLevelPlayer.CreateTowerItem(getShuffleTowers[i]);
+                windowLevelUpPlayer.CreateTowerItem(getShuffleTowers[i]);
             }
-            windowUpLevelPlayer.Show();
+            windowLevelUpPlayer.Show();
         }
         
 

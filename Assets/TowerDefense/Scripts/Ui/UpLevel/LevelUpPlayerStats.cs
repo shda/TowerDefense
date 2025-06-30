@@ -4,7 +4,7 @@ using UnityEngine;
 namespace TowerDefense.Scripts.Ui.UpLevel
 {
     [CreateAssetMenu(menuName = "Create TowerDefense/UpPlayerStats", fileName = "UpPlayerStats", order = 0)]
-    public class UpPlayerStats : UpLevelSettings
+    public class LevelUpPlayerStats : LevelUpItemSettings
     {
         [SerializeField] private float multiplierRadiusShot;
         [SerializeField] private float multiplierDamageShot;
@@ -16,23 +16,23 @@ namespace TowerDefense.Scripts.Ui.UpLevel
         [SerializeField] private bool updateHealth;
         [SerializeField] private bool updateCountTargetOneShot;
 
-        public void UpdatePlayerStats(PlayerStats playerStats)
+        public void UpdatePlayerStats(PlayerModifiers playerModifiers)
         {
             if (updateRadius)
             {
-                playerStats.MultiplierRadiusShot.Value += multiplierRadiusShot;
+                playerModifiers.MultiplierRadiusShot.Value += multiplierRadiusShot;
             }
             if (updateDamage)
             {
-                playerStats.MultiplierDamageShot.Value += multiplierDamageShot;
+                playerModifiers.MultiplierDamageShot.Value += multiplierDamageShot;
             }
             if (updateHealth)
             {
-                playerStats.MultiplierHealth.Value += multiplierHealth;
+                playerModifiers.MultiplierHealth.Value += multiplierHealth;
             }
             if (updateCountTargetOneShot)
             {
-                playerStats.CountTargetOneShot.Value += countTargetOneShot;
+                playerModifiers.CountTargetOneShot.Value += countTargetOneShot;
             }
         }
     }

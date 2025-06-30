@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TowerDefense.Scripts.Ui.UpLevel
 {
-    public class UpLevelSettings : ScriptableObject
+    public class LevelUpItemSettings : ScriptableObject
     {
         [ShowAssetPreview]
         [SerializeField] private Sprite icon;

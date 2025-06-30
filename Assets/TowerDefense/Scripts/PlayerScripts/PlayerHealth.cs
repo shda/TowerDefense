@@ -12,12 +12,12 @@ namespace TowerDefense.Scripts.PlayerScripts
         private readonly CompositeDisposable _disposables = new();
         
         public PlayerHealth(
-            PlayerStats playerStats , 
+            PlayerModifiers playerModifiers , 
             PlayerSettings playerSettings )
         {
             _playerSettings = playerSettings;
             
-            playerStats.MultiplierHealth.Subscribe(OnMultiplierHealth).AddTo(_disposables);
+            playerModifiers.MultiplierHealth.Subscribe(OnMultiplierHealth).AddTo(_disposables);
             
             Health.CurrentHealth.Value = playerSettings.StartHealth;
             Health.MaxHealth.Value = playerSettings.StartHealth;

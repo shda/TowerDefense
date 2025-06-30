@@ -1,30 +1,31 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TowerDefense.Scripts.Ui.UpLevel
 {
     [CreateAssetMenu(menuName = "Create TowerDefense/UpPlayerStatsCollection", fileName = "UpPlayerStatsCollection", order = 0)]
     public class UpPlayerStatsCollection : ScriptableObject
     {
-        [SerializeField] private UpPlayerStats upPlayerRadius;
-        [SerializeField] private UpPlayerStats upPlayerDamage;
-        [SerializeField] private UpPlayerStats upPlayerHealth;
-        [SerializeField] private UpPlayerStats upPlayerCountTargetOneShot;
+        [SerializeField] private LevelUpPlayerStats levelUpPlayerRadius;
+        [SerializeField] private LevelUpPlayerStats levelUpPlayerDamage;
+        [SerializeField] private LevelUpPlayerStats levelUpPlayerHealth;
+        [SerializeField] private LevelUpPlayerStats levelUpPlayerCountTargetOneShot;
         
-        public UpPlayerStats upPlayerRadiusShot => upPlayerRadius;
-        public UpPlayerStats upPlayerDamageShot => upPlayerDamage;
-        public UpPlayerStats upPlayerHealthShot => upPlayerHealth;
-        public UpPlayerStats upPlayerCountTargetOneShotShot => upPlayerCountTargetOneShot;
+        public LevelUpPlayerStats levelUpPlayerRadiusShot => levelUpPlayerRadius;
+        public LevelUpPlayerStats levelUpPlayerDamageShot => levelUpPlayerDamage;
+        public LevelUpPlayerStats levelUpPlayerHealthShot => levelUpPlayerHealth;
+        public LevelUpPlayerStats levelUpPlayerCountTargetOneShotShot => levelUpPlayerCountTargetOneShot;
 
-        public UpPlayerStats GetRandomUpPlayerStats()
+        public LevelUpPlayerStats GetRandomUpPlayerStats()
         {
             int random = Random.Range(0, 4);
             return random switch
             {
-                0 => upPlayerRadius,
-                1 => upPlayerDamage,
-                2 => upPlayerHealth,
-                3 => upPlayerCountTargetOneShot,
-                _ => upPlayerRadius
+                0 => levelUpPlayerRadius,
+                1 => levelUpPlayerDamage,
+                2 => levelUpPlayerHealth,
+                3 => levelUpPlayerCountTargetOneShot,
+                _ => levelUpPlayerRadius
             };
         }
     }
