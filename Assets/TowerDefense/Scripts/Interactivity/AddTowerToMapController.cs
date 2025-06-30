@@ -1,4 +1,5 @@
 using NavMeshPlus.Components;
+using TowerDefense.Scripts.Game;
 using TowerDefense.Scripts.Input;
 using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Ui;

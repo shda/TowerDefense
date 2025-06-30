@@ -3,7 +3,7 @@ using TowerDefense.Scripts.Input;
 using UnityEngine;
 using Zenject;
 
-namespace TowerDefense.Scripts
+namespace TowerDefense.Scripts.Game
 {
     public class Game : MonoBehaviour
     {

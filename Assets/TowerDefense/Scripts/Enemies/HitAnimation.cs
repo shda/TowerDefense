@@ -17,9 +17,8 @@ namespace TowerDefense.Scripts.Enemies
             var duration = 0.1f;
             spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f);
             _seq.Append(spriteRenderer.DOColor(new Color(0.5f,0.5f,0.5f), duration));
-            _seq.Append(spriteRenderer.DOColor(new Color(1,1,1), duration));
-
-            _seq = null;
+            _seq.Append(spriteRenderer.DOColor(new Color(1,1,1), duration))
+                .OnComplete(() => _seq = null);
         }
     }
 }

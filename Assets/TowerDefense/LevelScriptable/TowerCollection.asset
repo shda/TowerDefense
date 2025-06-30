@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d060b247b9c6420cac695ce78413f9df, type: 3}
+  m_Name: TowerCollection
+  m_EditorClassIdentifier: 
+  artilleryTower: {fileID: 11400000, guid: a290385483dae9c4994baa7f87f298e3, type: 2}
+  gunTower: {fileID: 11400000, guid: c6a42d3082226d24585e262982b5600a, type: 2}
+  flyTower: {fileID: 11400000, guid: 59e263ede1d19904da1d4ce0d65d0fe9, type: 2}
+  downSpeedTower: {fileID: 11400000, guid: bdd9478178c704c408fc57e292a5820d, type: 2}
+  poisonTower: {fileID: 11400000, guid: bcae496ce5761cc4fa8b8f3b5a69f0af, type: 2}
+  otherTower: {fileID: 11400000, guid: 9cc0c35ae39567e4794363f97cc32b1e, type: 2}

@@ -1,3 +1,4 @@
+using System;
 using TowerDefense.Scripts.Enemies.Effects;
 using TowerDefense.Scripts.Towers;
 using UniRx;
@@ -23,7 +24,9 @@ namespace TowerDefense.Scripts.Enemies
 
         Transform ITarget.Transform => transform;
         bool ITarget.IsCanByTarget => !IsDead;
-
+        
+        public Action<Enemy> OnTargetHit { get; set; }
+        
         [Inject]
         public void Construct(
             Health health,
@@ -40,6 +43,7 @@ namespace TowerDefense.Scripts.Enemies
             {
                 UnityEngine.Debug.Log("Moving Complete");
                 Status.Value = EnemyStatus.Complete;
+                OnTargetHit?.Invoke(this);
             };
         }
 
@@ -76,8 +80,7 @@ namespace TowerDefense.Scripts.Enemies
         {
             _effectHandler.RemoveAllEffects();
             Status.Value = EnemyStatus.None;
-            Health.CurrentHealth.Value = 100;
-            Health.MaxHealth.Value = 100;
+            movingHandler.Stop();
         }
 
         public void SetStartPosition(Vector3 worldPosition)

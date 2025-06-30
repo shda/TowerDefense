@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using BlockBlast.Scripts.Common.Extensions;
+using Cysharp.Threading.Tasks;
+using TowerDefense.Scripts.Game;
 using TowerDefense.Scripts.Stats;
 using UniRx;
 using Zenject;
@@ -32,7 +34,7 @@ namespace TowerDefense.Scripts.Enemies
             _levelObjects = levelObjects;
         }
 
-        public Enemy AddEnemyToMap()
+        public Enemy AddEnemyToMap(EnemyType type)
         {
             if(!_levelController.IsMapLoaded)
                 return null;
@@ -40,11 +42,11 @@ namespace TowerDefense.Scripts.Enemies
             var spawnPoint = _levelController.EnemySpawnPoints
                 [Random.Range(0, _levelController.EnemySpawnPoints.Length)];
             
-            var enemy = _enemyFactory.Create(EnemyType.Ground);
-            enemy.Show();
+            var enemy = _enemyFactory.Create(type);
+            enemy.Reset();
             enemy.SetStartPosition(spawnPoint.WorldPosition);
             enemy.SetMovingPath(_levelController.PlayerBase.WorldPosition);
-            enemy.Reset();
+            enemy.Show();
 
             CompositeDisposable composite = new();
             enemy.Status.Subscribe(_ => OnChangeEnemyStatus(enemy , composite)).AddTo(composite);
@@ -60,9 +62,7 @@ namespace TowerDefense.Scripts.Enemies
         {
             if (enemy.Status.Value == EnemyStatus.Dead)
             {
-                
-                _gameStats.ProgressNextTower.Value += enemy.Settings.givesPointsAftetDeath;
-                
+                _gameStats.ProgresscPoints.Value += enemy.Settings.givesPointsAftetDeath;
                 ReturnEnemyToPool(enemy , composite);
             }
             else if (enemy.Status.Value == EnemyStatus.Complete)

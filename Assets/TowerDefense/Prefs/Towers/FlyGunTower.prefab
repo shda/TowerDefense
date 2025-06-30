@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1797067138252025198, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: towerId
+      value: "hight-tech-\u0431\u0430\u0448\u043D\u044F"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1797067138252025198, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: towerName
       value: "hight-tech-\u0431\u0430\u0448\u043D\u044F"
       objectReference: {fileID: 0}
@@ -90,11 +94,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerComponents: {fileID: 5385152991862806194}
-  detectionDelay: 0.5
+  detectionDelay: 0.2
   fireDelay: 1
   weapon: {fileID: 1082826921243142406}
   damage: 30
-  onlyEnemy: 2
+  onlyEnemy: 0
 --- !u!114 &1082826921243142406 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6723142304765973210, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}

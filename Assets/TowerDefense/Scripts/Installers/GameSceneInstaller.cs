@@ -1,7 +1,9 @@
 using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Enemies.Effects;
+using TowerDefense.Scripts.Game;
 using TowerDefense.Scripts.Input;
 using TowerDefense.Scripts.PlayerScripts;
+using TowerDefense.Scripts.Stats;
 using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Ui;
 using UnityEngine;
@@ -23,6 +25,8 @@ namespace TowerDefense.Scripts.Installers
         
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<GameStats>().AsSingle();
+            
             Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProjectileSpawner>().AsSingle();
             Container.Bind<InputListenerSwitcher>().AsSingle();

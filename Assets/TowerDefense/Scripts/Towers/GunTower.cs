@@ -18,7 +18,7 @@ namespace TowerDefense.Scripts.Towers
         
         protected override bool IsCanUsingByTarget(ITarget target)
         {
-            if (target.EnemyType == EnemyType.None)
+            if (onlyEnemy == EnemyType.None)
                 return true;
             
             return target.EnemyType == onlyEnemy;

@@ -13,6 +13,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1797067138252025198, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
+      propertyPath: towerId
+      value: "\u0440\u0436\u0430\u0432\u0430\u044F \u0431\u0430\u0448\u043D\u044F"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1797067138252025198, guid: f9d483dfdb424c144b2b47f62f57f5b1, type: 3}
       propertyPath: towerName
       value: "\u0440\u0436\u0430\u0432\u0430\u044F \u0431\u0430\u0448\u043D\u044F"
       objectReference: {fileID: 0}

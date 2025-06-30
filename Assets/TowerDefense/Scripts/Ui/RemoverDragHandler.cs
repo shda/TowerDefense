@@ -1,6 +1,4 @@
 using BlockBlast.Scripts.Common.Extensions;
-using TowerDefense.Scripts.Obstacles;
-using TowerDefense.Scripts.Towers;
 using UnityEngine;
 
 namespace TowerDefense.Scripts.Ui

@@ -8,6 +8,11 @@ namespace TowerDefense.Scripts.Enemies
         public virtual float SpeedMoving { get; set; }
         public Action OnMovingComplete { get; set; }
 
+        public virtual void Stop()
+        {
+            
+        }
+
         public virtual void Repath()
         {
         }

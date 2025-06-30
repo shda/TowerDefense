@@ -73,7 +73,7 @@ namespace TowerDefense.Scripts.PlayerScripts
                 if (target is { IsCanByTarget: true })
                 {
                     var damageComplete = damage * _damageMultiplier;
-                    UnityEngine.Debug.Log($"Player shot to target: {target.Transform.name}, damage: {damageComplete}");
+               //     UnityEngine.Debug.Log($"Player shot to target: {target.Transform.name}, damage: {damageComplete}");
                     target.Health.CurrentHealth.Value -= damageComplete;
                 }
                 

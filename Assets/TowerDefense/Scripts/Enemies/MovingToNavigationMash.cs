@@ -7,11 +7,10 @@ namespace TowerDefense.Scripts.Enemies
     public class MovingToNavigationMash : MovingHandlerBase
     {
         [SerializeField] private NavMeshAgent navMeshAgent;
-        public Action OnMovingComplete { get; set; }
-
         private const float StoppingThreshold = 0.3f;
         private bool _destinationReached;
         private Vector3 _targetPoint;
+        private Vector3 _startPosition;
 
         public override float SpeedMoving
         {
@@ -21,24 +20,29 @@ namespace TowerDefense.Scripts.Enemies
 
         public override void StartMoving(Vector3 targetPoint)
         {
-            navMeshAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-            
             _destinationReached = false;
             _targetPoint = targetPoint;
-            navMeshAgent.updateRotation = false;
             navMeshAgent.enabled = true;
+           // navMeshAgent.isStopped = false;
+            navMeshAgent.updateRotation = false;
             navMeshAgent.SetDestination(targetPoint);
+        }
+
+        public override void Stop()
+        {
+            navMeshAgent.enabled = false;
         }
 
         public override void SetStartPosition(Vector3 worldPosition)
         {
+            navMeshAgent.enabled = false;
             transform.position = worldPosition;
         }
 
         public override void Repath()
         {
             _destinationReached = false;
-            navMeshAgent.SetDestination(_targetPoint);
+            StartMoving(_targetPoint);
         }
         
         public override void CustomUpdate()

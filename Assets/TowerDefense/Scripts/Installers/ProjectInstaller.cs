@@ -8,7 +8,7 @@ namespace TowerDefense.Scripts.Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<GameStats>().AsSingle();
+            
         }
     }
 }

@@ -13,17 +13,16 @@ namespace TowerDefense.Scripts.Ui.UpLevel
         [SerializeField] private Transform itemParent;
 
         [Header("Up Player Stats")]
-        [SerializeField] private UpPlayerStats upPlayerRadius;
-        [SerializeField] private UpPlayerStats upPlayerDamage;
-        [SerializeField] private UpPlayerStats upPlayerHealth;
-        [SerializeField] private UpPlayerStats upPlayerCountTargetOneShot;
+        [SerializeField] private UpPlayerStatsCollection upPlayerStatsCollection;
 
         [Header("Towers")]
-        [SerializeField] private TowerCollection towerCollection;
+        [SerializeField] private TowerSettingsCollection towerSettingsCollection;
         
         [Header("Other")]
         [SerializeField] private ClearCellItemSettings clearCellItemSettings;
 
+        public Action OnSelectItem { get; set; }
+        
         private PlayerStats _playerStats;
         private PlayerInventory _playerInventory;
 
@@ -36,12 +35,14 @@ namespace TowerDefense.Scripts.Ui.UpLevel
 
         private void Start()
         {
+           // HideWindow();
+            /*
             RemoveOldItems();
 
-            CreateUpPlayerItem(upPlayerRadius);
-            CreateUpPlayerItem(upPlayerDamage);
-            CreateUpPlayerItem(upPlayerHealth);
-            CreateUpPlayerItem(upPlayerCountTargetOneShot);
+            CreatePlayerUpItem(upPlayerRadius);
+            CreatePlayerUpItem(upPlayerDamage);
+            CreatePlayerUpItem(upPlayerHealth);
+            CreatePlayerUpItem(upPlayerCountTargetOneShot);
 
             CreateTowerItem(towerCollection.ArtilleryTower);
             CreateTowerItem(towerCollection.DownSpeedTower);
@@ -50,6 +51,7 @@ namespace TowerDefense.Scripts.Ui.UpLevel
             CreateTowerItem(towerCollection.PoisonTower);
 
             CreateClearCellItem();
+            */
         }
         
         private void OnEnable()
@@ -67,35 +69,41 @@ namespace TowerDefense.Scripts.Ui.UpLevel
             transform.Hide();
         }
 
-        private void RemoveOldItems()
+        public void RemoveOldItems()
         {
             itemParent.DestroyAllChildren();
         }
 
-        private void CreateClearCellItem()
+        public void CreateClearCellItem()
         {
             CreateItem(clearCellItemSettings.Icon, clearCellItemSettings.Description, item =>
             {
                 _playerInventory.AddItem(clearCellItemSettings.Description);
                 HideWindow();
+                
+                OnSelectItem?.Invoke();
             });
         }
 
-        private void CreateTowerItem(AddTowerSettings towerSettings)
+        public void CreateTowerItem(AddTowerSettings towerSettings)
         {
             CreateItem(towerSettings.Icon,towerSettings.Description, item =>
             {
                 _playerInventory.AddItem(towerSettings.TowerPrefab.TowerComponents.TowerId);
                 HideWindow();
+                
+                OnSelectItem?.Invoke();
             });
         }
 
-        private void CreateUpPlayerItem(UpPlayerStats playerStats)
+        public void CreatePlayerUpItem(UpPlayerStats playerStats)
         {
             CreateItem(playerStats.Icon, playerStats.Description, item =>
             {
                 playerStats.UpdatePlayerStats(_playerStats);
                 HideWindow();
+                
+                OnSelectItem?.Invoke();
             });
         }
 
