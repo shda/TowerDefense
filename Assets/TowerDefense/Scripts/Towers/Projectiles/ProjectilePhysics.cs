@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace TowerDefense.Scripts.Towers
+namespace TowerDefense.Scripts.Towers.Projectiles
 {
     public class ProjectilePhysics : MonoBehaviour
     {

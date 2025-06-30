@@ -3,7 +3,7 @@ using TowerDefense.Scripts.Enemies;
 using UniRx;
 using UnityEngine;
 
-namespace TowerDefense.Scripts.Towers
+namespace TowerDefense.Scripts.Towers.Projectiles
 {
     public class Projectile : MonoBehaviour
     {

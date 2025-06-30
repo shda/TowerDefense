@@ -1,13 +1,9 @@
 using BlockBlast.Scripts.Common.Extensions;
 using TowerDefense.Scripts.Game;
-using TowerDefense.Scripts.Towers.Detectors;
-using TowerDefense.Scripts.Ui;
 using TowerDefense.Scripts.Ui.DownMenu;
 using UnityEngine;
-using UnityEngine.AI;
 
-
-namespace TowerDefense.Scripts.Towers
+namespace TowerDefense.Scripts.Towers.TowersTypes
 {
     public abstract class TowerBase : MonoBehaviour , IRemoveLevelObject
     {

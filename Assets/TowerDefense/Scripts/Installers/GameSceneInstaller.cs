@@ -5,6 +5,7 @@ using TowerDefense.Scripts.Input;
 using TowerDefense.Scripts.PlayerScripts;
 using TowerDefense.Scripts.Stats;
 using TowerDefense.Scripts.Towers;
+using TowerDefense.Scripts.Towers.Projectiles;
 using TowerDefense.Scripts.Ui;
 using TowerDefense.Scripts.Ui.GameSceneUi;
 using UnityEngine;
@@ -35,11 +36,8 @@ namespace TowerDefense.Scripts.Installers
             Container.Bind<InputSwitcher>().AsSingle();
             Container.Bind<LevelObjects>().AsSingle();
             
-            Container.Bind<TowerStatsCollection>().AsSingle();
-            
             Container.Bind<LevelController>().FromComponentInHierarchy().AsSingle();
             Container.Bind<InputHandler>().FromComponentInHierarchy().AsSingle();
-            
             
             Container.BindInterfacesAndSelfTo<EffectHandler>().AsTransient();
             Container.Bind<Health>().AsTransient();

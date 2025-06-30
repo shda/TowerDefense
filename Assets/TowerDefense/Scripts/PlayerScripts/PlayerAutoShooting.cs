@@ -2,6 +2,7 @@ using System;
 using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Towers.Detectors;
+using TowerDefense.Scripts.Towers.Projectiles;
 using UniRx;
 using UnityEngine;
 using Zenject;

@@ -1,4 +1,5 @@
 using TowerDefense.Scripts.Towers;
+using TowerDefense.Scripts.Towers.TowersTypes;
 using UnityEngine;
 
 namespace TowerDefense.Scripts.Ui.UpLevel

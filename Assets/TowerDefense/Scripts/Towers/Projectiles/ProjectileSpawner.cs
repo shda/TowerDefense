@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using BlockBlast.Scripts.Common;
 using UnityEngine;
-using Zenject;
 
-namespace TowerDefense.Scripts.Towers
+namespace TowerDefense.Scripts.Towers.Projectiles
 {
     public class ProjectileSpawner : MonoBehaviour
     {

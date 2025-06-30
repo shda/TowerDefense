@@ -1,7 +1,8 @@
 using TowerDefense.Scripts.Enemies;
+using TowerDefense.Scripts.Towers.Projectiles;
 using UnityEngine;
 
-namespace TowerDefense.Scripts.Towers
+namespace TowerDefense.Scripts.Towers.TowersTypes
 {
     public class ArtilleryTower : ProjectileGunTowerBase
     {
