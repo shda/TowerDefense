@@ -1,6 +1,6 @@
 using UniRx;
 
-namespace TowerDefense.Scripts
+namespace TowerDefense.Scripts.Common
 {
     public class Health
     {

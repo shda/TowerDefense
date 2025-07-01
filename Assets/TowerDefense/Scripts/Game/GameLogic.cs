@@ -7,7 +7,6 @@ using TowerDefense.Scripts.Stats;
 using TowerDefense.Scripts.Ui.UpLevel;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 using Random = UnityEngine.Random;
 

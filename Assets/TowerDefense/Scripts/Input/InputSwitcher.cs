@@ -1,5 +1,5 @@
-using TowerDefense.Scripts.Interactivity;
 using TowerDefense.Scripts.PlayerScripts;
+using TowerDefense.Scripts.Ui.DownMenu;
 using Zenject;
 
 namespace TowerDefense.Scripts.Input

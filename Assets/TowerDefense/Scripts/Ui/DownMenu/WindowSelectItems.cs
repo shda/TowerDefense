@@ -1,5 +1,4 @@
 using BlockBlast.Scripts.Common.Extensions;
-using TowerDefense.Scripts.Interactivity;
 using TowerDefense.Scripts.PlayerScripts;
 using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Towers.TowersTypes;

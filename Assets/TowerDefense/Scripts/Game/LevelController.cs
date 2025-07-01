@@ -1,14 +1,11 @@
-using System.Collections.Generic;
 using System.Linq;
-using TowerDefense.Scripts.Enemies;
-using TowerDefense.Scripts.Game;
 using TowerDefense.Scripts.Obstacles;
 using TowerDefense.Scripts.TileMap;
 using TowerDefense.Scripts.Utils;
 using UnityEngine;
 using Zenject;
 
-namespace TowerDefense.Scripts
+namespace TowerDefense.Scripts.Game
 {
     public class LevelController : MonoBehaviour
     {

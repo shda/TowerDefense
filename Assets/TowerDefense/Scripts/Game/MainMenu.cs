@@ -2,7 +2,7 @@ using Eflatun.SceneReference;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace TowerDefense.Scripts
+namespace TowerDefense.Scripts.Game
 {
     public class MainMenu : MonoBehaviour
     {
