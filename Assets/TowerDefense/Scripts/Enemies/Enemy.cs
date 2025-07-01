@@ -10,6 +10,7 @@ namespace TowerDefense.Scripts.Enemies
 {
     public class Enemy : MonoBehaviour, ITarget
     {
+        [SerializeField] private FindAndAttackPlayer _findAndAttackPlayer;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private BaseMovement movingHandler;
         [SerializeField] private DamageAnimation damageAnimation;
@@ -58,6 +59,8 @@ namespace TowerDefense.Scripts.Enemies
             Health.CurrentHealth.Value = settings.health;
             Health.MaxHealth.Value = settings.health;
             movingHandler.SpeedMoving = settings.speedMoving;
+            
+            _findAndAttackPlayer.SetInfo(settings);
         }
 
         private void OnChangeHp(float hp)
@@ -98,7 +101,9 @@ namespace TowerDefense.Scripts.Enemies
         public void CustomUpdate()
         {
             _effectHandler.CustomUpdate();
+            movingHandler.IsMoving = !_findAndAttackPlayer.IsCanHitPlayer;
             movingHandler.CustomUpdate();
+            _findAndAttackPlayer.CustomUpdate();
         }
 
         public void Repath()

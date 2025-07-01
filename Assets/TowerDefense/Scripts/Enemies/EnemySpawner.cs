@@ -61,7 +61,7 @@ namespace TowerDefense.Scripts.Enemies
         {
             if (enemy.Status.Value == EnemyActionStatus.Dead)
             {
-                _gameStats.ProgresscPoints.Value += enemy.Settings.givesPointsAftetDeath;
+                _gameStats.ProgressPoints.Value += enemy.Settings.givesPointsAftetDeath;
                 ReturnEnemyToPool(enemy , composite);
             }
             else if (enemy.Status.Value == EnemyActionStatus.Complete)

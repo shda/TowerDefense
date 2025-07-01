@@ -20,7 +20,7 @@ namespace TowerDefense.Scripts.Ui.GameSceneUi
 
         private void Start()
         {
-            _gameStats.ProgresscPoints.Subscribe(OnChangeProgress).AddTo(this);
+            _gameStats.ProgressPoints.Subscribe(OnChangeProgress).AddTo(this);
         }
 
         private void OnChangeProgress(int progress)

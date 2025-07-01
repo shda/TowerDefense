@@ -1,6 +1,5 @@
 using System;
 using UniRx;
-using Zenject;
 
 namespace TowerDefense.Scripts.PlayerScripts
 {

@@ -18,6 +18,7 @@ namespace TowerDefense.Scripts.Enemies
         [Header("Attack to player")]
         public float hitToPlayer = 5f;
         public float radiusAttack = 1.5f;
+        public float timeBetweenShots = 1.0f;
 
         [Header("Effects")] 
         public AttackEffectType ignoryEffect = AttackEffectType.None;

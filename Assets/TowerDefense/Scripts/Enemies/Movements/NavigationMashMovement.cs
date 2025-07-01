@@ -6,10 +6,12 @@ namespace TowerDefense.Scripts.Enemies.Movements
     public class NavigationMashMovement : BaseMovement
     {
         [SerializeField] private NavMeshAgent navMeshAgent;
+        
         private const float StoppingThreshold = 0.3f;
         private bool _destinationReached;
         private Vector3 _targetPoint;
         private Vector3 _startPosition;
+        public override bool IsMoving { get; set; }
 
         public override float SpeedMoving
         {
@@ -22,7 +24,6 @@ namespace TowerDefense.Scripts.Enemies.Movements
             _destinationReached = false;
             _targetPoint = targetPoint;
             navMeshAgent.enabled = true;
-           // navMeshAgent.isStopped = false;
             navMeshAgent.updateRotation = false;
             navMeshAgent.SetDestination(targetPoint);
         }
@@ -46,6 +47,7 @@ namespace TowerDefense.Scripts.Enemies.Movements
         
         public override void CustomUpdate()
         {
+            navMeshAgent.isStopped = !IsMoving;
             CheckIsPathComplete();
         }
         

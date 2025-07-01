@@ -1362,7 +1362,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10.250865
+  orthographic size: 10.160034
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1668,6 +1668,18 @@ MonoBehaviour:
   spriteNoFire: {fileID: 21300000, guid: a47616410a448c648a78247ce3feda01, type: 3}
   playerAutoShooting: {fileID: 1192825546}
   timeToSwitch: 1
+--- !u!210 &813427939
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813427935}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 50
+  m_SortAtRoot: 0
 --- !u!1 &815983979
 GameObject:
   m_ObjectHideFlags: 0
@@ -2592,6 +2604,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26a59b365b9847ff8b1a454ab5f20560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverWindow: {fileID: 1269916121}
+  enemyWavesHandler: {fileID: 1152155142}
 --- !u!114 &1152155141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2622,7 +2636,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b3fef5840004c1a87f8b6a4858c1ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverWindow: {fileID: 1269916121}
   timeSpawn: {x: 1, y: 2}
   groupOfEnemies:
   - {fileID: 11400000, guid: 860b7d623d67bc2478561f6d35d714fb, type: 2}
@@ -6609,6 +6622,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6427144683209331350, guid: 42b3cec27e095294a81da891221b2141, type: 3}
       insertIndex: -1
       addedObject: {fileID: 813427937}
+    - targetCorrespondingSourceObject: {fileID: 6427144683209331350, guid: 42b3cec27e095294a81da891221b2141, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 813427939}
   m_SourcePrefab: {fileID: 100100000, guid: 42b3cec27e095294a81da891221b2141, type: 3}
 --- !u!224 &8084328148046138074
 RectTransform:

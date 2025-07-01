@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using BlockBlast.Scripts.Common.Extensions;
 using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
 using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Stats;
 using TowerDefense.Scripts.Ui.GameSceneUi;
@@ -15,7 +14,6 @@ namespace TowerDefense.Scripts.Game
 {
     public class EnemyWavesHandler : MonoBehaviour
     {
-        [SerializeField] private GameOverWindow gameOverWindow;
         [SerializeField] private Vector2 timeSpawn = new(2, 3);
         [SerializeField] private EnemySettings[] groupOfEnemies;
         [SerializeField] private EnemySettings[] flyEnemies;
@@ -23,6 +21,8 @@ namespace TowerDefense.Scripts.Game
         private CancellationTokenSource _tokenSource;
         private EnemySpawner _enemySpawner;
         private GameStats _gameStats;
+        
+        public Action OnEnemyHitToBase { get; set; }
 
         [Inject]
         public void Construct(EnemySpawner enemySpawner , GameStats gameStats)
@@ -75,13 +75,9 @@ namespace TowerDefense.Scripts.Game
 
         private void OnHitToBase(Enemy enemy)
         {
-            ShowGameOver();
+            OnEnemyHitToBase?.Invoke();
         }
-
-        private void ShowGameOver()
-        {
-            gameOverWindow.ShowWindow();   
-        }
+        
 
         private void OnDestroy()
         {

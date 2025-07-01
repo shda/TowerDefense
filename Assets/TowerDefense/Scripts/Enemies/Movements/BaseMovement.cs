@@ -7,6 +7,7 @@ namespace TowerDefense.Scripts.Enemies.Movements
     {
         public virtual float SpeedMoving { get; set; }
         public Action OnMovingComplete { get; set; }
+        public virtual bool IsMoving { get; set; } = true;
 
         public virtual void Stop()
         {
