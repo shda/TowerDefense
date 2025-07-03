@@ -1,5 +1,4 @@
 using TowerDefense.Scripts.TileMap;
-using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Towers.TowersTypes;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,13 +10,14 @@ namespace TowerDefense.Scripts.Ui.DownMenu
     {
         private readonly TowerBase _towerPrefab;
         private TowerBase _currentTower;
-        public override Sprite Sprite => _towerPrefab.TowerComponents.SpriteRenderer.sprite;
-        
+
         public TowerDragHandler(TowerBase towerPrefab)
         {
-            _towerPrefab =  towerPrefab;
+            _towerPrefab = towerPrefab;
         }
-        
+
+        public override Sprite Sprite => _towerPrefab.TowerComponents.SpriteRenderer.sprite;
+
         public override void OnUpdateWorldPosition(Vector3 worldPosition)
         {
             if (_currentTower == null)
@@ -27,7 +27,7 @@ namespace TowerDefense.Scripts.Ui.DownMenu
             }
 
             _currentTower.TowerComponents.EnemyDetector.ShowDetectRadius();
-            UpdatePositionTower(_currentTower , worldPosition);
+            UpdatePositionTower(_currentTower, worldPosition);
         }
 
         public override void OnPress(bool isPressed)
@@ -35,14 +35,23 @@ namespace TowerDefense.Scripts.Ui.DownMenu
             if (!isPressed)
             {
                 _currentTower.TowerComponents.EnemyDetector.HideDetectRadius();
-                
+
                 if (!IsCanInsertTower(_currentTower))
                 {
                     Object.DestroyImmediate(_currentTower.gameObject);
                 }
                 else
                 {
-                    _levelObjects.Towers.Add(_currentTower);
+                    if (OnCrossUpdateOtherTower(_currentTower, out var towerUpdate))
+                    {
+                        towerUpdate.UpLevel();
+                        Object.DestroyImmediate(_currentTower.gameObject);
+                    }
+                    else
+                    {
+                        _levelObjects.Towers.Add(_currentTower);
+                    }
+
                     OnSuccess?.Invoke(this);
                 }
 
@@ -50,42 +59,55 @@ namespace TowerDefense.Scripts.Ui.DownMenu
                 UpdateAllPaths();
             }
         }
-        
+
         private void UpdateAllPaths()
         {
-            foreach (var enemy in _levelObjects.Enemies)
-            {
-                enemy.Repath();
-            }
+            foreach (var enemy in _levelObjects.Enemies) enemy.Repath();
         }
-        
+
         private bool IsCanInsertTower(TowerBase tower)
         {
-            if (!IsInsideMap(tower.transform.position) || 
+            if (!IsInsideMap(tower.transform.position) ||
                 !IsLimitations(tower.transform.position) ||
-                IsCrossObstacleOrTower(tower) ||
                 !IsCanFindPathToBase())
                 return false;
+
+            if (OnCrossUpdateOtherTower(tower, out var towerUpdate))
+                return true;
+
+            if (IsCrossObstacleOrTower(tower))
+                return false;
+
             return true;
         }
-        
+
+        private bool OnCrossUpdateOtherTower(TowerBase tower, out TowerBase towerUpdate)
+        {
+            towerUpdate = null;
+
+            foreach (var towerOnMap in _levelObjects.Towers)
+                if (Vector3.Distance(tower.transform.position, towerOnMap.transform.position) < 0.1f)
+                    if (towerOnMap.TowerComponents.TowerId == tower.TowerComponents.TowerId)
+                        if (towerOnMap.CheckCanUpdate(tower))
+                        {
+                            towerUpdate = towerOnMap;
+                            return true;
+                        }
+
+            return false;
+        }
+
         private bool IsCanFindPathToBase()
         {
             var enemyPoint = _levelController.FirstTargetTile.WorldPosition;
             var target = _levelController.PlayerBase.WorldPosition;
 
             NavMesh.CalculatePath(enemyPoint, target, NavMesh.AllAreas, _navMeshPath);
-            
-            if (_navMeshPath.status == NavMeshPathStatus.PathPartial)
-            {
-                return false;
-            }
-            
-            if (_navMeshPath.status == NavMeshPathStatus.PathInvalid)
-            {
-                return false;
-            }
-            
+
+            if (_navMeshPath.status == NavMeshPathStatus.PathPartial) return false;
+
+            if (_navMeshPath.status == NavMeshPathStatus.PathInvalid) return false;
+
             return true;
         }
 
@@ -94,43 +116,41 @@ namespace TowerDefense.Scripts.Ui.DownMenu
             var tileMapLevel = _levelController.CurrentMap;
             return tileMapLevel.PointInLimitions(worldPoint);
         }
-        
+
         private bool IsInsideMap(Vector3 worldPoint)
         {
             var layerObstacles = _levelController.CurrentMap.LayerObstacles;
             var point = layerObstacles.ConvertWorldToIndexZeroLeftBottomCorner(worldPoint);
             if (point.x < 0 || point.y < 0)
                 return false;
-            
-            if(point.x > layerObstacles.size.x - 2 || point.y > layerObstacles.size.y - 2)
+
+            if (point.x > layerObstacles.size.x - 2 || point.y > layerObstacles.size.y - 2)
                 return false;
             return true;
         }
 
         private bool IsCrossObstacleOrTower(TowerBase tower)
         {
-            bool isCross = false;
+            var isCross = false;
 
             var colliders = Physics2D.OverlapBoxAll(tower.transform.position, tower.Collider.bounds.size, 0);
             if (colliders != null)
-            {
                 foreach (var cd in colliders)
                 {
                     if (cd.gameObject == tower.gameObject)
                         continue;
-                    
-                    int objLayer = cd.gameObject.layer;
-                    if ((1 << objLayer & _layerMask) != 0)
+
+                    var objLayer = cd.gameObject.layer;
+                    if (((1 << objLayer) & _layerMask) != 0)
                     {
                         isCross = true;
                         break;
                     }
                 }
-            }
 
             return isCross;
         }
-        
+
         private void UpdatePositionTower(TowerBase tower, Vector3 position)
         {
             var layerObstacles = _levelController.CurrentMap.LayerObstacles;

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7576135962070108609
+--- !u!1001 &8041242169453978455
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,13 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 171245389148506523, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
+      propertyPath: m_Extents.x
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 171245389148506523, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
+      propertyPath: m_Extents.y
+      value: 0.665
+      objectReference: {fileID: 0}
     - target: {fileID: 516099274848942601, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.84
+      value: 1.92
       objectReference: {fileID: 0}
     - target: {fileID: 516099274848942601, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.12
+      value: -5.7599998
       objectReference: {fileID: 0}
     - target: {fileID: 516099274848942601, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -50,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2462353550486620857, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Name
-      value: ObsticleBase2x2
+      value: Obsticle1x1
       objectReference: {fileID: 0}
     - target: {fileID: 2462353550486620857, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Layer
@@ -63,34 +71,43 @@ PrefabInstance:
     - target: {fileID: 3146547030388365287, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: collider
       value: 
-      objectReference: {fileID: 4482443012375474753}
+      objectReference: {fileID: 196494389333239903}
+    - target: {fileID: 5075345186082038256, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
+      propertyPath: m_Size.x
+      value: 2.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 5075345186082038256, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
+      propertyPath: m_Size.y
+      value: 2.56
+      objectReference: {fileID: 0}
     - target: {fileID: 5075345186082038256, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2c96023ec89723646ae3af9db2d3e85b, type: 3}
+      objectReference: {fileID: 21300000, guid: c4989adcdeca1b8428d03b2bc5dccc48, type: 3}
+    - target: {fileID: 5075345186082038256, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2462353550486620857, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4482443012375474753}
-    - targetCorrespondingSourceObject: {fileID: 2462353550486620857, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5948128571747435183}
+      addedObject: {fileID: 196494389333239903}
   m_SourcePrefab: {fileID: 100100000, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
---- !u!1 &5408785796548068216 stripped
+--- !u!1 &5599155916803893742 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2462353550486620857, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
-  m_PrefabInstance: {fileID: 7576135962070108609}
+  m_PrefabInstance: {fileID: 8041242169453978455}
   m_PrefabAsset: {fileID: 0}
---- !u!60 &4482443012375474753
-PolygonCollider2D:
+--- !u!61 &196494389333239903
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5408785796548068216}
+  m_GameObject: {fileID: 5599155916803893742}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -128,30 +145,5 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.43771458, y: 1.1923289}
-      - {x: -1.2163382, y: 0.42176178}
-      - {x: -1.1970539, y: -0.46681452}
-      - {x: -0.44851226, y: -1.2135714}
-      - {x: 0.4608991, y: -1.225285}
-      - {x: 1.2228992, y: -0.47073507}
-      - {x: 1.231093, y: 0.43780637}
-      - {x: 0.4536538, y: 1.2109747}
-  m_UseDelaunayMesh: 0
---- !u!208 &5948128571747435183
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5408785796548068216}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 0
-  m_Extents: {x: 1.2, y: 1, z: 1.2}
-  m_MoveThreshold: 0.2
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0
+  m_Size: {x: 1.18, y: 1.18}
+  m_EdgeRadius: 0

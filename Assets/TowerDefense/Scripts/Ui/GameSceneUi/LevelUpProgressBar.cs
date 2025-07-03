@@ -8,19 +8,19 @@ namespace TowerDefense.Scripts.Ui.GameSceneUi
 {
     public class LevelUpProgressBar : MonoBehaviour
     {
-        [SerializeField] private Image progressBarImage; 
-        
+        [SerializeField] private Image progressBarImage;
+
         private GameStats _gameStats;
-        
-        [Inject]
-        public void Construct(GameStats gameStats)
-        {
-            _gameStats = gameStats;
-        }
 
         private void Start()
         {
             _gameStats.ProgressPoints.Subscribe(OnChangeProgress).AddTo(this);
+        }
+
+        [Inject]
+        public void Construct(GameStats gameStats)
+        {
+            _gameStats = gameStats;
         }
 
         private void OnChangeProgress(int progress)

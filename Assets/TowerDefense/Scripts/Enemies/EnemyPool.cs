@@ -4,6 +4,5 @@ namespace TowerDefense.Scripts.Enemies
 {
     public class EnemyPool : MonoMemoryPool<Enemy>
     {
-        
     }
 }

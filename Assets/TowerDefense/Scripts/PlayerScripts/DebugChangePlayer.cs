@@ -1,4 +1,3 @@
-
 using NaughtyAttributes;
 using UnityEngine;
 using Zenject;
@@ -11,19 +10,19 @@ namespace TowerDefense.Scripts.PlayerScripts
         public float multiplierDamageShot = 1.0f;
         public float multiplierHealth = 1.0f;
         public int countTargetOneShot = 3;
-        
+
         public float downHealth = 5.0f;
-        
-        private PlayerModifiers _playerModifiers;
         private PlayerHealth _playerHealth;
 
+        private PlayerModifiers _playerModifiers;
+
         [Inject]
-        public void Construct(PlayerModifiers playerModifiers , PlayerHealth playerHealth)
+        public void Construct(PlayerModifiers playerModifiers, PlayerHealth playerHealth)
         {
             _playerHealth = playerHealth;
             _playerModifiers = playerModifiers;
         }
-        
+
         [Button]
         private void ChangeStats()
         {

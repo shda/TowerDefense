@@ -15,9 +15,9 @@ namespace TowerDefense.Scripts.Input
 
         public void SetListener(IPointListener listener)
         {
-            _currentPointListener =  listener;
+            _currentPointListener = listener;
         }
-        
+
         [Inject]
         public void Construct(InputHandler handler)
         {
@@ -25,7 +25,7 @@ namespace TowerDefense.Scripts.Input
             handler.OnPointWorld = OnPointWorld;
             handler.OnPress = OnPress;
         }
-        
+
         public void OnPress(bool isPressed)
         {
             _currentListener?.OnPress(isPressed);

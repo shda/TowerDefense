@@ -10,13 +10,13 @@ namespace TowerDefense.Scripts.Enemies
 
         [Inject]
         public void Construct(
-            [Inject(Id = EnemyType.Fly)] EnemyPool flyEnemiesPool , 
-            [Inject(Id = EnemyType.Ground)]EnemyPool groundEnemiesPool)
+            [Inject(Id = EnemyType.Fly)] EnemyPool flyEnemiesPool,
+            [Inject(Id = EnemyType.Ground)] EnemyPool groundEnemiesPool)
         {
             _flyEnemiesPool = flyEnemiesPool;
             _groundEnemiesPool = groundEnemiesPool;
         }
-        
+
         public Enemy Create(EnemyType enemyType)
         {
             return enemyType switch
@@ -26,7 +26,7 @@ namespace TowerDefense.Scripts.Enemies
                 _ => throw new ArgumentOutOfRangeException(nameof(enemyType), enemyType, null)
             };
         }
-        
+
         public void Release(Enemy enemy)
         {
             switch (enemy.EnemyType)

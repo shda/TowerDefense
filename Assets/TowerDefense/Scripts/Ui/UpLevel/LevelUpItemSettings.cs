@@ -5,10 +5,10 @@ namespace TowerDefense.Scripts.Ui.UpLevel
 {
     public class LevelUpItemSettings : ScriptableObject
     {
-        [ShowAssetPreview]
-        [SerializeField] private Sprite icon;
+        [ShowAssetPreview] [SerializeField] private Sprite icon;
+
         [SerializeField] [ResizableTextArea] private string description;
-        
+
         public virtual Sprite Icon => icon;
         public virtual string Description => description;
     }

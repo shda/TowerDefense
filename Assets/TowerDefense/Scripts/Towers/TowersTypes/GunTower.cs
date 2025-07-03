@@ -8,19 +8,17 @@ namespace TowerDefense.Scripts.Towers.TowersTypes
     {
         [SerializeField] private float damage;
         [SerializeField] private EnemyType onlyEnemy = EnemyType.None;
+
         protected override void OnHitToTarget(ITarget target)
         {
-            if (target is { IsCanByTarget: true })
-            {
-                target.Health.CurrentHealth.Value -= damage;
-            }
+            if (target is { IsCanByTarget: true }) target.Health.CurrentHealth.Value -= damage * ModifierByLevel();
         }
-        
+
         protected override bool IsCanUsingByTarget(ITarget target)
         {
             if (onlyEnemy == EnemyType.None)
                 return true;
-            
+
             return target.EnemyType == onlyEnemy;
         }
     }

@@ -8,13 +8,13 @@ namespace TowerDefense.Scripts.Towers
     {
         [SerializeField] private ProjectileSpawner projectilePool;
         [SerializeField] private float speedMovingProjectile = 5.0f;
-        
+
         public Action<ITarget> OnProjectileCompleteMove;
-        
+
         public void ShotTo(ITarget target)
         {
-            var projectile =  projectilePool.Get();
-            projectile.MoveToTarget(transform.position, target , speedMovingProjectile);
+            var projectile = projectilePool.Get();
+            projectile.MoveToTarget(transform.position, target, speedMovingProjectile);
             projectile.OnCompleteMove = pr =>
             {
                 OnProjectileCompleteMove?.Invoke(target);

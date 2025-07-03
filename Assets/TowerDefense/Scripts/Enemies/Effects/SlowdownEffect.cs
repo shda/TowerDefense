@@ -1,6 +1,5 @@
 using TowerDefense.Scripts.Towers;
 using UniRx;
-using UnityEngine;
 
 namespace TowerDefense.Scripts.Enemies.Effects
 {
@@ -8,7 +7,7 @@ namespace TowerDefense.Scripts.Enemies.Effects
     {
         private readonly float _downSpeedModifier;
         private readonly CompositeDisposable composite = new();
-        
+
         public SlowdownEffect(ITarget target, float downSpeedModifier, float duration)
         {
             Duration = duration;
@@ -16,10 +15,7 @@ namespace TowerDefense.Scripts.Enemies.Effects
 
             target.Status.Subscribe(status =>
             {
-                if (status == EnemyActionStatus.Dead)
-                {
-                    Duration = 0;
-                }
+                if (status == EnemyActionStatus.Dead) Duration = 0;
             }).AddTo(composite);
         }
 

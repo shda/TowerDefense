@@ -1,4 +1,3 @@
-using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Towers.TowersTypes;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace TowerDefense.Scripts.Ui.UpLevel
         [SerializeField] private TowerBase towerPrefab;
         public override Sprite Icon => towerPrefab.TowerComponents.SpriteRenderer.sprite;
         public override string Description => towerPrefab.TowerComponents.TowerId;
-        
+
         public TowerBase TowerPrefab => towerPrefab;
     }
 }

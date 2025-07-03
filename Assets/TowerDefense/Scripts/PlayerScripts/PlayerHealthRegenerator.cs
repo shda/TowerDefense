@@ -7,18 +7,18 @@ namespace TowerDefense.Scripts.PlayerScripts
     {
         private readonly PlayerHealth _playerHealth;
         private readonly PlayerSettings _settings;
-        
-        private float _currentTime = 0f;
+
+        private float _currentTime;
 
         public PlayerHealthRegenerator(
-            PlayerHealth playerHealth , 
+            PlayerHealth playerHealth,
             PlayerSettings settings)
         {
             _playerHealth = playerHealth;
             _settings = settings;
             _currentTime = 0;
         }
-        
+
         public void Tick()
         {
             _currentTime += Time.deltaTime;
@@ -29,9 +29,7 @@ namespace TowerDefense.Scripts.PlayerScripts
                 {
                     _playerHealth.Health.CurrentHealth.Value += _settings.UpHealth;
                     if (_playerHealth.Health.CurrentHealth.Value > _playerHealth.Health.MaxHealth.Value)
-                    {
                         _playerHealth.Health.CurrentHealth.Value = _playerHealth.Health.MaxHealth.Value;
-                    }
                 }
             }
         }

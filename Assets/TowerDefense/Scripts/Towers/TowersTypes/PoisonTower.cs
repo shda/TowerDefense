@@ -7,11 +7,14 @@ namespace TowerDefense.Scripts.Towers.TowersTypes
     public class PoisonTower : ProjectileGunTowerBase
     {
         [SerializeField] private PoisonData poisonData;
+
         protected override void OnHitToTarget(ITarget target)
         {
             if (target is { IsCanByTarget: true } && IsCanUsingByTarget(target))
             {
-                var effect = EffectMaker.MakePoisonEffect(target , poisonData);
+                var data = new PoisonData(poisonData, ModifierByLevel());
+
+                var effect = EffectMaker.MakePoisonEffect(target, data);
                 var effectContext = target.GetEffectContext();
                 effect.SetEffect(effectContext);
             }

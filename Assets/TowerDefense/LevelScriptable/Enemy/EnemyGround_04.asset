@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e0a75ea3e464bf09c90715711f6eb7a, type: 3}
   m_Name: EnemyGround_04
   m_EditorClassIdentifier: 
-  tzName: "\u0441\u0438\u043D\u0438\u0439 \xAB\u0432\u0438\u0440\u0443\u0441-\u043A\u0432\u0430\u0434\u0440\u0430\u0442\xBB
-    (\u0440\u044F\u0434\u043E\u0432\u043E\u0439)"
+  tzName: "\u0441\u0438\u043D\u0438\u0439 \u043A\u0432\u0430\u0434\u0440\u0430\u0442
+    \u0440\u044F\u0434\u043E\u0432\u043E\u0439"
   sprite: {fileID: 21300000, guid: 0cb2ed3b63d61004280b2917562a172b, type: 3}
   enemyType: 1
   health: 10
@@ -21,4 +21,5 @@ MonoBehaviour:
   givesPointsAftetDeath: 2
   hitToPlayer: 2.5
   radiusAttack: 1
+  timeBetweenShots: 1
   ignoryEffect: 0

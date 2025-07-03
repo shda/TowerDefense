@@ -1,4 +1,3 @@
-using System;
 using TowerDefense.Scripts.Enemies;
 using UniRx;
 using UnityEngine;
@@ -9,14 +8,8 @@ namespace TowerDefense.Scripts.PlayerScripts
     public class PlayerDamage : MonoBehaviour
     {
         [SerializeField] private DamageAnimation damage;
-        private PlayerHealth _playerHealth;
         private float _lastHealth;
-
-        [Inject]
-        public void Construct(PlayerHealth playerHealth)
-        {
-            _playerHealth = playerHealth;
-        }
+        private PlayerHealth _playerHealth;
 
         private void Start()
         {
@@ -24,15 +17,22 @@ namespace TowerDefense.Scripts.PlayerScripts
             _playerHealth.Health.CurrentHealth.Subscribe(PlayDamage).AddTo(this);
         }
 
+        [Inject]
+        public void Construct(PlayerHealth playerHealth)
+        {
+            _playerHealth = playerHealth;
+        }
+
         private void PlayDamage(float health)
         {
-            if(_lastHealth <= health)
+            if (_lastHealth <= health)
             {
                 _lastHealth = health;
                 return;
             }
+
             _lastHealth = health;
-            
+
             damage.Play();
         }
     }

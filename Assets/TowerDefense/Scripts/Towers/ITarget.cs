@@ -1,4 +1,3 @@
-using System;
 using TowerDefense.Scripts.Common;
 using TowerDefense.Scripts.Enemies;
 using UniRx;

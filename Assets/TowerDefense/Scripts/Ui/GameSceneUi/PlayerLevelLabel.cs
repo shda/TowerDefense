@@ -8,19 +8,19 @@ namespace TowerDefense.Scripts.Ui.GameSceneUi
 {
     public class PlayerLevelLabel : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI levelText; 
-        
+        [SerializeField] private TextMeshProUGUI levelText;
+
         private GameStats _gameStats;
-        
-        [Inject]
-        public void Construct(GameStats gameStats)
-        {
-            _gameStats = gameStats;
-        }
 
         private void Start()
         {
             _gameStats.Level.Subscribe(OnChangeLevel).AddTo(this);
+        }
+
+        [Inject]
+        public void Construct(GameStats gameStats)
+        {
+            _gameStats = gameStats;
         }
 
         private void OnChangeLevel(int level)

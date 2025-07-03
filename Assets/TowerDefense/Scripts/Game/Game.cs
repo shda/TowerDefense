@@ -1,5 +1,3 @@
-using System;
-using System.Threading;
 using TowerDefense.Scripts.Input;
 using UnityEngine;
 using Zenject;
@@ -10,15 +8,15 @@ namespace TowerDefense.Scripts.Game
     {
         private InputSwitcher _inputSwitcher;
 
-        [Inject]
-        public void Construct(InputSwitcher inputSwitcher)
-        {
-            _inputSwitcher =  inputSwitcher;
-        }
-        
         private void Start()
         {
             _inputSwitcher.SwitchToPlayerControl();
+        }
+
+        [Inject]
+        public void Construct(InputSwitcher inputSwitcher)
+        {
+            _inputSwitcher = inputSwitcher;
         }
     }
 }

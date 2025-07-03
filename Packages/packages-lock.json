@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.annulusgames.lua.unity": {
+      "version": "https://github.com/AnnulusGames/Lua-CSharp.git?path=src/Lua.Unity/Assets/Lua.Unity",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "ad6a5a15a6319aa336245af4ece89bb67122551a"
+    },
     "com.codewriter.triinspector": {
       "version": "https://github.com/codewriter-packages/Tri-Inspector.git",
       "depth": 0,

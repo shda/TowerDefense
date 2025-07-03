@@ -10,22 +10,15 @@ namespace TowerDefense.Scripts.Ui.UpLevel
     {
         [SerializeField] private LevelUpItem itemPrefab;
         [SerializeField] private Transform itemParent;
-        
+
         [SerializeField] private UpPlayerStatsCollection upPlayerStatsCollection;
         [SerializeField] private TowerSettingsCollection towerSettingsCollection;
         [SerializeField] private ClearCellItemSettings clearCellItemSettings;
-
-        public Action OnSelectItem { get; set; }
-        
-        private PlayerModifiers _playerModifiers;
         private PlayerInventory _playerInventory;
 
-        [Inject]
-        public void Construct(PlayerModifiers playerModifiers , PlayerInventory playerInventory)
-        {
-            _playerModifiers = playerModifiers;
-            _playerInventory = playerInventory;
-        }
+        private PlayerModifiers _playerModifiers;
+
+        public Action OnSelectItem { get; set; }
 
         private void OnEnable()
         {
@@ -35,6 +28,13 @@ namespace TowerDefense.Scripts.Ui.UpLevel
         private void OnDisable()
         {
             Time.timeScale = 1.0f;
+        }
+
+        [Inject]
+        public void Construct(PlayerModifiers playerModifiers, PlayerInventory playerInventory)
+        {
+            _playerModifiers = playerModifiers;
+            _playerInventory = playerInventory;
         }
 
         private void HideWindow()
@@ -53,18 +53,18 @@ namespace TowerDefense.Scripts.Ui.UpLevel
             {
                 _playerInventory.AddItem(clearCellItemSettings.Description);
                 HideWindow();
-                
+
                 OnSelectItem?.Invoke();
             });
         }
 
         public void CreateTowerItem(AddTowerSettings towerSettings)
         {
-            CreateItem(towerSettings.Icon,towerSettings.Description, item =>
+            CreateItem(towerSettings.Icon, towerSettings.Description, item =>
             {
                 _playerInventory.AddItem(towerSettings.TowerPrefab.TowerComponents.TowerId);
                 HideWindow();
-                
+
                 OnSelectItem?.Invoke();
             });
         }
@@ -75,7 +75,7 @@ namespace TowerDefense.Scripts.Ui.UpLevel
             {
                 playerStats.UpdatePlayerStats(_playerModifiers);
                 HideWindow();
-                
+
                 OnSelectItem?.Invoke();
             });
         }

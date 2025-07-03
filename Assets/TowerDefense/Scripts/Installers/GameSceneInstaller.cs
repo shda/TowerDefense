@@ -5,41 +5,37 @@ using TowerDefense.Scripts.Game;
 using TowerDefense.Scripts.Input;
 using TowerDefense.Scripts.PlayerScripts;
 using TowerDefense.Scripts.Stats;
-using TowerDefense.Scripts.Towers;
 using TowerDefense.Scripts.Towers.Projectiles;
-using TowerDefense.Scripts.Ui;
 using TowerDefense.Scripts.Ui.GameSceneUi;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace TowerDefense.Scripts.Installers
 {
     public class GameSceneInstaller : MonoInstaller
     {
-        [Header("Prefabs")] 
-        [SerializeField] private Enemy enemyGroundPrefab;
+        [Header("Prefabs")] [SerializeField] private Enemy enemyGroundPrefab;
+
         [SerializeField] private Enemy enemyFlyPrefab;
         [SerializeField] private Projectile projectilePrefab;
         [SerializeField] private HealthLevel healthLevelPrefab;
         [SerializeField] private Transform rootHealthLevels;
-        
-        [Header("Settings")]
-        [SerializeField] private PlayerSettings playerSettings;
-        
+
+        [Header("Settings")] [SerializeField] private PlayerSettings playerSettings;
+
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<GameStats>().AsSingle();
-            
+
             Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProjectileSpawner>().AsSingle();
             Container.Bind<InputListenerSwitcher>().AsSingle();
             Container.Bind<InputSwitcher>().AsSingle();
             Container.Bind<LevelObjects>().AsSingle();
-            
+
             Container.Bind<LevelController>().FromComponentInHierarchy().AsSingle();
             Container.Bind<InputHandler>().FromComponentInHierarchy().AsSingle();
-            
+
             Container.BindInterfacesAndSelfTo<EffectHandler>().AsTransient();
             Container.Bind<Health>().AsTransient();
 
@@ -61,19 +57,19 @@ namespace TowerDefense.Scripts.Installers
         private void BindEnemyFactory()
         {
             Container.Bind<EnemyFactory>().AsSingle();
-            
+
             Container.BindMemoryPool<Enemy, EnemyPool>()
                 .WithId(EnemyType.Ground)
                 .WithInitialSize(20)
                 .FromComponentInNewPrefab(enemyGroundPrefab)
                 .UnderTransformGroup("Enemy");
-            
+
             Container.BindMemoryPool<Enemy, EnemyPool>()
                 .WithId(EnemyType.Fly).WithInitialSize(20)
                 .FromComponentInNewPrefab(enemyFlyPrefab)
                 .UnderTransformGroup("Enemy");
         }
-        
+
         private void BindHealthLevelFactory()
         {
             Container.BindMemoryPool<HealthLevel, HealthLevelPool>()
@@ -81,6 +77,5 @@ namespace TowerDefense.Scripts.Installers
                 .FromComponentInNewPrefab(healthLevelPrefab)
                 .UnderTransform(rootHealthLevels);
         }
-        
     }
 }

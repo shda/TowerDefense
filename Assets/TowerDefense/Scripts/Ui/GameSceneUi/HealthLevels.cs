@@ -12,17 +12,23 @@ namespace TowerDefense.Scripts.Ui.GameSceneUi
     {
         [SerializeField] private RectTransform canvasRectTransform;
 
-        private HealthLevel _platerHealthLevel;
+        private readonly Dictionary<Enemy, HealthLevel> _healthLevels = new();
         private EnemySpawner _enemySpawner;
         private HealthLevelPool _healthLevelFactory;
-        private PlayerHealth _playerHealth;
+
+        private HealthLevel _platerHealthLevel;
         private Player _player;
-        
-        private readonly Dictionary<Enemy, HealthLevel> _healthLevels = new();
+        private PlayerHealth _playerHealth;
+
+        private void Update()
+        {
+            UpdateValuesAndPositions();
+            UpdatePlayerHealth();
+        }
 
         [Inject]
         public void Construct(
-            EnemySpawner enemySpawner, 
+            EnemySpawner enemySpawner,
             LevelObjects levelObjects,
             HealthLevelPool healthLevelFactory,
             PlayerHealth playerHealth,
@@ -36,10 +42,7 @@ namespace TowerDefense.Scripts.Ui.GameSceneUi
             _enemySpawner.OnCreateNewEnemy = CreateHealthLevelIfNeed;
             _enemySpawner.OnRemoveEnemy = RemoveHealthLevel;
 
-            foreach (var enemy in levelObjects.Enemies)
-            {
-                CreateHealthLevelIfNeed(enemy);
-            }
+            foreach (var enemy in levelObjects.Enemies) CreateHealthLevelIfNeed(enemy);
         }
 
         private void CreateHealthLevelIfNeed(Enemy enemy)
@@ -52,25 +55,16 @@ namespace TowerDefense.Scripts.Ui.GameSceneUi
 
         private void RemoveHealthLevel(Enemy enemy)
         {
-            if (_healthLevels.TryGetValue(enemy, out HealthLevel level))
+            if (_healthLevels.TryGetValue(enemy, out var level))
             {
                 _healthLevelFactory.Despawn(level);
                 _healthLevels.Remove(enemy);
             }
         }
 
-        private void Update()
-        {
-            UpdateValuesAndPositions();
-            UpdatePlayerHealth();
-        }
-
         private void UpdatePlayerHealth()
         {
-            if (_platerHealthLevel == null)
-            {
-                _platerHealthLevel = _healthLevelFactory.Spawn();
-            }
+            if (_platerHealthLevel == null) _platerHealthLevel = _healthLevelFactory.Spawn();
 
             SetLife(_playerHealth.Health, _platerHealthLevel, _player.transform.position);
         }
@@ -85,14 +79,14 @@ namespace TowerDefense.Scripts.Ui.GameSceneUi
             }
         }
 
-        private void SetLife(Health health , HealthLevel healthLevel , Vector3 position)
+        private void SetLife(Health health, HealthLevel healthLevel, Vector3 position)
         {
             if (health.CurrentHealth.Value >= health.MaxHealth.Value)
             {
                 healthLevel.gameObject.SetActive(false);
                 return;
             }
-            
+
             healthLevel.gameObject.SetActive(true);
             healthLevel.SetLife(
                 health.CurrentHealth.Value,

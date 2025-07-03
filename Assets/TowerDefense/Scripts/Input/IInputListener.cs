@@ -6,7 +6,7 @@ namespace TowerDefense.Scripts.Input
     {
         public void OnPress(bool isPressed);
     }
-    
+
     public interface IPointListener
     {
         public void OnPointWorld(Vector3 worldPosition);

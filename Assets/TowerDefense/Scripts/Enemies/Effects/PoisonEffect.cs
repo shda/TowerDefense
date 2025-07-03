@@ -6,12 +6,12 @@ namespace TowerDefense.Scripts.Enemies.Effects
 {
     public class PoisonEffect : Effect
     {
-        private PoisonData _poisonData;
-        private ITarget _target;
+        private readonly PoisonData _poisonData;
+        private readonly ITarget _target;
+        private readonly CompositeDisposable composite = new();
         private float _currentTime;
         private int _hitCounter;
-        private CompositeDisposable composite = new();
-        
+
         public PoisonEffect(ITarget target, PoisonData poisonData)
         {
             Duration = float.MaxValue;
@@ -45,10 +45,7 @@ namespace TowerDefense.Scripts.Enemies.Effects
                 _target.Health.CurrentHealth.Value -= _poisonData.DamageOnIneHit;
             }
 
-            if (_hitCounter <= 0)
-            {
-                ResetEffect();
-            }
+            if (_hitCounter <= 0) ResetEffect();
         }
     }
 }

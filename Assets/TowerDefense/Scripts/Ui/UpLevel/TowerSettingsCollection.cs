@@ -1,5 +1,4 @@
 using BlockBlast.Scripts.Common.Extensions;
-using TowerDefense.Scripts.Towers;
 using UnityEngine;
 
 namespace TowerDefense.Scripts.Ui.UpLevel
@@ -13,18 +12,19 @@ namespace TowerDefense.Scripts.Ui.UpLevel
         [SerializeField] private AddTowerSettings downSpeedTower;
         [SerializeField] private AddTowerSettings poisonTower;
         [SerializeField] private AddTowerSettings otherTower;
-        
+
         public AddTowerSettings ArtilleryTower => artilleryTower;
         public AddTowerSettings GunTower => gunTower;
         public AddTowerSettings FlyTower => flyTower;
         public AddTowerSettings DownSpeedTower => downSpeedTower;
         public AddTowerSettings PoisonTower => poisonTower;
-        
+
         public AddTowerSettings OtherTower => otherTower;
 
         public AddTowerSettings[] GetShuffleTowers()
         {
-            AddTowerSettings[] settings = {ArtilleryTower, GunTower, FlyTower, DownSpeedTower, PoisonTower, OtherTower};
+            AddTowerSettings[] settings =
+                { ArtilleryTower, GunTower, FlyTower, DownSpeedTower, PoisonTower, OtherTower };
             settings.Shuffle();
 
             return settings;

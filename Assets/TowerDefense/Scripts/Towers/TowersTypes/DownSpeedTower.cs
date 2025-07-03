@@ -9,13 +9,14 @@ namespace TowerDefense.Scripts.Towers.TowersTypes
         [SerializeField] private int maxEffectsToTarget = 3;
         [SerializeField] private float downSpeedModifier;
         [SerializeField] private float timeEffect;
+
         protected override void OnHitToTarget(ITarget target)
         {
             if (target is { IsCanByTarget: true } && IsCanUsingByTarget(target))
             {
-               var effect = EffectMaker.MakeDownSpeedEffect(target , downSpeedModifier , timeEffect);
-               var effectContext = target.GetEffectContext();
-               effect.SetEffect(effectContext);
+                var effect = EffectMaker.MakeDownSpeedEffect(target, downSpeedModifier, timeEffect);
+                var effectContext = target.GetEffectContext();
+                effect.SetEffect(effectContext);
             }
         }
 

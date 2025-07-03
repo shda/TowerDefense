@@ -6,6 +6,16 @@ namespace TowerDefense.Scripts.Ui.GameSceneUi
 {
     public class GameOverWindow : MonoBehaviour
     {
+        private void OnEnable()
+        {
+            Time.timeScale = 0;
+        }
+
+        private void OnDisable()
+        {
+            Time.timeScale = 1;
+        }
+
         public void OnPressedRestart()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -14,16 +24,6 @@ namespace TowerDefense.Scripts.Ui.GameSceneUi
         public void ShowWindow()
         {
             gameObject.Show();
-        }
-
-        private void OnEnable()
-        {
-            Time.timeScale = 0;
-        }
-        
-        private void OnDisable()
-        {
-            Time.timeScale = 1;
         }
     }
 }

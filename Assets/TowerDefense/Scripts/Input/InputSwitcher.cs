@@ -6,21 +6,21 @@ namespace TowerDefense.Scripts.Input
 {
     public class InputSwitcher
     {
-        private PlayerMovement _playerMovement;
         private AddTowerToMapController _addTowerToMapController;
-        
-        private InputListenerSwitcher  _inputListenerSwitcher;
+
+        private InputListenerSwitcher _inputListenerSwitcher;
+        private PlayerMovement _playerMovement;
 
         public void SetPlayerControl(PlayerMovement playerMovement)
         {
             _playerMovement = playerMovement;
         }
-        
+
         public void SetChangeMap(AddTowerToMapController addTowerToMapController)
         {
             _addTowerToMapController = addTowerToMapController;
         }
-        
+
         [Inject]
         public void Construct(InputListenerSwitcher inputListenerSwitcher)
         {

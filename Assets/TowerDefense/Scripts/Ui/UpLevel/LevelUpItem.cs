@@ -9,10 +9,10 @@ namespace TowerDefense.Scripts.Ui.UpLevel
     {
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI textLabel;
-        
+
         private Action<LevelUpItem> PressItem;
-        
-        public void SetInfo(Sprite sprite , string text , Action<LevelUpItem> pressItem)
+
+        public void SetInfo(Sprite sprite, string text, Action<LevelUpItem> pressItem)
         {
             if (image != null)
                 image.sprite = sprite;

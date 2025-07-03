@@ -4,6 +4,6 @@ namespace TowerDefense.Scripts.Enemies
     {
         Fly,
         Ground,
-        None,
+        None
     }
 }

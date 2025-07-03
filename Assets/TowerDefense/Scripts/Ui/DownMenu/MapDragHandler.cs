@@ -7,12 +7,12 @@ namespace TowerDefense.Scripts.Ui.DownMenu
 {
     public abstract class MapDragHandler
     {
-        protected LevelController _levelController;
         protected LayerMask _layerMask;
+        protected LevelController _levelController;
         protected LevelObjects _levelObjects;
         protected NavMeshPath _navMeshPath;
-        public abstract Sprite Sprite { get;}
-        
+        public abstract Sprite Sprite { get; }
+
         public Action<MapDragHandler> OnSuccess { get; set; }
 
         public void Init(

@@ -19,21 +19,27 @@ namespace TowerDefense.Scripts.Game
         [SerializeField] private UpPlayerStatsCollection upPlayerStatsCollection;
         [SerializeField] private TowerSettingsCollection towerSettingsCollection;
         [SerializeField] private WindowLevelUpPlayer windowLevelUpPlayer;
-
-        private CancellationTokenSource _tokenSource;
         private GameStats _gameStats;
 
-        [Inject]
-        public void Construct(GameStats gameStats)
-        {
-            _gameStats = gameStats;
-        }
-        
+        private CancellationTokenSource _tokenSource;
+
         private void Start()
         {
             _gameStats.LevelUp.Subscribe(OnLevelUp).AddTo(this);
             windowLevelUpPlayer.Hide();
             StartGame().Forget();
+        }
+
+
+        private void OnDestroy()
+        {
+            _tokenSource.Cancel();
+        }
+
+        [Inject]
+        public void Construct(GameStats gameStats)
+        {
+            _gameStats = gameStats;
         }
 
         private void OnLevelUp(int level)
@@ -45,16 +51,12 @@ namespace TowerDefense.Scripts.Game
             else
             {
                 CreateRandomTowers(2);
-                
+
                 var random = Random.Range(0f, 100f);
                 if (random > 50)
-                {
                     windowLevelUpPlayer.CreateClearCellItem();
-                }
                 else
-                {
                     windowLevelUpPlayer.CreatePlayerUpItem(upPlayerStatsCollection.GetRandomUpPlayerStats());
-                }
             }
         }
 
@@ -67,13 +69,13 @@ namespace TowerDefense.Scripts.Game
 
         private async UniTask ShowWindowAddTowers(CancellationTokenSource tokenSource)
         {
-            for (int i = 0; i < countStartTowers; i++)
+            for (var i = 0; i < countStartTowers; i++)
             {
                 CreateRandomTowers(countTowersInMenu);
                 await UniTask.WaitUntil(() => windowLevelUpPlayer.gameObject.activeSelf);
-                await UniTask.Delay(TimeSpan.FromSeconds(0.2f) , cancellationToken: tokenSource.Token);
-            
-                if(tokenSource.IsCancellationRequested)
+                await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: tokenSource.Token);
+
+                if (tokenSource.IsCancellationRequested)
                     return;
             }
         }
@@ -82,17 +84,8 @@ namespace TowerDefense.Scripts.Game
         {
             windowLevelUpPlayer.RemoveOldItems();
             var getShuffleTowers = towerSettingsCollection.GetShuffleTowers();
-            for (int i = 0; i < count; i++)
-            {
-                windowLevelUpPlayer.CreateTowerItem(getShuffleTowers[i]);
-            }
+            for (var i = 0; i < count; i++) windowLevelUpPlayer.CreateTowerItem(getShuffleTowers[i]);
             windowLevelUpPlayer.Show();
-        }
-        
-
-        private void OnDestroy()
-        {
-            _tokenSource.Cancel();
         }
 
 #if UNITY_EDITOR

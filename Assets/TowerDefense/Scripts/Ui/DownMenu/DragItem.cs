@@ -11,13 +11,13 @@ namespace TowerDefense.Scripts.Ui.DownMenu
         [SerializeField] private float drawValueToSelect;
         [SerializeField] private Image itemImage;
         [SerializeField] private TextMeshProUGUI countText;
-        
-        private ScrollRect _scrollRect;
-        public MapDragHandler MapDragHandler { get; set; }
-        public Action<DragItem> OnSelect;
 
-        private float _dragValue = 0;
-        
+        private float _dragValue;
+
+        private ScrollRect _scrollRect;
+        public Action<DragItem> OnSelect;
+        public MapDragHandler MapDragHandler { get; set; }
+
         public void OnBeginDrag(PointerEventData eventData)
         {
             _dragValue = 0;
@@ -44,7 +44,7 @@ namespace TowerDefense.Scripts.Ui.DownMenu
         public void SetHandler(MapDragHandler mapDragHandler, int count, ScrollRect scrollRect)
         {
             countText.text = count.ToString();
-            
+
             _scrollRect = scrollRect;
             itemImage.sprite = mapDragHandler.Sprite;
             MapDragHandler = mapDragHandler;

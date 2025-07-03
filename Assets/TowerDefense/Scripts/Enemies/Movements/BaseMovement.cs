@@ -11,7 +11,6 @@ namespace TowerDefense.Scripts.Enemies.Movements
 
         public virtual void Stop()
         {
-            
         }
 
         public virtual void Repath()
@@ -25,6 +24,7 @@ namespace TowerDefense.Scripts.Enemies.Movements
         public virtual void StartMoving(Vector3 movingPath)
         {
         }
+
         public virtual void SetStartPosition(Vector3 worldPosition)
         {
         }

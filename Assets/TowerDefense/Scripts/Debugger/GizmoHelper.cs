@@ -2,18 +2,18 @@ using System.Collections.Generic;
 using TowerDefense.Scripts.TileMap;
 using UnityEngine;
 
-namespace TowerDefense.Scripts.Debug
+namespace TowerDefense.Scripts.Debugger
 {
     public class GizmoHelper
     {
-        public static void DrawPath(TileMapLevel map , IEnumerable<Vector3Int> findPath)
+        public static void DrawPath(TileMapLevel map, IEnumerable<Vector3Int> findPath)
         {
             if (findPath == null)
                 return;
-            
+
             var tilemap = map.LayerObstacles;
             var offset = new Vector3(0.25f, 0.25f);
-            
+
             Vector3? pointDraw = null;
             foreach (var point in findPath)
             {
@@ -28,7 +28,7 @@ namespace TowerDefense.Scripts.Debug
 
                 var newCell = tilemap.GetCellCenterWorld(point);
                 newCell += offset;
-                UnityEngine.Debug.DrawLine(pointDraw.Value, newCell, Color.red);
+                Debug.DrawLine(pointDraw.Value, newCell, Color.red);
                 pointDraw = newCell;
             }
         }

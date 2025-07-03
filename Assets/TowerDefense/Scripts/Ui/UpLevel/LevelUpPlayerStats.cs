@@ -10,7 +10,7 @@ namespace TowerDefense.Scripts.Ui.UpLevel
         [SerializeField] private float multiplierDamageShot;
         [SerializeField] private float multiplierHealth;
         [SerializeField] private int countTargetOneShot;
-        
+
         [SerializeField] private bool updateRadius;
         [SerializeField] private bool updateDamage;
         [SerializeField] private bool updateHealth;
@@ -18,22 +18,10 @@ namespace TowerDefense.Scripts.Ui.UpLevel
 
         public void UpdatePlayerStats(PlayerModifiers playerModifiers)
         {
-            if (updateRadius)
-            {
-                playerModifiers.MultiplierRadiusShot.Value += multiplierRadiusShot;
-            }
-            if (updateDamage)
-            {
-                playerModifiers.MultiplierDamageShot.Value += multiplierDamageShot;
-            }
-            if (updateHealth)
-            {
-                playerModifiers.MultiplierHealth.Value += multiplierHealth;
-            }
-            if (updateCountTargetOneShot)
-            {
-                playerModifiers.CountTargetOneShot.Value += countTargetOneShot;
-            }
+            if (updateRadius) playerModifiers.MultiplierRadiusShot.Value += multiplierRadiusShot;
+            if (updateDamage) playerModifiers.MultiplierDamageShot.Value += multiplierDamageShot;
+            if (updateHealth) playerModifiers.MultiplierHealth.Value += multiplierHealth;
+            if (updateCountTargetOneShot) playerModifiers.CountTargetOneShot.Value += countTargetOneShot;
         }
     }
 }

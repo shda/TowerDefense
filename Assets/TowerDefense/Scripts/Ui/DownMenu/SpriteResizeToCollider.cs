@@ -13,24 +13,26 @@ namespace TowerDefense.Scripts.Ui.DownMenu
             var colliderSizeInUnits = targetCollider.bounds.size;
             var spriteSizeInPixels = spriteRenderer.sprite.rect.size;
             var desiredScale = new Vector2(
-                (colliderSizeInUnits.x * ppu) / spriteSizeInPixels.x,
-                (colliderSizeInUnits.y * ppu) / spriteSizeInPixels.y
+                colliderSizeInUnits.x * ppu / spriteSizeInPixels.x,
+                colliderSizeInUnits.y * ppu / spriteSizeInPixels.y
             );
             spriteRenderer.transform.localScale = desiredScale;
 
             if (setPositionToThis)
-            {
                 spriteRenderer.transform.position = transform.position;
-            }
             else
-            {
                 spriteRenderer.transform.position = targetCollider.bounds.center;
-            }
-            
         }
-        
 
-        public void HideSelectRect() => spriteRenderer.enabled = false;
-        public void ShowSelectRect() => spriteRenderer.enabled = true;
+
+        public void HideSelectRect()
+        {
+            spriteRenderer.enabled = false;
+        }
+
+        public void ShowSelectRect()
+        {
+            spriteRenderer.enabled = true;
+        }
     }
 }

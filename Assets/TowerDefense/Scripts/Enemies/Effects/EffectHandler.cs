@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Pool;
 
 namespace TowerDefense.Scripts.Enemies.Effects
 {
@@ -17,30 +18,27 @@ namespace TowerDefense.Scripts.Enemies.Effects
 
         private void RemoveEffect(Effect effect)
         {
-            if(_effects == null)
+            if (_effects == null)
                 return;
-            
+
             _effects.Remove(effect);
             _effectsTypes.Remove(effect.GetType());
         }
-        
+
         public void CustomUpdate()
         {
-            var list = UnityEngine.Pool.ListPool<Effect>.Get();
+            var list = ListPool<Effect>.Get();
             list.AddRange(_effects);
-            
+
             foreach (var effect in list)
             {
                 effect.Update();
-                if (effect.IsExpired)
-                {
-                    RemoveEffect(effect);
-                }
+                if (effect.IsExpired) RemoveEffect(effect);
             }
-            
-            UnityEngine.Pool.ListPool<Effect>.Release(list);
+
+            ListPool<Effect>.Release(list);
         }
-        
+
         public int CountContainEffectByType(Type type)
         {
             return _effectsTypes.Count(x => x == type);
@@ -48,13 +46,10 @@ namespace TowerDefense.Scripts.Enemies.Effects
 
         public void RemoveAllEffects()
         {
-            if(_effects is { Count: 0 })
+            if (_effects is { Count: 0 })
                 return;
-            
-            foreach (var effect in _effects.ToArray())
-            {
-                RemoveEffect(effect);
-            }
+
+            foreach (var effect in _effects.ToArray()) RemoveEffect(effect);
         }
     }
 }

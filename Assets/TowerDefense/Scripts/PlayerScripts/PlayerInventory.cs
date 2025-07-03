@@ -5,27 +5,21 @@ namespace TowerDefense.Scripts.PlayerScripts
 {
     public class PlayerInventory
     {
-        private Dictionary<string , int> _itemsdict = new();
-        public IReadOnlyDictionary<string , int> Items => _itemsdict;
+        private readonly Dictionary<string, int> _itemsdict = new();
         public ReactiveCommand<string> OnChangeCollection = new();
-        
+        public IReadOnlyDictionary<string, int> Items => _itemsdict;
+
         public void AddItem(string item)
         {
-            if (!_itemsdict.TryAdd(item, 1))
-            {
-                _itemsdict[item] += 1;
-            }
+            if (!_itemsdict.TryAdd(item, 1)) _itemsdict[item] += 1;
 
             OnChangeCollection?.Execute(item);
         }
-        
+
         public void RemoveItem(string item)
         {
-            if (_itemsdict.ContainsKey(item))
-            {
-                _itemsdict[item] -= 1;
-            }
-            
+            if (_itemsdict.ContainsKey(item)) _itemsdict[item] -= 1;
+
             OnChangeCollection?.Execute(item);
         }
 
@@ -33,7 +27,7 @@ namespace TowerDefense.Scripts.PlayerScripts
         {
             return _itemsdict.GetValueOrDefault(item, 0);
         }
-        
+
         public void ClearCollection()
         {
             _itemsdict.Clear();

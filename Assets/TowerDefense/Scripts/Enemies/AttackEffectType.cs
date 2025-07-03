@@ -4,6 +4,6 @@ namespace TowerDefense.Scripts.Enemies
     {
         None,
         SpeedDown,
-        Poison,
+        Poison
     }
 }

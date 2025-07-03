@@ -17,7 +17,7 @@ namespace TowerDefense.Scripts.Game
         public TileInfo[] EnemySpawnPoints { get; set; }
         public TileInfo PlayerBase { get; set; }
         public TileInfo FirstTargetTile { get; set; }
-        
+
         private void Awake()
         {
             OnMapLoader();
@@ -28,7 +28,7 @@ namespace TowerDefense.Scripts.Game
         {
             _levelObjects = levelObjects;
         }
-        
+
         private void OnMapLoader()
         {
             IsMapLoaded = true;
@@ -39,16 +39,13 @@ namespace TowerDefense.Scripts.Game
         private void FindAndAddObstacles()
         {
             var obstacles = tileMapLevel.GetComponentsInChildren<Obstacle>();
-            foreach (var obstacle in obstacles)
-            {
-                _levelObjects.Obstacles.Add(obstacle);
-            }
+            foreach (var obstacle in obstacles) _levelObjects.Obstacles.Add(obstacle);
         }
 
         private void FindAllPoints()
         {
             AllTiles = tileMapLevel.LayerObstacles.GetAllTiles();
-            
+
             FirstTargetTile = MapUtils.GetFirstTargetPoints(tileMapLevel).First();
             EnemySpawnPoints = MapUtils.GetEnemySpawnPoints(tileMapLevel);
             PlayerBase = MapUtils.GetTargetPoints(tileMapLevel).First();

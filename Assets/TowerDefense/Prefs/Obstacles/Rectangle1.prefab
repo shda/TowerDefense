@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8041242169453978455
+--- !u!1001 &1814891513370293271
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,13 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 171245389148506523, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
+      propertyPath: m_Extents.x
+      value: 1.265
+      objectReference: {fileID: 0}
+    - target: {fileID: 171245389148506523, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
+      propertyPath: m_Extents.y
+      value: 0.665
+      objectReference: {fileID: 0}
     - target: {fileID: 516099274848942601, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.92
+      value: -7.68
       objectReference: {fileID: 0}
     - target: {fileID: 516099274848942601, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.7599998
+      value: 1.92
       objectReference: {fileID: 0}
     - target: {fileID: 516099274848942601, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -50,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2462353550486620857, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Name
-      value: Obsticle1x1
+      value: Obsticle2_1
       objectReference: {fileID: 0}
     - target: {fileID: 2462353550486620857, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Layer
@@ -63,43 +71,31 @@ PrefabInstance:
     - target: {fileID: 3146547030388365287, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: collider
       value: 
-      objectReference: {fileID: 196494389333239903}
-    - target: {fileID: 5075345186082038256, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
-      propertyPath: m_Size.x
-      value: 2.56
-      objectReference: {fileID: 0}
-    - target: {fileID: 5075345186082038256, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
-      propertyPath: m_Size.y
-      value: 2.56
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6490248493264865934}
     - target: {fileID: 5075345186082038256, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c4989adcdeca1b8428d03b2bc5dccc48, type: 3}
-    - target: {fileID: 5075345186082038256, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: a3e884aaba90d944db6f3eafbafa445b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2462353550486620857, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 196494389333239903}
+      addedObject: {fileID: 6490248493264865934}
   m_SourcePrefab: {fileID: 100100000, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
---- !u!1 &5599155916803893742 stripped
+--- !u!1 &4252457656002018990 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2462353550486620857, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
-  m_PrefabInstance: {fileID: 8041242169453978455}
+  m_PrefabInstance: {fileID: 1814891513370293271}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &196494389333239903
+--- !u!61 &6490248493264865934
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5599155916803893742}
+  m_GameObject: {fileID: 4252457656002018990}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -127,7 +123,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.0038254857}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -137,5 +133,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.18, y: 1.18}
+  m_Size: {x: 2.4383993, y: 1.237183}
   m_EdgeRadius: 0

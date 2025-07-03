@@ -7,7 +7,7 @@ namespace TowerDefense.Scripts.Towers
     public class ItemsCollection : ScriptableObject
     {
         [SerializeField] private string idRemoveCell;
-        [SerializeField] TowerBase[]  towersPrefs;
+        [SerializeField] private TowerBase[] towersPrefs;
         public TowerBase[] TowersPrefs => towersPrefs;
         public string IdRemoveCell => idRemoveCell;
     }
