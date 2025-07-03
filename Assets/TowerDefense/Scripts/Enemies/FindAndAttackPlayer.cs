@@ -30,7 +30,9 @@ namespace TowerDefense.Scripts.Enemies
         {
             _currentTime += Time.deltaTime;
             if (_currentTime < _settings.timeBetweenShots)
+            {
                 return;
+            }
 
             if (IsCanHitPlayer)
             {

@@ -9,7 +9,9 @@ namespace TowerDefense.Scripts.Debugger
         public static void DrawPath(TileMapLevel map, IEnumerable<Vector3Int> findPath)
         {
             if (findPath == null)
+            {
                 return;
+            }
 
             var tilemap = map.LayerObstacles;
             var offset = new Vector3(0.25f, 0.25f);

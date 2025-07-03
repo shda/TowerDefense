@@ -35,9 +35,13 @@ namespace TowerDefense.Scripts.PlayerScripts
             if (_currentTime >= timeBetweenShots)
             {
                 if (ShotTo())
+                {
                     _currentTime = 0;
+                }
                 else
+                {
                     _currentTime = timeBetweenShots - startDetectTime;
+                }
             }
         }
 
@@ -86,7 +90,9 @@ namespace TowerDefense.Scripts.PlayerScripts
                     var target = enemy.transform.GetComponent<ITarget>();
 
                     if (target == null)
+                    {
                         continue;
+                    }
 
                     if (target is { IsCanByTarget: true })
                     {
@@ -94,7 +100,10 @@ namespace TowerDefense.Scripts.PlayerScripts
                         targetCountShot--;
                         ShotToTarget(target);
 
-                        if (targetCountShot <= 0) break;
+                        if (targetCountShot <= 0)
+                        {
+                            break;
+                        }
                     }
                 }
             }

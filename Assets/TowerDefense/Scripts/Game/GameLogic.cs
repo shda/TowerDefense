@@ -19,27 +19,26 @@ namespace TowerDefense.Scripts.Game
         [SerializeField] private UpPlayerStatsCollection upPlayerStatsCollection;
         [SerializeField] private TowerSettingsCollection towerSettingsCollection;
         [SerializeField] private WindowLevelUpPlayer windowLevelUpPlayer;
-        
-        public int CountStartTowers { get; set; }
         private GameStats _gameStats;
 
         private CancellationTokenSource _tokenSource;
+
+        public int CountStartTowers { get; set; }
 
         private void Start()
         {
             _gameStats.LevelUp.Subscribe(OnLevelUp).AddTo(this);
             windowLevelUpPlayer.Hide();
-            
         }
-        
-        public void StartLevel()
-        {
-            StartGame().Forget();
-        }
-        
+
         private void OnDestroy()
         {
             _tokenSource?.Cancel();
+        }
+
+        public void StartLevel()
+        {
+            StartGame().Forget();
         }
 
         [Inject]
@@ -60,9 +59,13 @@ namespace TowerDefense.Scripts.Game
 
                 var random = Random.Range(0f, 100f);
                 if (random > 50)
+                {
                     windowLevelUpPlayer.CreateClearCellItem();
+                }
                 else
+                {
                     windowLevelUpPlayer.CreatePlayerUpItem(upPlayerStatsCollection.GetRandomUpPlayerStats());
+                }
             }
         }
 
@@ -82,7 +85,9 @@ namespace TowerDefense.Scripts.Game
                 await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: tokenSource.Token);
 
                 if (tokenSource.IsCancellationRequested)
+                {
                     return;
+                }
             }
         }
 
@@ -90,7 +95,11 @@ namespace TowerDefense.Scripts.Game
         {
             windowLevelUpPlayer.RemoveOldItems();
             var getShuffleTowers = towerSettingsCollection.GetShuffleTowers();
-            for (var i = 0; i < count; i++) windowLevelUpPlayer.CreateTowerItem(getShuffleTowers[i]);
+            for (var i = 0; i < count; i++)
+            {
+                windowLevelUpPlayer.CreateTowerItem(getShuffleTowers[i]);
+            }
+
             windowLevelUpPlayer.Show();
         }
 
@@ -102,6 +111,5 @@ namespace TowerDefense.Scripts.Game
             OnLevelUp(++_debugLevel);
         }
 #endif
-        
     }
 }

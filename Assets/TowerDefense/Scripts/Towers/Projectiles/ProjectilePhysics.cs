@@ -17,7 +17,10 @@ namespace TowerDefense.Scripts.Towers.Projectiles
 
         private void Update()
         {
-            if (Vector3.Distance(transform.position, _startPosition) > _maxDistance) OnEndToDistance?.Invoke(this);
+            if (Vector3.Distance(transform.position, _startPosition) > _maxDistance)
+            {
+                OnEndToDistance?.Invoke(this);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)

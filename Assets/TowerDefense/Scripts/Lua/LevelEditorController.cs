@@ -1,4 +1,3 @@
-using System;
 using Cysharp.Threading.Tasks;
 using Eflatun.SceneReference;
 using UnityEngine;
@@ -35,8 +34,10 @@ namespace TowerDefense.Scripts.Lua
         private void OpenEditor()
         {
             var ed = PlayerPrefs.GetString(NameSave);
-            if (!string.IsNullOrEmpty(ed)) 
+            if (!string.IsNullOrEmpty(ed))
+            {
                 inputField.text = ed;
+            }
         }
 
         public void Restart()
@@ -45,7 +46,7 @@ namespace TowerDefense.Scripts.Lua
             {
                 PlayerPrefs.SetString(NameSave, inputField.text);
             }
-            
+
             ReloadSceneAsync().Forget();
             //game.ResetLevelToDefault();
         }
@@ -57,9 +58,9 @@ namespace TowerDefense.Scripts.Lua
             {
                 await SceneManager.UnloadSceneAsync(gameSceneReference.Name);
             }
-            
+
             await SceneManager.LoadSceneAsync(gameSceneReference.Name, LoadSceneMode.Additive);
-            
+
             gameScene = SceneManager.GetSceneByName(gameSceneReference.Name);
             SceneManager.SetActiveScene(gameScene);
         }

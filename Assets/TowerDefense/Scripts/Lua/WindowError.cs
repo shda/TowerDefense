@@ -8,13 +8,13 @@ namespace TowerDefense.Scripts.Lua
     {
         [SerializeField] private TextMeshProUGUI header;
         [SerializeField] private TextMeshProUGUI label;
-        
+
         public void OnPressButtonClose()
         {
             transform.Hide();
         }
 
-        public void ShowError(string headerText , string message)
+        public void ShowError(string headerText, string message)
         {
             transform.Show();
             label.text = message;

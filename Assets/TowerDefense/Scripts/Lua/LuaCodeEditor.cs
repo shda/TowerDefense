@@ -20,7 +20,7 @@ namespace TowerDefense.Scripts.Lua
             var style = new GUIStyle(GUI.skin.textField)
             {
                 fontSize = 20,
-                font = font,
+                font = font
             };
 
             text = GUILayout.TextArea(

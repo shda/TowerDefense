@@ -12,16 +12,22 @@ namespace TowerDefense.Scripts.Towers.Detectors
         private void Awake()
         {
             if (enemyLayer.value == 0)
+            {
                 Debug.LogError("Circle detector needs to be set to 0!");
+            }
         }
 
         private void OnDrawGizmos()
         {
             if (_lastCircleCastAll == null)
+            {
                 return;
+            }
 
             foreach (var raycastHit2D in _lastCircleCastAll)
+            {
                 Debug.DrawLine(transform.position, raycastHit2D.point, Color.brown);
+            }
         }
 
         public override RaycastHit2D[] Detect()

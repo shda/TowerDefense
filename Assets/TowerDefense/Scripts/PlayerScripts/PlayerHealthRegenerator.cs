@@ -29,7 +29,9 @@ namespace TowerDefense.Scripts.PlayerScripts
                 {
                     _playerHealth.Health.CurrentHealth.Value += _settings.UpHealth;
                     if (_playerHealth.Health.CurrentHealth.Value > _playerHealth.Health.MaxHealth.Value)
+                    {
                         _playerHealth.Health.CurrentHealth.Value = _playerHealth.Health.MaxHealth.Value;
+                    }
                 }
             }
         }

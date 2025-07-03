@@ -39,7 +39,10 @@ namespace TowerDefense.Scripts.Game
         private void FindAndAddObstacles()
         {
             var obstacles = tileMapLevel.GetComponentsInChildren<Obstacle>();
-            foreach (var obstacle in obstacles) _levelObjects.Obstacles.Add(obstacle);
+            foreach (var obstacle in obstacles)
+            {
+                _levelObjects.Obstacles.Add(obstacle);
+            }
         }
 
         private void FindAllPoints()

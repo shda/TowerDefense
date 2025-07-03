@@ -63,11 +63,15 @@ namespace TowerDefense.Scripts.Game
 
                 timeSpawn.x -= 0.01f;
                 if (timeSpawn.x < 0)
+                {
                     timeSpawn.x = 0.3f;
+                }
 
                 timeSpawn.y -= 0.01f;
                 if (timeSpawn.y < 0)
+                {
                     timeSpawn.y = 0.3f;
+                }
             }
         }
 

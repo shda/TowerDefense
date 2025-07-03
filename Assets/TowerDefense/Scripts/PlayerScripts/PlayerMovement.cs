@@ -23,9 +23,15 @@ namespace TowerDefense.Scripts.PlayerScripts
         {
             _rb.linearVelocity = _moveDirection * _playerSettings.MoveSpeed;
 
-            if (_moveDirection.x > 0.5f) rootSprites.localScale = new Vector3(-1, 1, 1);
+            if (_moveDirection.x > 0.5f)
+            {
+                rootSprites.localScale = new Vector3(-1, 1, 1);
+            }
 
-            if (_moveDirection.x < -0.5f) rootSprites.localScale = new Vector3(1, 1, 1);
+            if (_moveDirection.x < -0.5f)
+            {
+                rootSprites.localScale = new Vector3(1, 1, 1);
+            }
         }
 
         void IPointListener.OnPointWorld(Vector3 worldPosition)

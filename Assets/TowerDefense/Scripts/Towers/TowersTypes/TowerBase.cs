@@ -65,7 +65,10 @@ namespace TowerDefense.Scripts.Towers.TowersTypes
         public bool CheckCanUpdate(TowerBase tower)
         {
             if (_level < _maxLevel)
+            {
                 return true;
+            }
+
             return false;
         }
 

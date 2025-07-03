@@ -11,14 +11,20 @@ namespace TowerDefense.Scripts.PlayerScripts
 
         public void AddItem(string item)
         {
-            if (!_itemsdict.TryAdd(item, 1)) _itemsdict[item] += 1;
+            if (!_itemsdict.TryAdd(item, 1))
+            {
+                _itemsdict[item] += 1;
+            }
 
             OnChangeCollection?.Execute(item);
         }
 
         public void RemoveItem(string item)
         {
-            if (_itemsdict.ContainsKey(item)) _itemsdict[item] -= 1;
+            if (_itemsdict.ContainsKey(item))
+            {
+                _itemsdict[item] -= 1;
+            }
 
             OnChangeCollection?.Execute(item);
         }

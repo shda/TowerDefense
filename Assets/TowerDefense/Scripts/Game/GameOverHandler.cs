@@ -24,7 +24,10 @@ namespace TowerDefense.Scripts.Game
 
         private void OnPlayerChangeHp(float value)
         {
-            if (value <= 0) ShowGameOver();
+            if (value <= 0)
+            {
+                ShowGameOver();
+            }
         }
 
         private void OnEnemyHitToBase()

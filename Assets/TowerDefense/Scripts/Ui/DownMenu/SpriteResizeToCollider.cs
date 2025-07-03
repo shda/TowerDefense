@@ -19,9 +19,13 @@ namespace TowerDefense.Scripts.Ui.DownMenu
             spriteRenderer.transform.localScale = desiredScale;
 
             if (setPositionToThis)
+            {
                 spriteRenderer.transform.position = transform.position;
+            }
             else
+            {
                 spriteRenderer.transform.position = targetCollider.bounds.center;
+            }
         }
 
 

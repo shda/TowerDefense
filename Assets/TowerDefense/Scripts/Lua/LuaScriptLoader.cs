@@ -4,8 +4,6 @@ using Cysharp.Threading.Tasks;
 using Lua;
 using Lua.Standard;
 using Lua.Unity;
-using TowerDefense.Scripts.Enemies;
-using TowerDefense.Scripts.Game;
 using UnityEngine;
 using Zenject;
 
@@ -37,14 +35,10 @@ namespace TowerDefense.Scripts.Lua
             container.Inject(luaProxy);
         }
 
-        public async void StartLevel()
+        private void StartLevel()
         {
-            await UniTask.Delay(100);
             _cancellation?.Cancel();
             _cancellation = new CancellationTokenSource();
-            
-           // LoadLevelFromLuaLogic(luaAsset.Text, _cancellation.Token);
-          //  PlayerPrefs.SetString(LevelEditorController.NameSave, luaAsset.Text);
             
             var text = PlayerPrefs.GetString(LevelEditorController.NameSave);
             if (!string.IsNullOrEmpty(text))
@@ -56,7 +50,6 @@ namespace TowerDefense.Scripts.Lua
                 LoadLevelFromLuaLogic(luaAsset.Text, _cancellation.Token);
                 PlayerPrefs.SetString(LevelEditorController.NameSave, luaAsset.Text);
             }
-            
         }
 
         private async void LoadLevelFromLuaLogic(string luaCode, CancellationToken token)

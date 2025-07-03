@@ -28,19 +28,26 @@ namespace TowerDefense.Scripts.Towers.Projectiles
         protected override void CallDetect()
         {
             if (_currentTarget != null)
+            {
                 return;
+            }
 
             var targets = towerComponents.EnemyDetector.Detect();
             if (targets is { Length: > 0 })
+            {
                 foreach (var enemy in targets)
                 {
                     var target = enemy.transform.GetComponent<ITarget>();
 
                     if (target == null)
+                    {
                         continue;
+                    }
 
                     if (!IsCanUsingByTarget(target))
+                    {
                         continue;
+                    }
 
                     if (target is { IsCanByTarget: true })
                     {
@@ -48,11 +55,15 @@ namespace TowerDefense.Scripts.Towers.Projectiles
                         _disposables.Clear();
                         _currentTarget.Status.Subscribe(status =>
                         {
-                            if (status == EnemyActionStatus.Dead) _currentTarget = null;
+                            if (status == EnemyActionStatus.Dead)
+                            {
+                                _currentTarget = null;
+                            }
                         }).AddTo(_disposables);
                         break;
                     }
                 }
+            }
         }
 
         protected virtual bool IsCanUsingByTarget(ITarget target)
@@ -69,7 +80,10 @@ namespace TowerDefense.Scripts.Towers.Projectiles
                 return;
             }
 
-            if (_currentTarget is { IsCanByTarget: true }) weapon.ShotTo(_currentTarget);
+            if (_currentTarget is { IsCanByTarget: true })
+            {
+                weapon.ShotTo(_currentTarget);
+            }
         }
 
         private void RemoveTarget()

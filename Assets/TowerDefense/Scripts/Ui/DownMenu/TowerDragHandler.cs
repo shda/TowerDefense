@@ -62,7 +62,10 @@ namespace TowerDefense.Scripts.Ui.DownMenu
 
         private void UpdateAllPaths()
         {
-            foreach (var enemy in _levelObjects.Enemies) enemy.Repath();
+            foreach (var enemy in _levelObjects.Enemies)
+            {
+                enemy.Repath();
+            }
         }
 
         private bool IsCanInsertTower(TowerBase tower)
@@ -70,13 +73,19 @@ namespace TowerDefense.Scripts.Ui.DownMenu
             if (!IsInsideMap(tower.transform.position) ||
                 !IsLimitations(tower.transform.position) ||
                 !IsCanFindPathToBase())
+            {
                 return false;
+            }
 
             if (OnCrossUpdateOtherTower(tower, out var towerUpdate))
+            {
                 return true;
+            }
 
             if (IsCrossObstacleOrTower(tower))
+            {
                 return false;
+            }
 
             return true;
         }
@@ -86,13 +95,19 @@ namespace TowerDefense.Scripts.Ui.DownMenu
             towerUpdate = null;
 
             foreach (var towerOnMap in _levelObjects.Towers)
+            {
                 if (Vector3.Distance(tower.transform.position, towerOnMap.transform.position) < 0.1f)
+                {
                     if (towerOnMap.TowerComponents.TowerId == tower.TowerComponents.TowerId)
+                    {
                         if (towerOnMap.CheckCanUpdate(tower))
                         {
                             towerUpdate = towerOnMap;
                             return true;
                         }
+                    }
+                }
+            }
 
             return false;
         }
@@ -104,9 +119,15 @@ namespace TowerDefense.Scripts.Ui.DownMenu
 
             NavMesh.CalculatePath(enemyPoint, target, NavMesh.AllAreas, _navMeshPath);
 
-            if (_navMeshPath.status == NavMeshPathStatus.PathPartial) return false;
+            if (_navMeshPath.status == NavMeshPathStatus.PathPartial)
+            {
+                return false;
+            }
 
-            if (_navMeshPath.status == NavMeshPathStatus.PathInvalid) return false;
+            if (_navMeshPath.status == NavMeshPathStatus.PathInvalid)
+            {
+                return false;
+            }
 
             return true;
         }
@@ -122,10 +143,15 @@ namespace TowerDefense.Scripts.Ui.DownMenu
             var layerObstacles = _levelController.CurrentMap.LayerObstacles;
             var point = layerObstacles.ConvertWorldToIndexZeroLeftBottomCorner(worldPoint);
             if (point.x < 0 || point.y < 0)
+            {
                 return false;
+            }
 
             if (point.x > layerObstacles.size.x - 2 || point.y > layerObstacles.size.y - 2)
+            {
                 return false;
+            }
+
             return true;
         }
 
@@ -135,10 +161,13 @@ namespace TowerDefense.Scripts.Ui.DownMenu
 
             var colliders = Physics2D.OverlapBoxAll(tower.transform.position, tower.Collider.bounds.size, 0);
             if (colliders != null)
+            {
                 foreach (var cd in colliders)
                 {
                     if (cd.gameObject == tower.gameObject)
+                    {
                         continue;
+                    }
 
                     var objLayer = cd.gameObject.layer;
                     if (((1 << objLayer) & _layerMask) != 0)
@@ -147,6 +176,7 @@ namespace TowerDefense.Scripts.Ui.DownMenu
                         break;
                     }
                 }
+            }
 
             return isCross;
         }

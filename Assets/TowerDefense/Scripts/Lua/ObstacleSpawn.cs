@@ -1,4 +1,3 @@
-using System;
 using TowerDefense.Scripts.Obstacles;
 using UnityEngine;
 

@@ -45,7 +45,10 @@ namespace TowerDefense.Scripts.Enemies.Effects
                 _target.Health.CurrentHealth.Value -= _poisonData.DamageOnIneHit;
             }
 
-            if (_hitCounter <= 0) ResetEffect();
+            if (_hitCounter <= 0)
+            {
+                ResetEffect();
+            }
         }
     }
 }

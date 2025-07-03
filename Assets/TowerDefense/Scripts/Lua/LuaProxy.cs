@@ -7,7 +7,6 @@ using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Game;
 using TowerDefense.Scripts.TileMap;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 using Random = System.Random;
 
@@ -26,14 +25,14 @@ namespace TowerDefense.Scripts.Lua
 
         private Dictionary<string, EnemySettings> _enemySettingsDictionary = new();
         private EnemySpawner _enemySpawner;
+        private LevelObjects _levelObjects;
 
         private Random _random = new();
-        private LevelObjects _levelObjects;
-        
+
         public Action OnEnemyHitToBase;
 
         [Inject]
-        public void Construct(LevelObjects levelObjects ,EnemySpawner enemySpawner)
+        public void Construct(LevelObjects levelObjects, EnemySpawner enemySpawner)
         {
             _levelObjects = levelObjects;
             _enemySpawner = enemySpawner;
@@ -44,25 +43,27 @@ namespace TowerDefense.Scripts.Lua
         {
             _enemySettingsDictionary.Clear();
             foreach (var enemy in enemies.Enemies)
+            {
                 _enemySettingsDictionary.TryAdd(enemy.tzName, enemy);
+            }
         }
-        
+
         [LuaMember]
         private async UniTask WaitDestroyAllEnemies()
         {
-            Debug.Log($"WaitDestroyAllEnemies");
+            Debug.Log("WaitDestroyAllEnemies");
         }
-        
+
         [LuaMember]
         private void CompleteLevel()
         {
-            Debug.Log($"CompleteLevel");
+            Debug.Log("CompleteLevel");
         }
 
         [LuaMember]
         private void StartLevel()
         {
-            Debug.Log($"StartLevel");
+            Debug.Log("StartLevel");
             gameLogic.StartLevel();
         }
 
@@ -74,27 +75,27 @@ namespace TowerDefense.Scripts.Lua
         }
 
         [LuaMember]
-        private void CreateObstacle(string enemyName, int x , int y, float rotation = 0f)
+        private void CreateObstacle(string enemyName, int x, int y, float rotation = 0f)
         {
             Debug.Log($"CreateObstacle: {enemyName}, Position: ({x}, {y}), Rotation: {rotation}");
-            
-            var obstacle =  obstacleSpawn.CreateObstacle(enemyName);
+
+            var obstacle = obstacleSpawn.CreateObstacle(enemyName);
 
             var tilemap = tileMapLevel.LayerObstacles;
             var bounds = tilemap.localBounds;
             var bottomLeftLocal = bounds.min;
             var bottomLeftWorld = tilemap.transform.TransformPoint(bottomLeftLocal);
-            
+
             Debug.Log(bottomLeftWorld);
 
             var size = obstacle.Size;
-            
+
 
             var position = new Vector3(
-                size.x * 0.5f + bottomLeftWorld.x + x * 0.64f , 
+                size.x * 0.5f + bottomLeftWorld.x + x * 0.64f,
                 size.y * 0.5f + bottomLeftWorld.y + y * 0.64f, 0);
             var quaternion = Quaternion.Euler(0, 0, rotation);
-            
+
             Debug.Log(position);
             obstacle.transform.SetParent(rootObstacles);
             obstacle.transform.position = position;
@@ -110,7 +111,9 @@ namespace TowerDefense.Scripts.Lua
             if (_enemySettingsDictionary.TryGetValue(name, out var value))
             {
                 for (var i = 0; i < count; i++)
+                {
                     CreateEnemy(value);
+                }
             }
             else
             {
@@ -126,7 +129,9 @@ namespace TowerDefense.Scripts.Lua
             Debug.Log($"PauseSeconds: {seconds}");
 
             if (cancellation.IsCancellationRequested)
+            {
                 return;
+            }
 
             await UniTask.Delay(TimeSpan.FromSeconds(seconds), cancellationToken: cancellation);
         }
@@ -159,7 +164,5 @@ namespace TowerDefense.Scripts.Lua
         {
             OnEnemyHitToBase?.Invoke();
         }
-
-        
     }
 }

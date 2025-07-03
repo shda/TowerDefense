@@ -18,7 +18,10 @@ namespace TowerDefense.Scripts.Enemies.Effects
         public virtual void Update()
         {
             Duration -= Time.deltaTime;
-            if (IsExpired) ResetEffect();
+            if (IsExpired)
+            {
+                ResetEffect();
+            }
         }
 
         protected abstract void ResetEffect();

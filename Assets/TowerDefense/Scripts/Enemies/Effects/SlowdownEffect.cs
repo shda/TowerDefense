@@ -15,7 +15,10 @@ namespace TowerDefense.Scripts.Enemies.Effects
 
             target.Status.Subscribe(status =>
             {
-                if (status == EnemyActionStatus.Dead) Duration = 0;
+                if (status == EnemyActionStatus.Dead)
+                {
+                    Duration = 0;
+                }
             }).AddTo(composite);
         }
 

@@ -15,9 +15,14 @@ namespace TowerDefense.Scripts.Ui.UpLevel
         public void SetInfo(Sprite sprite, string text, Action<LevelUpItem> pressItem)
         {
             if (image != null)
+            {
                 image.sprite = sprite;
+            }
+
             if (textLabel != null)
+            {
                 textLabel.text = text;
+            }
 
             PressItem = pressItem;
         }

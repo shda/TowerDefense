@@ -22,7 +22,10 @@ namespace TowerDefense.Scripts.Input
         private void Update()
         {
             if (EventSystem.current.IsPointerOverGameObject())
+            {
                 return;
+            }
+
             if (!_isSendPress)
             {
                 _isSendPress = true;
@@ -47,7 +50,10 @@ namespace TowerDefense.Scripts.Input
         public void OnMouseLook(InputAction.CallbackContext context)
         {
             if (camera == null)
+            {
                 return;
+            }
+
             var screenPosition = context.ReadValue<Vector2>();
             _mouseWorldPosition = camera.ScreenToWorldPoint(screenPosition);
         }

@@ -20,7 +20,9 @@ namespace TowerDefense.Scripts.Towers.TowersTypes
                     //Todo need optimize
                     var targetHit = hit2D.transform.GetComponent<ITarget>();
                     if (targetHit is { EnemyType: EnemyType.Ground })
+                    {
                         targetHit.Health.CurrentHealth.Value -= damage * ModifierByLevel();
+                    }
                 }
             }
         }

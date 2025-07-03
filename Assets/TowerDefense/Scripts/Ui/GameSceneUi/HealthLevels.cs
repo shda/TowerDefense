@@ -42,13 +42,18 @@ namespace TowerDefense.Scripts.Ui.GameSceneUi
             _enemySpawner.OnCreateNewEnemy = CreateHealthLevelIfNeed;
             _enemySpawner.OnRemoveEnemy = RemoveHealthLevel;
 
-            foreach (var enemy in levelObjects.Enemies) CreateHealthLevelIfNeed(enemy);
+            foreach (var enemy in levelObjects.Enemies)
+            {
+                CreateHealthLevelIfNeed(enemy);
+            }
         }
 
         private void CreateHealthLevelIfNeed(Enemy enemy)
         {
             if (_healthLevels.ContainsKey(enemy))
+            {
                 return;
+            }
 
             _healthLevels[enemy] = _healthLevelFactory.Spawn();
         }
@@ -64,7 +69,10 @@ namespace TowerDefense.Scripts.Ui.GameSceneUi
 
         private void UpdatePlayerHealth()
         {
-            if (_platerHealthLevel == null) _platerHealthLevel = _healthLevelFactory.Spawn();
+            if (_platerHealthLevel == null)
+            {
+                _platerHealthLevel = _healthLevelFactory.Spawn();
+            }
 
             SetLife(_playerHealth.Health, _platerHealthLevel, _player.transform.position);
         }

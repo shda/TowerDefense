@@ -13,7 +13,10 @@ namespace TowerDefense.Scripts.Debugger
         public void RemoveTile()
         {
             var tile = tileMapLevel.LayerObstacles.GetTile(removeTile);
-            if (tile != null) tileMapLevel.LayerObstacles.SetTile(removeTile, null);
+            if (tile != null)
+            {
+                tileMapLevel.LayerObstacles.SetTile(removeTile, null);
+            }
 
             Debug.Log(tile);
         }

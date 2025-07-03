@@ -11,7 +11,10 @@ namespace TowerDefense.Scripts.Enemies.Movements
         public override void CustomUpdate()
         {
             transform.position = Vector3.MoveTowards(transform.position, _targetPoint, speedMoving * Time.deltaTime);
-            if (Vector3.Distance(transform.position, _targetPoint) < 0.1f) OnMovingComplete?.Invoke();
+            if (Vector3.Distance(transform.position, _targetPoint) < 0.1f)
+            {
+                OnMovingComplete?.Invoke();
+            }
         }
 
         public override void StartMoving(Vector3 movingPath)

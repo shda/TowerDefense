@@ -40,14 +40,21 @@ namespace TowerDefense.Scripts.Towers.Projectiles
         public void CustomUpdate()
         {
             if (Target is { IsCanByTarget: true })
+            {
                 _targetPosition = Target.Transform.position;
+            }
             else
+            {
                 Target = null;
+            }
 
             transform.position = Vector3.MoveTowards(transform.position,
                 _targetPosition, _moveSpeed * Time.deltaTime);
 
-            if (Vector3.Distance(transform.position, _targetPosition) <= 0.1f) OnCompleteMove?.Invoke(this);
+            if (Vector3.Distance(transform.position, _targetPosition) <= 0.1f)
+            {
+                OnCompleteMove?.Invoke(this);
+            }
         }
     }
 }

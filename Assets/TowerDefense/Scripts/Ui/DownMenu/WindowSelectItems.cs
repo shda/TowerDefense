@@ -41,7 +41,10 @@ namespace TowerDefense.Scripts.Ui.DownMenu
             foreach (var item in items)
             {
                 if (item.Value == 0)
+                {
                     continue;
+                }
+
                 if (item.Key == itemsCollection.IdRemoveCell)
                 {
                     CreateRemoveItem(item.Value);
@@ -49,11 +52,13 @@ namespace TowerDefense.Scripts.Ui.DownMenu
                 }
 
                 foreach (var towerBase in itemsCollection.TowersPrefs)
+                {
                     if (towerBase.TowerComponents.TowerId == item.Key)
                     {
                         CreateTowerItems(towerBase, item.Value);
                         break;
                     }
+                }
             }
         }
 
@@ -86,7 +91,9 @@ namespace TowerDefense.Scripts.Ui.DownMenu
         private void OnSelect(DragItem item)
         {
             if (!menuAnimation.IsShow)
+            {
                 return;
+            }
 
             addTowerToMapController.StartDrag(item.MapDragHandler);
             menuAnimation.HideMenu();

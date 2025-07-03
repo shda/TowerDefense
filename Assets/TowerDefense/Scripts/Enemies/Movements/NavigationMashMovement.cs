@@ -46,7 +46,10 @@ namespace TowerDefense.Scripts.Enemies.Movements
 
         public override void CustomUpdate()
         {
-            if (navMeshAgent.enabled && navMeshAgent.isOnNavMesh) navMeshAgent.isStopped = !IsMoving;
+            if (navMeshAgent.enabled && navMeshAgent.isOnNavMesh)
+            {
+                navMeshAgent.isStopped = !IsMoving;
+            }
 
             CheckIsPathComplete();
         }
@@ -54,7 +57,9 @@ namespace TowerDefense.Scripts.Enemies.Movements
         private void CheckIsPathComplete()
         {
             if (_destinationReached)
+            {
                 return;
+            }
 
             if (Vector3.Distance(transform.position, _targetPoint) < StoppingThreshold)
             {

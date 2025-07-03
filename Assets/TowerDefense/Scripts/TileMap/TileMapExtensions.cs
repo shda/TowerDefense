@@ -21,6 +21,7 @@ namespace TowerDefense.Scripts.TileMap
 
                 var tile = tilemap.GetTile(pos);
                 if (tile != null)
+                {
                     if (tile is SuperTile superTile)
                     {
                         var worldPos = tilemap.GetCellCenterWorld(pos);
@@ -31,6 +32,7 @@ namespace TowerDefense.Scripts.TileMap
                             WorldPosition = worldPos
                         };
                     }
+                }
             }
 
             return mapTiles;
@@ -77,7 +79,10 @@ namespace TowerDefense.Scripts.TileMap
             var pos = tileMap.WorldToCell(position);
             var tile = tileMap.GetTile(pos);
 
-            if (tile is SuperTile superTile) return new SuperTileCoord(superTile, pos);
+            if (tile is SuperTile superTile)
+            {
+                return new SuperTileCoord(superTile, pos);
+            }
 
             return null;
         }
@@ -90,7 +95,9 @@ namespace TowerDefense.Scripts.TileMap
             {
                 var nameValue = tile.Tile.GetPropertyValueAsString("name");
                 if (string.Equals(nameValue, valueByName, StringComparison.Ordinal))
+                {
                     return tilemap.GetCellCenterWorld(tile.Position);
+                }
             }
 
             throw new Exception("Could not find tile map tile named " + valueByName);
@@ -105,7 +112,10 @@ namespace TowerDefense.Scripts.TileMap
             foreach (var tile in tiles)
             {
                 var nameValue = tile.Tile.GetPropertyValueAsString(propName);
-                if (string.Equals(nameValue, valueByName, StringComparison.Ordinal)) result.Add(tile);
+                if (string.Equals(nameValue, valueByName, StringComparison.Ordinal))
+                {
+                    result.Add(tile);
+                }
             }
 
             return result.ToArray();
@@ -120,8 +130,11 @@ namespace TowerDefense.Scripts.TileMap
                 var tile = tilemap.GetTile(pos);
 
                 if (tile)
+                {
                     if (tile is SuperTile superTile)
+                    {
                         if (superTile.m_CustomProperties != null)
+                        {
                             if (superTile.TryGetProperty(propName, out var property))
                             {
                                 var worldPos = tilemap.GetCellCenterWorld(pos);
@@ -132,6 +145,9 @@ namespace TowerDefense.Scripts.TileMap
                                     WorldPosition = worldPos
                                 });
                             }
+                        }
+                    }
+                }
             }
 
             return tiles.ToArray();
@@ -143,7 +159,9 @@ namespace TowerDefense.Scripts.TileMap
             var cellBounds = tilemap.cellBounds;
 
             if (cellBounds.size == Vector3Int.zero)
+            {
                 return new Bounds(Vector3.zero, Vector3.zero);
+            }
 
             var minWorld = tilemap.CellToWorld(cellBounds.min);
             var maxWorld = tilemap.CellToWorld(cellBounds.max);

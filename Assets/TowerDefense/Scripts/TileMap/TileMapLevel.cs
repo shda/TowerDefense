@@ -26,27 +26,39 @@ namespace TowerDefense.Scripts.TileMap
         //Editor only
         private void OnValidate()
         {
-            if (!map) map = GetComponent<SuperMap>();
+            if (!map)
+            {
+                map = GetComponent<SuperMap>();
+            }
 
             if (!layerService)
+            {
                 layerService = transform.GetComponentsInChildren<Tilemap>()
                     .FirstOrDefault(x => x.name == TilePropertyNames.ServiceMapLayer);
+            }
 
             if (!layerObstacles)
+            {
                 layerObstacles = transform.GetComponentsInChildren<Tilemap>()
                     .FirstOrDefault(x => x.name == TilePropertyNames.ObstaclesMapLayer);
+            }
 
 
             if (layerObstacles)
             {
                 var spriteMask = layerObstacles.GetComponent<SpriteMask>();
                 if (!spriteMask)
+                {
                     spriteMask = layerObstacles.gameObject.AddComponent<SpriteMask>();
+                }
 
                 spriteMask.maskSource = SpriteMask.MaskSource.SupportedRenderers;
             }
 
-            if (!properties) properties = GetComponent<SuperCustomProperties>();
+            if (!properties)
+            {
+                properties = GetComponent<SuperCustomProperties>();
+            }
         }
 
         public bool PointInLimitions(Vector3 position)

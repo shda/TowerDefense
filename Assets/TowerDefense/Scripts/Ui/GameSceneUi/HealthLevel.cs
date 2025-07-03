@@ -18,9 +18,13 @@ namespace TowerDefense.Scripts.Ui.GameSceneUi
             sliderLine.fillAmount = value;
 
             if (value > 0.5f)
+            {
                 sliderLine.color = colorUpHalfLife;
+            }
             else
+            {
                 sliderLine.color = colorDownHalfLife;
+            }
         }
 
         public void UpdatePositon(RectTransform canvasRectTransform, Vector3 wordPosition)

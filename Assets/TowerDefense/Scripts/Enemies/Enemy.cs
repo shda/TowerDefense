@@ -80,9 +80,13 @@ namespace TowerDefense.Scripts.Enemies
         private void OnChangeHp(float hp)
         {
             if (hp <= 0)
+            {
                 Status.Value = EnemyActionStatus.Dead;
+            }
             else
+            {
                 damageAnimation.Play();
+            }
         }
 
         public void SetStartPosition(Vector3 worldPosition)

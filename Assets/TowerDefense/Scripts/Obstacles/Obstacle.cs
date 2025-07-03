@@ -9,8 +9,8 @@ namespace TowerDefense.Scripts.Obstacles
     {
         [SerializeField] private Vector2Int size;
         [SerializeField] private Collider2D collider;
-        public Collider2D Collider => collider;
         public Vector2Int Size => size;
+        public Collider2D Collider => collider;
 
         public void Remove(LevelObjects levelObjects)
         {

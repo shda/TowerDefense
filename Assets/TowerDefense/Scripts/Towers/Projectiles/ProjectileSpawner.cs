@@ -12,7 +12,10 @@ namespace TowerDefense.Scripts.Towers.Projectiles
 
         public void Update()
         {
-            foreach (var projectile in _activeProjectiles.ToArray()) projectile.CustomUpdate();
+            foreach (var projectile in _activeProjectiles.ToArray())
+            {
+                projectile.CustomUpdate();
+            }
         }
 
         public Projectile Get()

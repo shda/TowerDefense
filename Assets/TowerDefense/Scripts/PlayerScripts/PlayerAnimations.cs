@@ -22,9 +22,13 @@ namespace TowerDefense.Scripts.PlayerScripts
         {
             _currentTimeToSwitch += Time.deltaTime;
             if (_currentTimeToSwitch > timeToSwitch)
+            {
                 robotFaceRenderer.sprite = spriteNoFire;
+            }
             else
+            {
                 robotFaceRenderer.sprite = spriteFire;
+            }
         }
     }
 }

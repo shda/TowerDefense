@@ -12,7 +12,9 @@ namespace TowerDefense.Scripts.Enemies
         public void Play()
         {
             if (_seq != null)
+            {
                 return;
+            }
 
             _seq = DOTween.Sequence();
             var duration = 0.1f;
