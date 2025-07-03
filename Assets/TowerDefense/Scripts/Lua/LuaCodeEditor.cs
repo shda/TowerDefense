@@ -17,9 +17,11 @@ namespace TowerDefense.Scripts.Lua
             scrollPosition = GUILayout.BeginScrollView(scrollPosition,
                 GUILayout.Width(width), GUILayout.Height(height));
 
-            var style = new GUIStyle(GUI.skin.textField);
-            style.fontSize = 20;
-            style.font = font;
+            var style = new GUIStyle(GUI.skin.textField)
+            {
+                fontSize = 20,
+                font = font,
+            };
 
             text = GUILayout.TextArea(
                 text,

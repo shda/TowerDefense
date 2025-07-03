@@ -10,6 +10,7 @@ using Random = UnityEngine.Random;
 
 namespace TowerDefense.Scripts.Game
 {
+    [Obsolete]
     public class EnemyWavesHandler : MonoBehaviour
     {
         [SerializeField] private Vector2 timeSpawn = new(2, 3);

@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using Eflatun.SceneReference;
 using UnityEngine;
@@ -11,6 +12,11 @@ namespace TowerDefense.Scripts.Lua
         [SerializeField] private SceneReference gameSceneReference;
         [SerializeField] private LuaCodeEditor inputField;
         [SerializeField] private GameObject editor;
+
+        private void Start()
+        {
+            ReloadSceneAsync();
+        }
 
         public void OnPressButtonOpenEditor()
         {
@@ -29,20 +35,33 @@ namespace TowerDefense.Scripts.Lua
         private void OpenEditor()
         {
             var ed = PlayerPrefs.GetString(NameSave);
-            if (!string.IsNullOrEmpty(ed)) inputField.text = ed;
+            if (!string.IsNullOrEmpty(ed)) 
+                inputField.text = ed;
         }
 
         public void Restart()
         {
-            PlayerPrefs.SetString(NameSave, inputField.text);
+            if (!string.IsNullOrEmpty(inputField.text))
+            {
+                PlayerPrefs.SetString(NameSave, inputField.text);
+            }
+            
             ReloadSceneAsync().Forget();
             //game.ResetLevelToDefault();
         }
 
         private async UniTask ReloadSceneAsync()
         {
-            await SceneManager.UnloadSceneAsync(gameSceneReference.Name);
+            var gameScene = SceneManager.GetSceneByName(gameSceneReference.Name);
+            if (gameScene.isLoaded)
+            {
+                await SceneManager.UnloadSceneAsync(gameSceneReference.Name);
+            }
+            
             await SceneManager.LoadSceneAsync(gameSceneReference.Name, LoadSceneMode.Additive);
+            
+            gameScene = SceneManager.GetSceneByName(gameSceneReference.Name);
+            SceneManager.SetActiveScene(gameScene);
         }
     }
 }

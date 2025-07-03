@@ -9,7 +9,7 @@ namespace TowerDefense.Scripts.Obstacles
         [SerializeField] private Vector3 size = new(0.64f, 0.64f);
         private Vector3 lastPosition;
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         private void Update()
         {
             if (Vector3.Distance(lastPosition, transform.position) > 0.1f)
@@ -27,6 +27,6 @@ namespace TowerDefense.Scripts.Obstacles
             return new Vector3(pointX, pointY, 0);
         }
 
-#endif
+//#endif
     }
 }

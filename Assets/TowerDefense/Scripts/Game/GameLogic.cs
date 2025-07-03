@@ -14,11 +14,13 @@ namespace TowerDefense.Scripts.Game
 {
     public class GameLogic : MonoBehaviour
     {
-        [SerializeField] private int countStartTowers = 2;
+        //[SerializeField] private int countStartTowers = 2;
         [SerializeField] private int countTowersInMenu = 3;
         [SerializeField] private UpPlayerStatsCollection upPlayerStatsCollection;
         [SerializeField] private TowerSettingsCollection towerSettingsCollection;
         [SerializeField] private WindowLevelUpPlayer windowLevelUpPlayer;
+        
+        public int CountStartTowers { get; set; }
         private GameStats _gameStats;
 
         private CancellationTokenSource _tokenSource;
@@ -27,13 +29,17 @@ namespace TowerDefense.Scripts.Game
         {
             _gameStats.LevelUp.Subscribe(OnLevelUp).AddTo(this);
             windowLevelUpPlayer.Hide();
+            
+        }
+        
+        public void StartLevel()
+        {
             StartGame().Forget();
         }
-
-
+        
         private void OnDestroy()
         {
-            _tokenSource.Cancel();
+            _tokenSource?.Cancel();
         }
 
         [Inject]
@@ -69,7 +75,7 @@ namespace TowerDefense.Scripts.Game
 
         private async UniTask ShowWindowAddTowers(CancellationTokenSource tokenSource)
         {
-            for (var i = 0; i < countStartTowers; i++)
+            for (var i = 0; i < CountStartTowers; i++)
             {
                 CreateRandomTowers(countTowersInMenu);
                 await UniTask.WaitUntil(() => windowLevelUpPlayer.gameObject.activeSelf);
@@ -96,5 +102,6 @@ namespace TowerDefense.Scripts.Game
             OnLevelUp(++_debugLevel);
         }
 #endif
+        
     }
 }

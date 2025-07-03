@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2462353550486620857, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Name
-      value: Obsticle1x1
+      value: Square
       objectReference: {fileID: 0}
     - target: {fileID: 2462353550486620857, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Layer
@@ -67,6 +67,14 @@ PrefabInstance:
     - target: {fileID: 2997996420915365780, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146547030388365287, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
+      propertyPath: size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146547030388365287, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
+      propertyPath: size.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3146547030388365287, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: collider

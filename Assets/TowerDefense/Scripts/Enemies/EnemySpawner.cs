@@ -25,7 +25,11 @@ namespace TowerDefense.Scripts.Enemies
         {
             var tempList = UnityEngine.Pool.ListPool<Enemy>.Get();
             tempList.AddRange(_levelObjects.Enemies);
-            foreach (var enemy in tempList) enemy.CustomUpdate();
+            foreach (var enemy in tempList)
+            {
+                enemy.CustomUpdate();
+            }
+
             UnityEngine.Pool.ListPool<Enemy>.Release(tempList);
         }
 
@@ -45,7 +49,9 @@ namespace TowerDefense.Scripts.Enemies
         public Enemy AddEnemyToMap(EnemyType type)
         {
             if (!_levelController.IsMapLoaded)
+            {
                 return null;
+            }
 
             var spawnPoint = _levelController.EnemySpawnPoints
                 [Random.Range(0, _levelController.EnemySpawnPoints.Length)];

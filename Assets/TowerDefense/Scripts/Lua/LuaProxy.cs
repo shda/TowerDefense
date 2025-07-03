@@ -4,7 +4,11 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Lua;
 using TowerDefense.Scripts.Enemies;
+using TowerDefense.Scripts.Game;
+using TowerDefense.Scripts.TileMap;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Zenject;
 using Random = System.Random;
 
 namespace TowerDefense.Scripts.Lua
@@ -13,41 +17,88 @@ namespace TowerDefense.Scripts.Lua
     [LuaObject]
     public partial class LuaProxy
     {
-        [SerializeField] private CreateMapObject createMapObject;
-
+        [SerializeField] private TileMapLevel tileMapLevel;
+        [SerializeField] private WindowError windowError;
+        [SerializeField] private ObstacleSpawn obstacleSpawn;
         [SerializeField] private EnemySettingsCollection enemies;
-        // [SerializeField] private ObjectsCollection obstacles;
+        [SerializeField] private GameLogic gameLogic;
+        [SerializeField] private Transform rootObstacles;
 
         private Dictionary<string, EnemySettings> _enemySettingsDictionary = new();
         private EnemySpawner _enemySpawner;
 
         private Random _random = new();
-
-
+        private LevelObjects _levelObjects;
+        
         public Action OnEnemyHitToBase;
 
-        public void Construct(EnemySpawner enemySpawner)
+        [Inject]
+        public void Construct(LevelObjects levelObjects ,EnemySpawner enemySpawner)
         {
-            Debug.Log("LuaProxy.Construct");
+            _levelObjects = levelObjects;
             _enemySpawner = enemySpawner;
-
             CreateDictionary();
         }
 
         private void CreateDictionary()
         {
             _enemySettingsDictionary.Clear();
-            foreach (var enemy in enemies.Enemies) _enemySettingsDictionary.TryAdd(enemy.tzName, enemy);
+            foreach (var enemy in enemies.Enemies)
+                _enemySettingsDictionary.TryAdd(enemy.tzName, enemy);
+        }
+        
+        [LuaMember]
+        private async UniTask WaitDestroyAllEnemies()
+        {
+            Debug.Log($"WaitDestroyAllEnemies");
+        }
+        
+        [LuaMember]
+        private void CompleteLevel()
+        {
+            Debug.Log($"CompleteLevel");
         }
 
+        [LuaMember]
+        private void StartLevel()
+        {
+            Debug.Log($"StartLevel");
+            gameLogic.StartLevel();
+        }
 
         [LuaMember]
-        private void CreateRandomEnemyCount(LuaTable enemyNames, int count)
+        private void SetCountStartTowersToPlayer(int count)
         {
-            var names = enemyNames.ToArray<string>();
-            Debug.Log($"CreateRandomEnemyCount: {string.Join(", ", names)} Count: {count}");
+            Debug.Log($"SetCountStartTowersToPlayer: {count}");
+            gameLogic.CountStartTowers = count;
+        }
 
-            Debug.Log(enemyNames);
+        [LuaMember]
+        private void CreateObstacle(string enemyName, int x , int y, float rotation = 0f)
+        {
+            Debug.Log($"CreateObstacle: {enemyName}, Position: ({x}, {y}), Rotation: {rotation}");
+            
+            var obstacle =  obstacleSpawn.CreateObstacle(enemyName);
+
+            var tilemap = tileMapLevel.LayerObstacles;
+            var bounds = tilemap.localBounds;
+            var bottomLeftLocal = bounds.min;
+            var bottomLeftWorld = tilemap.transform.TransformPoint(bottomLeftLocal);
+            
+            Debug.Log(bottomLeftWorld);
+
+            var size = obstacle.Size;
+            
+
+            var position = new Vector3(
+                size.x * 0.5f + bottomLeftWorld.x + x * 0.64f , 
+                size.y * 0.5f + bottomLeftWorld.y + y * 0.64f, 0);
+            var quaternion = Quaternion.Euler(0, 0, rotation);
+            
+            Debug.Log(position);
+            obstacle.transform.SetParent(rootObstacles);
+            obstacle.transform.position = position;
+            obstacle.transform.rotation = quaternion;
         }
 
         [LuaMember]
@@ -57,10 +108,16 @@ namespace TowerDefense.Scripts.Lua
 
             var name = enemyName;
             if (_enemySettingsDictionary.TryGetValue(name, out var value))
+            {
                 for (var i = 0; i < count; i++)
                     CreateEnemy(value);
+            }
             else
-                Debug.LogError($"Enemy settings not found for name: {enemyName}");
+            {
+                var errorMessage = $"Enemy settings not found for name: {enemyName}";
+                windowError.ShowError(" Lua CreateEnemies", errorMessage);
+                Debug.LogError(errorMessage);
+            }
         }
 
         [LuaMember]
@@ -103,44 +160,6 @@ namespace TowerDefense.Scripts.Lua
             OnEnemyHitToBase?.Invoke();
         }
 
-        /*
-        [LuaMember]
-        private void SetObstacle(int index, int angle , CancellationToken cancellation)
-        {
-            if (cancellation.IsCancellationRequested)
-                return;
-
-            Debug.Log("SetObstacle");
-
-            var knife = listKnifes.GetKnife(); // Object.Instantiate(listKnifes.GetWithOverflow(index));
-            knife.SetSkinIndex(index);
-            knife.IsMoving = false;
-            knife.SetStaticRigidbody2D();
-
-            target.AddObject(knife, angle, 180);
-        }
-        */
-
-
-        /*
-        [LuaMember]
-        private async UniTask<int> RotateAsync(string rotationString, CancellationToken cancellation)
-        {
-            await UniTask.Yield();
-            Debug.Log("Rotate");
-
-            if (cancellation.IsCancellationRequested)
-                return 0;
-
-            var result = RotationsParser.ParseLine(rotationString);
-
-            if (cancellation.IsCancellationRequested)
-                return 0;
-
-            await rotatorHandler.PlayStepAsync(result, cancellation);
-
-            return 0;
-        }
-        */
+        
     }
 }

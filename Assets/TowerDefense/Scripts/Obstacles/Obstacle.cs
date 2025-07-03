@@ -7,8 +7,10 @@ namespace TowerDefense.Scripts.Obstacles
 {
     public class Obstacle : MonoBehaviour, IRemoveLevelObject
     {
+        [SerializeField] private Vector2Int size;
         [SerializeField] private Collider2D collider;
         public Collider2D Collider => collider;
+        public Vector2Int Size => size;
 
         public void Remove(LevelObjects levelObjects)
         {

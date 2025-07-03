@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Extents.y
       value: 0.64
       objectReference: {fileID: 0}
+    - target: {fileID: 171245389148506523, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
+      propertyPath: m_CarveOnlyStationary
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 516099274848942601, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.68
@@ -58,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2462353550486620857, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Name
-      value: Obsticle2_3
+      value: Rectangle3
       objectReference: {fileID: 0}
     - target: {fileID: 2462353550486620857, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Layer
@@ -67,6 +71,14 @@ PrefabInstance:
     - target: {fileID: 2997996420915365780, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146547030388365287, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
+      propertyPath: size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146547030388365287, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
+      propertyPath: size.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3146547030388365287, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: collider

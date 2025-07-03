@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2462353550486620857, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Name
-      value: ObsticleBase2x2
+      value: ObstacleCircle
       objectReference: {fileID: 0}
     - target: {fileID: 2462353550486620857, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Layer
@@ -59,6 +59,14 @@ PrefabInstance:
     - target: {fileID: 2997996420915365780, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146547030388365287, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
+      propertyPath: size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146547030388365287, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
+      propertyPath: size.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3146547030388365287, guid: 82f5e2c37e10a594cbd3df36e53907e3, type: 3}
       propertyPath: collider
@@ -152,6 +160,6 @@ NavMeshObstacle:
   m_Extents: {x: 1.3, y: 1, z: 1.3}
   m_MoveThreshold: 0.2
   m_Carve: 1
-  m_CarveOnlyStationary: 1
+  m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0

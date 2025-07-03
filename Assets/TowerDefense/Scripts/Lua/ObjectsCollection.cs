@@ -3,14 +3,13 @@ using UnityEngine;
 
 namespace TowerDefense.Scripts.Lua
 {
-    [CreateAssetMenu(menuName = "Create TowerDefense/ObjectsCollection", fileName = "ObjectsCollection", order = 0)]
-    public class ObjectsCollection : ScriptableObject
+    public class ObjectsCollection<T> : ScriptableObject where T : Component
     {
-        [SerializeField] private GameObject[] objects;
+        [SerializeField] private T[] objects;
 
-        public GameObject[] Objects => objects;
+        public T[] Objects => objects;
 
-        public GameObject GetObject(string nameObject)
+        public T GetObject(string nameObject)
         {
             foreach (var obj in objects)
                 if (obj.name.Equals(nameObject, StringComparison.OrdinalIgnoreCase))
