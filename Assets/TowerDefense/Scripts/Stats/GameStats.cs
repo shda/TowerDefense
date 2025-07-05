@@ -38,7 +38,7 @@ namespace TowerDefense.Scripts.Stats
 
         public float GetProgressToNextLevel01()
         {
-            return (float)ProgressPoints.Value / MaxPointToChangeLevel;
+            return (float)ProgressPoints.Value / _targetPointsChangeLevel;
         }
     }
 }

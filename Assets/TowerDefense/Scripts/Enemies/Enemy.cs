@@ -23,14 +23,7 @@ namespace TowerDefense.Scripts.Enemies
         public EnemySettings Settings { get; private set; }
 
         public Action<Enemy> OnDestinationReached { get; set; }
-
-        public void Reset()
-        {
-            _effectHandler.RemoveAllEffects();
-            Status.Value = EnemyActionStatus.None;
-            movingHandler.Stop();
-        }
-
+        
         public Health Health { get; private set; }
         public EnemyType EnemyType => enemyType;
         public ReactiveProperty<EnemyActionStatus> Status { get; } = new();
@@ -41,6 +34,13 @@ namespace TowerDefense.Scripts.Enemies
         public EffectContext GetEffectContext()
         {
             return _effectContext;
+        }
+        
+        public void Reset()
+        {
+            _effectHandler.RemoveAllEffects();
+            Status.Value = EnemyActionStatus.None;
+            movingHandler.Stop();
         }
 
         [Inject]

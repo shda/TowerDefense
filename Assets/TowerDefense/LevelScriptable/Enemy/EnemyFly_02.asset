@@ -18,7 +18,7 @@ MonoBehaviour:
   enemyType: 0
   health: 45
   speedMoving: 1
-  givesPointsAftetDeath: 5
+  givesPointsAftetDeath: 10
   hitToPlayer: 5
   radiusAttack: 1
   timeBetweenShots: 1

@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Lua;
 using Lua.Standard;
 using Lua.Unity;
+using TowerDefense.Scripts.Common;
 using UnityEngine;
 using Zenject;
 
@@ -14,6 +15,7 @@ namespace TowerDefense.Scripts.Lua
         [SerializeField] private LuaAsset luaAsset;
         [SerializeField] private LuaProxy luaProxy;
         [SerializeField] private WindowError windowError;
+        [SerializeField] private LuaScriptsCollection luaScriptsCollection;
 
         private CancellationTokenSource _cancellation;
 
@@ -39,16 +41,31 @@ namespace TowerDefense.Scripts.Lua
         {
             _cancellation?.Cancel();
             _cancellation = new CancellationTokenSource();
-            
-            var text = PlayerPrefs.GetString(LevelEditorController.NameSave);
-            if (!string.IsNullOrEmpty(text))
+
+            if (LevelSelector.LoadeEditorScene)
             {
-                LoadLevelFromLuaLogic(text, _cancellation.Token);
+                var text = PlayerPrefs.GetString(LevelEditorController.NameSave);
+                if (!string.IsNullOrEmpty(text))
+                {
+                    LoadLevelFromLuaLogic(text, _cancellation.Token);
+                }
+                else
+                {
+                    LoadLevelFromLuaLogic(luaAsset.Text, _cancellation.Token);
+                    PlayerPrefs.SetString(LevelEditorController.NameSave, luaAsset.Text);
+                }
             }
             else
             {
-                LoadLevelFromLuaLogic(luaAsset.Text, _cancellation.Token);
-                PlayerPrefs.SetString(LevelEditorController.NameSave, luaAsset.Text);
+                Debug.Log("Loading level from LuaScriptsCollection at index: " + LevelSelector.SelectedLevelIndex);
+                if (LevelSelector.SelectedLevelIndex >= luaScriptsCollection.LuaScripts.Length)
+                {
+                    windowError.ShowError("LuaScriptLoader", "Selected level index is out of range.");
+                }
+                else
+                {
+                    LoadLevelFromLuaLogic(luaScriptsCollection.LuaScripts[LevelSelector.SelectedLevelIndex].Text, _cancellation.Token);
+                }
             }
         }
 
