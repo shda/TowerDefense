@@ -14,13 +14,13 @@ namespace TowerDefense.Scripts.Enemies
     {
         private EnemyFactory _enemyFactory;
 
-        private GameStats _gameStats;
+        private PlayerLevelStats _playerLevelStats;
         private LevelController _levelController;
         private LevelObjects _levelObjects;
+        private GameStates _gameStates;
 
         public Action<Enemy> OnCreateNewEnemy;
         public Action<Enemy> OnRemoveEnemy;
-
         public void Tick()
         {
             var tempList = UnityEngine.Pool.ListPool<Enemy>.Get();
@@ -37,12 +37,14 @@ namespace TowerDefense.Scripts.Enemies
         public void Construct(
             LevelController levelController,
             EnemyFactory factory,
-            GameStats gameStats,
-            LevelObjects levelObjects)
+            PlayerLevelStats playerLevelStats,
+            LevelObjects levelObjects ,
+            GameStates gameStates)
         {
+            _gameStates = gameStates;
             _levelController = levelController;
             _enemyFactory = factory;
-            _gameStats = gameStats;
+            _playerLevelStats = playerLevelStats;
             _levelObjects = levelObjects;
         }
 
@@ -73,7 +75,7 @@ namespace TowerDefense.Scripts.Enemies
 
             OnCreateNewEnemy?.Invoke(enemy);
             _levelObjects.Enemies.Add(enemy);
-            _gameStats.CountEnemy.Value = _levelObjects.Enemies.Count();
+            _gameStates.CountEnemy.Value = _levelObjects.Enemies.Count();
 
             return enemy;
         }
@@ -82,11 +84,12 @@ namespace TowerDefense.Scripts.Enemies
         {
             if (enemy.Status.Value == EnemyActionStatus.Dead)
             {
-                _gameStats.ProgressPoints.Value += enemy.Settings.givesPointsAftetDeath;
+                _playerLevelStats.ProgressPoints.Value += enemy.Settings.givesPointsAftetDeath;
                 ReturnEnemyToPool(enemy, composite);
             }
             else if (enemy.Status.Value == EnemyActionStatus.Complete)
             {
+                _gameStates.CallEnemyReachedPlayerBase();
                 ReturnEnemyToPool(enemy, composite);
             }
         }

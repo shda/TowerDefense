@@ -1,20 +1,20 @@
 using System;
+using TowerDefense.Scripts.PlayerScripts;
 using UniRx;
 
 namespace TowerDefense.Scripts.Stats
 {
-    public class GameStats : IDisposable
+    public class PlayerLevelStats : IDisposable
     {
         private const int MaxPointToChangeLevel = 30;
         private readonly CompositeDisposable disposable = new();
         private int _targetPointsChangeLevel;
-
-        public IntReactiveProperty CountEnemy = new();
+        
         public IntReactiveProperty Level = new(1);
         public ReactiveCommand<int> LevelUp = new();
         public IntReactiveProperty ProgressPoints = new();
 
-        public GameStats()
+        public PlayerLevelStats()
         {
             _targetPointsChangeLevel = MaxPointToChangeLevel;
             ProgressPoints.Subscribe(OnChangePoints).AddTo(disposable);

@@ -10,22 +10,22 @@ namespace TowerDefense.Scripts.Ui.GameSceneUi
     {
         [SerializeField] private Image progressBarImage;
 
-        private GameStats _gameStats;
+        private PlayerLevelStats _playerLevelStats;
 
         private void Start()
         {
-            _gameStats.ProgressPoints.Subscribe(OnChangeProgress).AddTo(this);
+            _playerLevelStats.ProgressPoints.Subscribe(OnChangeProgress).AddTo(this);
         }
 
         [Inject]
-        public void Construct(GameStats gameStats)
+        public void Construct(PlayerLevelStats playerLevelStats)
         {
-            _gameStats = gameStats;
+            _playerLevelStats = playerLevelStats;
         }
 
         private void OnChangeProgress(int progress)
         {
-            progressBarImage.fillAmount = _gameStats.GetProgressToNextLevel01();
+            progressBarImage.fillAmount = _playerLevelStats.GetProgressToNextLevel01();
         }
     }
 }

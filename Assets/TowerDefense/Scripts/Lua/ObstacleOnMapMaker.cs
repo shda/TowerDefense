@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TowerDefense.Scripts.Lua
 {
-    public class ObstacleSpawn : MonoBehaviour
+    public class ObstacleOnMapMaker : MonoBehaviour
     {
         [SerializeField] private ObstacleCollection obstacles;
 

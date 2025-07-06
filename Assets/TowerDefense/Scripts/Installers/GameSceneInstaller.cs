@@ -25,7 +25,9 @@ namespace TowerDefense.Scripts.Installers
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<GameStats>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerLevelStats>().AsSingle();
+            Container.BindInterfacesAndSelfTo<GameStates>().AsSingle();
+            
 
             Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProjectileSpawner>().AsSingle();

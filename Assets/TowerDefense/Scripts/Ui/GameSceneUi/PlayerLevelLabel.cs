@@ -10,17 +10,17 @@ namespace TowerDefense.Scripts.Ui.GameSceneUi
     {
         [SerializeField] private TextMeshProUGUI levelText;
 
-        private GameStats _gameStats;
+        private PlayerLevelStats _playerLevelStats;
 
         private void Start()
         {
-            _gameStats.Level.Subscribe(OnChangeLevel).AddTo(this);
+            _playerLevelStats.Level.Subscribe(OnChangeLevel).AddTo(this);
         }
 
         [Inject]
-        public void Construct(GameStats gameStats)
+        public void Construct(PlayerLevelStats playerLevelStats)
         {
-            _gameStats = gameStats;
+            _playerLevelStats = playerLevelStats;
         }
 
         private void OnChangeLevel(int level)

@@ -9,18 +9,17 @@ namespace TowerDefense.Scripts.Ui.GameSceneUi
     public class CountEnemyLabel : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI label;
-
-        private GameStats _gameStats;
+        private GameStates _gameStates;
 
         private void Start()
         {
-            _gameStats.CountEnemy.Subscribe(i => { label.text = i.ToString(); }).AddTo(this);
+            _gameStates.CountEnemy.Subscribe(i => { label.text = i.ToString(); }).AddTo(this);
         }
 
         [Inject]
-        public void Construct(GameStats gameStats)
+        public void Construct(GameStates gameStates)
         {
-            _gameStats = gameStats;
+            _gameStates = gameStates;
         }
     }
 }

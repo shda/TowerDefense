@@ -85,5 +85,17 @@ namespace TowerDefense.Scripts.Ui.UpLevel
             var item = Instantiate(itemPrefab, itemParent);
             item.SetInfo(sprite, text, pressItem);
         }
+
+        public void CreateRandomTowers(int count)
+        {
+            RemoveOldItems();
+            var getShuffleTowers = towerSettingsCollection.GetShuffleTowers();
+            for (var i = 0; i < count; i++)
+            {
+                CreateTowerItem(getShuffleTowers[i]);
+            }
+
+            gameObject.Show();
+        }
     }
 }

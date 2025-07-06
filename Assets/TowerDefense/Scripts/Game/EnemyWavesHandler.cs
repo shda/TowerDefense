@@ -17,7 +17,7 @@ namespace TowerDefense.Scripts.Game
         [SerializeField] private EnemySettings[] groupOfEnemies;
         [SerializeField] private EnemySettings[] flyEnemies;
         private EnemySpawner _enemySpawner;
-        private GameStats _gameStats;
+        private PlayerLevelStats _playerLevelStats;
 
         private CancellationTokenSource _tokenSource;
 
@@ -37,9 +37,9 @@ namespace TowerDefense.Scripts.Game
         }
 
         [Inject]
-        public void Construct(EnemySpawner enemySpawner, GameStats gameStats)
+        public void Construct(EnemySpawner enemySpawner, PlayerLevelStats playerLevelStats)
         {
-            _gameStats = gameStats;
+            _playerLevelStats = playerLevelStats;
             _enemySpawner = enemySpawner;
         }
 
@@ -51,7 +51,7 @@ namespace TowerDefense.Scripts.Game
 
             while (!token.IsCancellationRequested)
             {
-                var level = _gameStats.Level.Value;
+                var level = _playerLevelStats.Level.Value;
                 var maxIndex = 3 + level;
 
                 maxIndex = Mathf.Clamp(maxIndex, 0, enemies.Count - 1);
@@ -79,12 +79,6 @@ namespace TowerDefense.Scripts.Game
         {
             var enemy = _enemySpawner.AddEnemyToMap(settings.enemyType);
             enemy.SetInfo(settings);
-            enemy.OnDestinationReached = OnHitToBase;
-        }
-
-        private void OnHitToBase(Enemy enemy)
-        {
-            OnEnemyHitToBase?.Invoke();
         }
     }
 }

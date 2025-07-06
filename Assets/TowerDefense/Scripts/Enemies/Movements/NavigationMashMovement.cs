@@ -10,8 +10,6 @@ namespace TowerDefense.Scripts.Enemies.Movements
         private bool _destinationReached;
         private Vector3 _startPosition;
         private Vector3 _targetPoint;
-        public override bool IsMoving { get; set; }
-
         public override float SpeedMoving
         {
             get => navMeshAgent.speed;

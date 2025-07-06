@@ -5,8 +5,10 @@ using Cysharp.Threading.Tasks;
 using Lua;
 using TowerDefense.Scripts.Enemies;
 using TowerDefense.Scripts.Game;
+using TowerDefense.Scripts.Stats;
 using TowerDefense.Scripts.TileMap;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 using Random = System.Random;
 
@@ -18,22 +20,25 @@ namespace TowerDefense.Scripts.Lua
     {
         [SerializeField] private TileMapLevel tileMapLevel;
         [SerializeField] private WindowError windowError;
-        [SerializeField] private ObstacleSpawn obstacleSpawn;
+        [SerializeField] private ObstacleOnMapMaker obstacleOnMapMaker;
         [SerializeField] private EnemySettingsCollection enemies;
-        [SerializeField] private GameLogic gameLogic;
+        [SerializeField] private AddFirstTowersToStart addFirstTowersToStart;
         [SerializeField] private Transform rootObstacles;
 
         private Dictionary<string, EnemySettings> _enemySettingsDictionary = new();
         private EnemySpawner _enemySpawner;
         private LevelObjects _levelObjects;
-
+        private GameStates _gameStates;
         private Random _random = new();
-
-        public Action OnEnemyHitToBase;
+        
 
         [Inject]
-        public void Construct(LevelObjects levelObjects, EnemySpawner enemySpawner)
+        public void Construct(
+            LevelObjects levelObjects, 
+            EnemySpawner enemySpawner,
+            GameStates gameStates)
         {
+            _gameStates = gameStates;
             _levelObjects = levelObjects;
             _enemySpawner = enemySpawner;
             CreateDictionary();
@@ -49,29 +54,35 @@ namespace TowerDefense.Scripts.Lua
         }
 
         [LuaMember]
-        private async UniTask WaitDestroyAllEnemies()
+        private async UniTask WaitDestroyAllEnemies(CancellationToken cancellation)
         {
             Debug.Log("WaitDestroyAllEnemies");
+            
+            while (_levelObjects.Enemies.Count > 0 && !cancellation.IsCancellationRequested)
+            {
+                await UniTask.Yield();
+            }
         }
 
         [LuaMember]
         private void CompleteLevel()
         {
             Debug.Log("CompleteLevel");
+            _gameStates.CallCompleteLevel();
         }
 
         [LuaMember]
         private void StartLevel()
         {
             Debug.Log("StartLevel");
-            gameLogic.StartLevel();
+            addFirstTowersToStart.StartLevel();
         }
 
         [LuaMember]
         private void SetCountStartTowersToPlayer(int count)
         {
             Debug.Log($"SetCountStartTowersToPlayer: {count}");
-            gameLogic.CountStartTowers = count;
+            addFirstTowersToStart.CountStartTowers = count;
         }
 
         [LuaMember]
@@ -79,7 +90,7 @@ namespace TowerDefense.Scripts.Lua
         {
             Debug.Log($"CreateObstacle: {enemyName}, Position: ({x}, {y}), Rotation: {rotation}");
 
-            var obstacle = obstacleSpawn.CreateObstacle(enemyName);
+            var obstacle = obstacleOnMapMaker.CreateObstacle(enemyName);
 
             var tilemap = tileMapLevel.LayerObstacles;
             var bounds = tilemap.localBounds;
@@ -155,14 +166,7 @@ namespace TowerDefense.Scripts.Lua
         {
             var enemy = _enemySpawner.AddEnemyToMap(settings.enemyType);
             enemy.SetInfo(settings);
-            enemy.OnDestinationReached = OnHitToBase;
-
             return enemy;
-        }
-
-        private void OnHitToBase(Enemy enemy)
-        {
-            OnEnemyHitToBase?.Invoke();
         }
     }
 }

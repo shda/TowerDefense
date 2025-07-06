@@ -22,7 +22,7 @@ namespace TowerDefense.Scripts.Enemies
         public bool IsDead => Health.CurrentHealth.Value <= 0;
         public EnemySettings Settings { get; private set; }
 
-        public Action<Enemy> OnDestinationReached { get; set; }
+      //  public Action<Enemy> OnDestinationReached { get; set; }
         
         public Health Health { get; private set; }
         public EnemyType EnemyType => enemyType;
@@ -59,7 +59,6 @@ namespace TowerDefense.Scripts.Enemies
             {
                 Debug.Log("Moving Complete");
                 Status.Value = EnemyActionStatus.Complete;
-                OnDestinationReached?.Invoke(this);
             };
         }
 

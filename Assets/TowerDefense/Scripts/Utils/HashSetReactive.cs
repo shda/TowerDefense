@@ -30,5 +30,7 @@ namespace TowerDefense.Scripts.Utils
             _value.Remove(val);
             OnChange?.Execute(val);
         }
+        
+        public int Count => _value.Count;
     }
 }
